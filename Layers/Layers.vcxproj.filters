@@ -18,12 +18,18 @@
     <ClCompile Include="LayersEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="glFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LayersEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

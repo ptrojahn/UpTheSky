@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\include;C:\SDL2-2.0.3\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\include;C:\SDL2-2.0.3\SDL2-2.0.3\include;$(ProjectDir)\glad;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -66,9 +66,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="glFunctions.cpp" />
     <ClCompile Include="LayersEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\glFunctions.h" />
     <ClInclude Include="include\LayersEngine.h" />
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>

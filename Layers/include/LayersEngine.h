@@ -1,10 +1,12 @@
+#pragma once
+
 #include "Vector2.h"
-#include "SDL.h"
+#include <SDL.h>
 
 class LayersEngine
 {
 public:
-	LayersEngine(int aspectX, int aspectY, int glesMajor, int glesMinor);
+	LayersEngine(int aspectX, int aspectY);
 	void run();
 	Vector2<float> getWindowSize() { return windowSize; }
 private:
