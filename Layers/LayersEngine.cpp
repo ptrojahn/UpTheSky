@@ -16,6 +16,13 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	glClearColor(0, 0, 0, 1);
 }
 
+void LayersEngine::addLayer(Layer* layer) {
+	layers.push_back(layer);
+	layer->setSceneData(&sceneData);
+	layer->load();
+}
+
+//Takes control of the mainloop. Should be called at the end of main()
 void LayersEngine::run() {
 	bool quit = false;
 	while (!quit){
@@ -24,6 +31,10 @@ void LayersEngine::run() {
 			
 		}
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (System* system : sceneData.systems){
+			system->update(sceneData.entities);
+		}
 
 		SDL_GL_SwapWindow(window);
 	}
