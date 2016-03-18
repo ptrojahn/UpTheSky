@@ -11,7 +11,7 @@ class Entity
 public:
 	Entity(int updatePriority);
 	int getPriority() { return priority; }
-	void addComponent(Component* component);
+	Entity* addComponent(Component* component);
 	Layer* getLayer() { return layer; }
 
 	template<typename TComponent>
