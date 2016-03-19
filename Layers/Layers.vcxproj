@@ -71,6 +71,7 @@
     <ClCompile Include="glFunctions.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayersEngine.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Component.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="include\Layer.h" />
     <ClInclude Include="include\LayersEngine.h" />
     <ClInclude Include="include\SceneData.h" />
+    <ClInclude Include="include\ShaderManager.h" />
     <ClInclude Include="include\System.h" />
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
