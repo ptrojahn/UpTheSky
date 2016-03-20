@@ -83,6 +83,7 @@
     <ClInclude Include="include\ShaderManager.h" />
     <ClInclude Include="include\System.h" />
     <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="MeshManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

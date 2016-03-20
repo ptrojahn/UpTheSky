@@ -10,6 +10,7 @@ struct ShaderData
 	GLuint id;
 	std::string vertexShaderPath;
 	std::string fragmentShaderPath;
+	std::vector<int> attributeSizes;
 };
 
 class ShaderManager
