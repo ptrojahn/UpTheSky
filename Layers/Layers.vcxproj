@@ -72,6 +72,7 @@
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayersEngine.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="BufferManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Component.h" />
@@ -80,10 +81,9 @@
     <ClInclude Include="include\Layer.h" />
     <ClInclude Include="include\LayersEngine.h" />
     <ClInclude Include="include\SceneData.h" />
-    <ClInclude Include="include\ShaderManager.h" />
     <ClInclude Include="include\System.h" />
     <ClInclude Include="include\Vector2.h" />
-    <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="BufferManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
