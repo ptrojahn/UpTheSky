@@ -14,9 +14,7 @@ public:
 	LayersEngine(int aspectX, int aspectY);
 	void addLayer(Layer* layer);
 	void run();
-	Vector2<float> getWindowSize() { return windowSize; }
 private:
-	Vector2<float> windowSize;
 	Vector2<int> nativeSize;
 	SDL_Window* window;
 	std::vector<Layer*> layers;

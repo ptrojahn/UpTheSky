@@ -10,8 +10,8 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	window = SDL_CreateWindow("GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, aspectX > aspectY ? 500 : ((float)aspectX / (float)aspectY * 500.f), aspectY > aspectX ? 500 : ((float)aspectY / (float)aspectX * 500.f), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	SDL_GL_CreateContext(window);
 	SDL_GetWindowSize(window, &nativeSize.x, &nativeSize.y);
-	windowSize.x = aspectX;
-	windowSize.y = aspectY;
+	sceneData.logicalScreenSize.x = aspectX;
+	sceneData.logicalScreenSize.y = aspectY;
 	loadGLFunctions(SDL_GL_GetProcAddress);
 	glClearColor(0, 0, 0, 1);
 }

@@ -71,6 +71,7 @@
     <ClCompile Include="glFunctions.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayersEngine.cpp" />
+    <ClCompile Include="RendererSystem.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="BufferManager.cpp" />
   </ItemGroup>
