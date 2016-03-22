@@ -75,24 +75,23 @@ GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fra
 		std::string name = vertString.substr(index, nameEnd-index);
 		
 		if (type == "float")
-			data.attributeSizes.push_back(sizeof(float));
+			data.attributeSizes.push_back(1);
 		else if (type == "vec2")
-			data.attributeSizes.push_back(sizeof(float) * 2);
+			data.attributeSizes.push_back(2);
 		else if (type == "vec3")
-			data.attributeSizes.push_back(sizeof(float) * 3);
+			data.attributeSizes.push_back(3);
 		else if (type == "vec4" || type == "mat2")
-			data.attributeSizes.push_back(sizeof(float) * 4);
+			data.attributeSizes.push_back(4);
 		else if (type == "mat3")
-			data.attributeSizes.push_back(sizeof(float) * 9);
+			data.attributeSizes.push_back(9);
 		else if (type == "mat4")
-			data.attributeSizes.push_back(sizeof(float) * 12);
+			data.attributeSizes.push_back(12);
 		else{
 			std::cout << "Unknown attribute type " << type << std::endl;
 			continue;
 		}
 		glBindAttribLocation(program, locationIndex, name.c_str());
 		locationIndex++;
-		std::cout << name << " " << std::to_string(data.attributeSizes.back()) << std::endl;
 	}
 
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -117,11 +116,19 @@ GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fra
 	glDeleteShader(fragmentShader);
 
 	shaders.push_back(data);
+	return program;
 }
 
 void ShaderManager::useShader(GLuint id) {
 	if (currentShader != id){
 		currentShader = id;
 		glUseProgram(id);
+	}
+}
+
+std::vector<int> ShaderManager::getAttributesSize(GLuint shader) {
+	for (ShaderData data : shaders){
+		if (data.id == shader)
+			return data.attributeSizes;
 	}
 }

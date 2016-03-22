@@ -33,7 +33,7 @@ void LayersEngine::run() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		for (System* system : sceneData.systems){
-			system->update(sceneData.entities);
+			system->update(sceneData);
 		}
 
 		SDL_GL_SwapWindow(window);

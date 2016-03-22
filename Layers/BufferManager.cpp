@@ -10,33 +10,42 @@ GLuint BufferManager::createBuffer(std::vector<GLfloat> data, GLenum target, GLe
 	glBindBuffer(target, bufferId);
 	glBufferData(target, sizeof(GLfloat) * data.size(), &data[0], usage);
 	buffers.push_back({bufferId, target, data});
+	return bufferId;
 }
 
-void BufferManager::bindBuffer(GLuint buffer) {
+void BufferManager::bindBuffer(GLuint bufferId) {
 	GLuint target = 0;
 	for (BufferData data : buffers){
-		if (data.id == buffer){
+		if (data.id == bufferId){
 			target = data.target;
 			break;
 		}
 	}
 	for (std::pair<GLenum, GLuint>& targetBuffer : currentBuffers){
 		if (targetBuffer.first == target){
-			if (targetBuffer.second != buffer){
-				glBindBuffer(target, buffer);
-				targetBuffer.second = buffer;
-				return;
+			if (targetBuffer.second != bufferId){
+				glBindBuffer(target, bufferId);
+				targetBuffer.second = bufferId;
 			}
+			return;
 		}
 	}
-	currentBuffers.push_back(std::pair<GLenum, GLuint>(target, buffer));
+	currentBuffers.push_back(std::pair<GLenum, GLuint>(target, bufferId));
+	glBindBuffer(target, bufferId);
 }
 
 std::vector<GLfloat> BufferManager::rectangleVertices2D(float x, float y, float w, float h) {
 	return {x		, y,
 			x + w	, y,
 			x + w	, y + h,
-			x + w	, y + w,
+			x + w	, y + h,
 			x		, y + h,
 			x		,y};
+}
+
+int BufferManager::bufferSize(GLuint buffer) {
+	for (BufferData data : buffers){
+		if (data.id == buffer)
+			return data.data.size();
+	}
 }

@@ -21,6 +21,7 @@ public:
 		return shaderManager;
 	}
 	GLuint createShader(std::string vertexShaderSource, std::string fragmentShaderSource);
+	std::vector<int> getAttributesSize(GLuint shader);
 	void useShader(GLuint id);
 private:
 	GLuint currentShader;

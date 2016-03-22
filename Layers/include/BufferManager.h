@@ -1,6 +1,6 @@
 #pragma once
 
-#include "include\glFunctions.h"
+#include "glFunctions.h"
 
 #include <vector>
 
@@ -20,6 +20,7 @@ public:
 	}
 	static std::vector<GLfloat> rectangleVertices2D(float x, float y, float width, float height);
 	GLuint createBuffer(std::vector<GLfloat> data, GLenum target = GL_ARRAY_BUFFER, GLenum usage = GL_STATIC_DRAW);
+	int bufferSize(GLuint buffer);
 	void bindBuffer(GLuint buffer);
 private:
 	std::vector<std::pair<GLenum, GLuint>> currentBuffers;

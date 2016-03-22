@@ -75,15 +75,18 @@
     <ClCompile Include="BufferManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BufferManager.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\glFunctions.h" />
     <ClInclude Include="include\Layer.h" />
     <ClInclude Include="include\LayersEngine.h" />
+    <ClInclude Include="include\Matrix4x4.h" />
+    <ClInclude Include="include\RenderableComponent.h" />
+    <ClInclude Include="include\RendererSystem.h" />
     <ClInclude Include="include\SceneData.h" />
     <ClInclude Include="include\System.h" />
     <ClInclude Include="include\Vector2.h" />
-    <ClInclude Include="BufferManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

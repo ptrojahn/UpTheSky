@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "SceneData.h"
 
 #include <vector>
 #include <utility>
@@ -15,7 +16,7 @@ public:
 		priority = updatePriority;
 		layer = nullptr;
 	}
-	virtual void update(std::vector<Entity*> entities) = 0;
+	virtual void update(SceneData& data) = 0;
 	int getPriority() { return priority; }
 	Layer* getLayer() { return layer; }
 protected:
