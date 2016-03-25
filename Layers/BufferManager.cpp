@@ -48,4 +48,5 @@ int BufferManager::bufferSize(GLuint buffer) {
 		if (data.id == buffer)
 			return data.data.size();
 	}
+	return 0;
 }

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "include\RendererSystem.h"
 
 void RendererSystem::update(SceneData& data) {

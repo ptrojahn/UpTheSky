@@ -1,5 +1,3 @@
-#pragma once
-
 #include "include\Entity.h"
 
 Entity::Entity(int updatePriority) {

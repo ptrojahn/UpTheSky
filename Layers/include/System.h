@@ -3,9 +3,6 @@
 #include "Entity.h"
 #include "SceneData.h"
 
-#include <vector>
-#include <utility>
-
 class Layer;
 
 class System

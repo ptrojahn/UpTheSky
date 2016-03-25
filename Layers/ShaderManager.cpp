@@ -1,18 +1,19 @@
 #include "include\ShaderManager.h"
 
+#include "SDL_rwops.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
 std::string readFile(std::string path) {
-	std::ifstream fileStream(path);
-	if (fileStream.fail()){
-		std::cout << "Failed to load file " << path << std::endl;
+	SDL_RWops* file = SDL_RWFromFile(path.c_str(), "r");
+	if (file == nullptr){
 		return std::string();
 	}
-	std::stringstream stringStream;
-	stringStream << fileStream.rdbuf();
-	return stringStream.str();
+	std::vector<char> fileData(SDL_RWsize(file));
+	SDL_RWread(file, &fileData[0], fileData.size(), 1);
+	return std::string(&fileData[0], fileData.size());
 }
 
 GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fragmentShaderPath) {
@@ -131,4 +132,5 @@ std::vector<int> ShaderManager::getAttributesSize(GLuint shader) {
 		if (data.id == shader)
 			return data.attributeSizes;
 	}
+	return std::vector <int>();
 }
