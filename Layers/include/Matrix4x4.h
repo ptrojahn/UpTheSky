@@ -3,6 +3,9 @@
 class Matrix4x4
 {
 public:
+	Matrix4x4() {
+		std::fill(values, values + 16, 0);
+	}
 	Matrix4x4(	float v0_0, float v1_0, float v2_0, float v3_0,
 				float v0_1, float v1_1, float v2_1, float v3_1,
 				float v0_2, float v1_2, float v2_2, float v3_2,

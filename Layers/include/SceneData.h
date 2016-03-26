@@ -14,5 +14,6 @@ struct SceneData
 	std::vector<Entity*> entities;
 	std::vector<System*> systems;
 	float deltaTime;
-	Vector2<float> logicalScreenSize;
+	Vector2<int> logicalScreenSize;
+	Vector2<int> physicalScreenSize;
 };

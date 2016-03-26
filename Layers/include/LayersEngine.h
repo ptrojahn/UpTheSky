@@ -15,7 +15,6 @@ public:
 	void addLayer(Layer* layer);
 	void run();
 private:
-	Vector2<int> nativeSize;
 	SDL_Window* window;
 	std::vector<Layer*> layers;
 	SceneData sceneData;
