@@ -1,4 +1,4 @@
-#include "include\glFunctions.h"
+#include "glFunctions.h"
 
 PFNGLACTIVETEXTUREPROC glActiveTexture;
 PFNGLATTACHSHADERPROC glAttachShader;

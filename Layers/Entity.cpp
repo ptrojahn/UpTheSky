@@ -1,4 +1,4 @@
-#include "include\Entity.h"
+#include "Entity.h"
 
 Entity::Entity(int updatePriority) {
 	priority = updatePriority;

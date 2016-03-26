@@ -1,5 +1,5 @@
-#include "include\LayersEngine.h"
-#include "include\glFunctions.h"
+#include "LayersEngine.h"
+#include "glFunctions.h"
 
 LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	SDL_Init(SDL_INIT_VIDEO);

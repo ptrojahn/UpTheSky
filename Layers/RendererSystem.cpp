@@ -1,4 +1,4 @@
-#include "include\RendererSystem.h"
+#include "RendererSystem.h"
 
 void RendererSystem::update(SceneData& data) {
 	for (Entity* entity : data.entities){
