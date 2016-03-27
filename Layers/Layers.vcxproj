@@ -87,6 +87,7 @@
     <ClInclude Include="include\SceneData.h" />
     <ClInclude Include="include\System.h" />
     <ClInclude Include="include\TransformableComponent.h" />
+    <ClInclude Include="include\UniformsComponent.h" />
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

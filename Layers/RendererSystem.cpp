@@ -2,6 +2,7 @@
 
 #include "RenderableComponent.h"
 #include "TransformableComponent.h"
+#include "UniformsComponent.h"
 
 #include <math.h>
 
@@ -38,6 +39,29 @@ void RendererSystem::update(SceneData& data) {
 				                            0, 0, 1, 0,
 				                            0, 0, 0, 1);
 				finalMatrix = finalMatrix * translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+			UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
+			if (uniforms){
+				for (Uniform uniform : uniforms->uniforms){
+					if (uniform.type == UniformFloat){
+						if (uniform.location == 0)
+							uniform.location = glGetUniformLocation(renderable->shaderId, uniform.name.c_str());
+						glUniform1f(uniform.location, *(GLfloat*)&uniform.data[0]);
+					} else if (uniform.type == UniformFloat2){
+						if (uniform.location == 0)
+							uniform.location = glGetUniformLocation(renderable->shaderId, uniform.name.c_str());
+						glUniform2fv(uniform.location, 1, (GLfloat*)&uniform.data[0]);
+					} else if (uniform.type == UniformFloat3){
+						if (uniform.location == 0)
+							uniform.location = glGetUniformLocation(renderable->shaderId, uniform.name.c_str());
+						glUniform3fv(uniform.location, 1, (GLfloat*)&uniform.data[0]);
+					} else if (uniform.type == UniformFloat4){
+						if (uniform.location == 0)
+							uniform.location = glGetUniformLocation(renderable->shaderId, uniform.name.c_str());
+						glUniform4fv(uniform.location, 1, (GLfloat*)&uniform.data[0]);
+					}
+				}
 			}
 			
 			glUniformMatrix4fv(renderable->shaderMatrixId, 1, GL_FALSE, finalMatrix.values);

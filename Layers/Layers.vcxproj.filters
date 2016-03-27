@@ -71,19 +71,22 @@
     <ClInclude Include="include\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderableComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="include\RendererSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="include\Matrix4x4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\BufferManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\UniformsComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RendererSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
     <ClInclude Include="include\TransformableComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderableComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
