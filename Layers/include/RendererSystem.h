@@ -1,6 +1,5 @@
 #pragma once
 
-#include "RenderableComponent.h"
 #include "System.h"
 #include "ShaderManager.h"
 #include "BufferManager.h"

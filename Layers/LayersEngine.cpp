@@ -14,6 +14,23 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	sceneData.logicalScreenSize.y = aspectY;
 	loadGLFunctions(SDL_GL_GetProcAddress);
 	glClearColor(0, 0, 0, 1);
+
+	//Transform the origin to the top left corner and set width and height to the aspect ratio
+	Matrix4x4 logicalMatrix(2.f / (float)sceneData.logicalScreenSize.x, 0,                                           0, -1,
+	                        0,                                          -2.f / (float)sceneData.logicalScreenSize.y, 0, 1,
+	                        0,                                          0,                                           1, 0,
+	                        0,                                          0,                                           0, 1);
+	//Transform logical coordinates to physical coordinates. The aspect ratio stays the same.
+	float width = (float)sceneData.logicalScreenSize.x / (float)sceneData.logicalScreenSize.y > (float)sceneData.physicalScreenSize.x / (float)sceneData.physicalScreenSize.y ?
+		(float)sceneData.physicalScreenSize.x : (float)sceneData.logicalScreenSize.x / (float)sceneData.logicalScreenSize.y * (float)sceneData.physicalScreenSize.y;
+	float height = (float)sceneData.logicalScreenSize.x / (float)sceneData.logicalScreenSize.y > (float)sceneData.physicalScreenSize.x / (float)sceneData.physicalScreenSize.y ?
+		(float)sceneData.logicalScreenSize.y / (float)sceneData.logicalScreenSize.x * (float)sceneData.physicalScreenSize.x : (float)sceneData.physicalScreenSize.y;
+	Matrix4x4 physicalMatrix(width / (float)sceneData.physicalScreenSize.x, 0,                                              0, 0,
+	                         0,                                             height / (float)sceneData.physicalScreenSize.y, 0, 0,
+	                         0,                                             0,                                              1, 0,
+	                         0,                                             0,                                              0, 1);
+
+	sceneData.projectionMatrix = physicalMatrix * logicalMatrix;
 }
 
 void LayersEngine::addLayer(Layer* layer) {

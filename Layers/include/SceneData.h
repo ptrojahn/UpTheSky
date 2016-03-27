@@ -16,4 +16,5 @@ struct SceneData
 	float deltaTime;
 	Vector2<int> logicalScreenSize;
 	Vector2<int> physicalScreenSize;
+	Matrix4x4 projectionMatrix;
 };
