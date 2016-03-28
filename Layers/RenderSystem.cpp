@@ -29,13 +29,13 @@ void RenderSystem::update(SceneData& data) {
 				                      0,                           transformComponent->scale.y, 0, 0,
 				                      0,                           0,                           1, 0,
 				                      0,                           0,                           0, 1);
-				float rotation = transformComponent->rotation * (3.14159265359 / 180.f);
+				float rotation = transformComponent->rotation * 3.14159265359 / 180.f;
 				Matrix4x4 rotationMatrix(cos(rotation), -sin(rotation), 0, 0,
 				                         sin(rotation), cos(rotation),  0, 0,
 				                         0,             0,              1, 0,
 				                         0,             0,              0, 1);
-				Matrix4x4 translationMatrix(1, 0, 0, transformComponent->translation.x,
-				                            0, 1, 0, transformComponent->translation.y,
+				Matrix4x4 translationMatrix(1, 0, 0, transformComponent->position.x,
+				                            0, 1, 0, transformComponent->position.y,
 				                            0, 0, 1, 0,
 				                            0, 0, 0, 1);
 				finalMatrix = finalMatrix * translationMatrix * rotationMatrix * scaleMatrix;

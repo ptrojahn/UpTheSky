@@ -45,6 +45,9 @@
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LayersEngine.h">
@@ -87,6 +90,12 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="include\RenderSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ButtonComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ButtonSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
