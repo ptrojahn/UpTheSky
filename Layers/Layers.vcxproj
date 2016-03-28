@@ -70,7 +70,7 @@
     <ClCompile Include="glFunctions.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayersEngine.cpp" />
-    <ClCompile Include="RendererSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="BufferManager.cpp" />
   </ItemGroup>
@@ -82,11 +82,11 @@
     <ClInclude Include="include\Layer.h" />
     <ClInclude Include="include\LayersEngine.h" />
     <ClInclude Include="include\Matrix4x4.h" />
-    <ClInclude Include="include\RenderableComponent.h" />
-    <ClInclude Include="include\RendererSystem.h" />
+    <ClInclude Include="include\RenderComponent.h" />
+    <ClInclude Include="include\RenderSystem.h" />
     <ClInclude Include="include\SceneData.h" />
     <ClInclude Include="include\System.h" />
-    <ClInclude Include="include\TransformableComponent.h" />
+    <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\UniformsComponent.h" />
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>

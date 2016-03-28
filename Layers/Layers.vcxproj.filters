@@ -42,7 +42,7 @@
     <ClCompile Include="BufferManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RendererSystem.cpp">
+    <ClCompile Include="RenderSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,14 +80,14 @@
     <ClInclude Include="include\UniformsComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\RendererSystem.h">
+    <ClInclude Include="include\RenderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderSystem.h">
       <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TransformableComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="include\RenderableComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

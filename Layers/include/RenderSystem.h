@@ -6,10 +6,10 @@
 #include "Matrix4x4.h"
 #include "SceneData.h"
 
-class RendererSystem : public System
+class RenderSystem : public System
 {
 public:
-	RendererSystem(int updatePriority) : System(updatePriority){
+	RenderSystem(int updatePriority) : System(updatePriority){
 	}
 	void update(SceneData& data);
 };

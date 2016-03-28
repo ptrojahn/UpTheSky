@@ -5,10 +5,10 @@
 #include "ShaderManager.h"
 #include "BufferManager.h"
 
-class RenderableComponent : public BaseComponent<RenderableComponent>
+class RenderComponent : public BaseComponent<RenderComponent>
 {
 public:
-	RenderableComponent(GLuint shaderId, GLuint vboId) : shaderId(shaderId), vboId(vboId){
+	RenderComponent(GLuint shaderId, GLuint vboId) : shaderId(shaderId), vboId(vboId){
 		shaderMatrixId = glGetUniformLocation(shaderId, "LE_matrix");
 	}
 	GLuint shaderId;
