@@ -2,23 +2,24 @@
 
 #include "System.h"
 #include "Entity.h"
-#include "SceneData.h"
 
 #include <vector>
+
+class LayersEngine;
 
 class Layer
 {
 public:
 	Layer(bool startEnabled);
 	bool isEnabled() { return enabled; }
-	void update();
-protected:
 	void addSystem(System* system);
 	void addEntity(Entity* entity);
+protected:
 	virtual void load() = 0;
 private:
-	void setSceneData(SceneData* sceneData) { data = sceneData; }
-	SceneData* data;
+	void setEngine(LayersEngine* layersEngine) { engine = layersEngine; }
+	virtual void update();
+	LayersEngine* engine;
 	bool enabled;
 
 	friend class LayersEngine;

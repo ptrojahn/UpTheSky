@@ -87,7 +87,6 @@
     <ClInclude Include="include\Matrix4x4.h" />
     <ClInclude Include="include\RenderComponent.h" />
     <ClInclude Include="include\RenderSystem.h" />
-    <ClInclude Include="include\SceneData.h" />
     <ClInclude Include="include\System.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\UniformsComponent.h" />

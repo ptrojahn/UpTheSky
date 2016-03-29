@@ -7,5 +7,5 @@ class ButtonSystem : public System
 public:
 	ButtonSystem(int updatePriority) : System(updatePriority) {
 	}
-	void update(SceneData& data);
+	void update(LayersEngine& data);
 };

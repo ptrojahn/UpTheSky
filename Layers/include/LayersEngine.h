@@ -1,21 +1,38 @@
 #pragma once
 
 #include "Vector2.h"
-#include "Layer.h"
-#include "SceneData.h"
+#include "Matrix4x4.h"
+#include "Entity.h"
 
 #include <SDL.h>
 
 #include <vector>
+
+class Layer;
+class System;
 
 class LayersEngine
 {
 public:
 	LayersEngine(int aspectX, int aspectY);
 	void addLayer(Layer* layer);
+	std::vector<Layer*>& getLayers() { return layers; }
+	std::vector<Entity*>& getEntities() { return entities; }
+	std::vector<System*>& getSystems() { return systems; }
+	float getDeltaTime() { return deltaTime; }
+	Vector2<int> getLogicalScreenSize() { return logicalScreenSize; }
+	Vector2<int> getPhysicalScreenSize() { return physicalScreenSize; }
+	Matrix4x4 getProjectionMatrix() { return projectionMatrix; }
 	void run();
 private:
 	SDL_Window* window;
 	std::vector<Layer*> layers;
-	SceneData sceneData;
+	std::vector<Entity*> entities;
+	std::vector<System*> systems;
+	float deltaTime;
+	Vector2<float> mousePos;
+	bool mouseActive;
+	Vector2<int> logicalScreenSize;
+	Vector2<int> physicalScreenSize;
+	Matrix4x4 projectionMatrix;
 };

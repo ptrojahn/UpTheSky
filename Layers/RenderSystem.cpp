@@ -6,8 +6,8 @@
 
 #include <math.h>
 
-void RenderSystem::update(SceneData& data) {
-	for (Entity* entity : data.entities){
+void RenderSystem::update(LayersEngine& engine) {
+	for (Entity* entity : engine.getEntities()){
 		RenderComponent* renderComponent = entity->getComponent<RenderComponent>();
 		if (renderComponent){
 			ShaderManager::instance().useShader(renderComponent->shaderId);
@@ -23,7 +23,7 @@ void RenderSystem::update(SceneData& data) {
 				offset += sizes[index];
 			}
 			TransformComponent* transformComponent = entity->getComponent<TransformComponent>();
-			Matrix4x4 finalMatrix = data.projectionMatrix;
+			Matrix4x4 finalMatrix = engine.getProjectionMatrix();
 			if (transformComponent){
 				Matrix4x4 scaleMatrix(transformComponent->scale.x, 0,                           0, 0,
 				                      0,                           transformComponent->scale.y, 0, 0,

@@ -68,9 +68,6 @@
     <ClInclude Include="include\Layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SceneData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>

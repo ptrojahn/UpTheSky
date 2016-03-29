@@ -5,26 +5,26 @@ Layer::Layer(bool isEnabled) {
 }
 
 void Layer::addSystem(System* system) {
-	for (std::vector<System*>::iterator iterSystems = data->systems.begin(); iterSystems != data->systems.end(); iterSystems++){
+	for (std::vector<System*>::iterator iterSystems = engine->getSystems().begin(); iterSystems != engine->getSystems().end(); iterSystems++){
 		if ((*iterSystems)->getPriority() < system->getPriority()){
-			data->systems.insert(iterSystems, system);
+			engine->getSystems().insert(iterSystems, system);
 			system->setLayer(this);
 			return;
 		}
 	}
-	data->systems.push_back(system);
+	engine->getSystems().push_back(system);
 	system->setLayer(this);
 }
 
 void Layer::addEntity(Entity* entity) {
-	for (std::vector<Entity*>::iterator iterEntities = data->entities.begin(); iterEntities != data->entities.end(); iterEntities++){
+	for (std::vector<Entity*>::iterator iterEntities = engine->getEntities().begin(); iterEntities != engine->getEntities().end(); iterEntities++){
 		if ((*iterEntities)->getPriority() < entity->getPriority()){
-			data->entities.insert(iterEntities, entity);
+			engine->getEntities().insert(iterEntities, entity);
 			entity->setLayer(this);
 			return;
 		}
 	}
-	data->entities.push_back(entity);
+	engine->getEntities().push_back(entity);
 	entity->setLayer(this);
 }
 

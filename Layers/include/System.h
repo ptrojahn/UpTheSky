@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Entity.h"
-#include "SceneData.h"
+#include "LayersEngine.h"
 
 class Layer;
 
@@ -13,7 +13,7 @@ public:
 		priority = updatePriority;
 		layer = nullptr;
 	}
-	virtual void update(SceneData& data) = 0;
+	virtual void update(LayersEngine& data) = 0;
 	int getPriority() { return priority; }
 	Layer* getLayer() { return layer; }
 protected:
