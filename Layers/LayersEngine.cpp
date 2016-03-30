@@ -48,10 +48,21 @@ void LayersEngine::run() {
 	while (!quit){
 		SDL_Event event;
 		while (SDL_PollEvent(&event)){
-			
 		}
-		glClear(GL_COLOR_BUFFER_BIT);
 
+		Vector2<int> touchPosPhys;
+		if (SDL_GetMouseState(&touchPosPhys.x, &touchPosPhys.y) == SDL_BUTTON(SDL_BUTTON_LEFT)){
+			touchActive = true;
+			float width = (float)logicalScreenSize.x / (float)logicalScreenSize.y > (float)physicalScreenSize.x / (float)physicalScreenSize.y ?
+				(float)physicalScreenSize.x : (float)logicalScreenSize.x / (float)logicalScreenSize.y * (float)physicalScreenSize.y;
+			float height = logicalScreenSize.x / (float)logicalScreenSize.y > (float)physicalScreenSize.x > (float)physicalScreenSize.y ?
+				(float)logicalScreenSize.y / (float)logicalScreenSize.x * (float)physicalScreenSize.x : (float)physicalScreenSize.y;
+			touchPosition = (Vector2<float>(touchPosPhys.x, touchPosPhys.y) - Vector2<float>((physicalScreenSize.x - width) / 2, (physicalScreenSize.y - height) / 2)) 
+				/ Vector2<float>(width, height) * Vector2<float>(logicalScreenSize.x, logicalScreenSize.y);
+		} else
+			touchActive = false;
+
+		glClear(GL_COLOR_BUFFER_BIT);
 		for (System* system : systems){
 			system->update(*this);
 		}

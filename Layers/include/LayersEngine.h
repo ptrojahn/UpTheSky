@@ -23,6 +23,8 @@ public:
 	Vector2<int> getLogicalScreenSize() { return logicalScreenSize; }
 	Vector2<int> getPhysicalScreenSize() { return physicalScreenSize; }
 	Matrix4x4 getProjectionMatrix() { return projectionMatrix; }
+	bool getTouchActive() { return touchActive; }
+	Vector2<float> getTouchPosition() { return touchPosition; }
 	void run();
 private:
 	SDL_Window* window;
@@ -30,8 +32,8 @@ private:
 	std::vector<Entity*> entities;
 	std::vector<System*> systems;
 	float deltaTime;
-	Vector2<float> mousePos;
-	bool mouseActive;
+	Vector2<float> touchPosition;
+	bool touchActive;
 	Vector2<int> logicalScreenSize;
 	Vector2<int> physicalScreenSize;
 	Matrix4x4 projectionMatrix;
