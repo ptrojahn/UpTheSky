@@ -16,6 +16,8 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	logicalScreenSize.x = aspectX;
 	logicalScreenSize.y = aspectY;
 	loadGLFunctions(SDL_GL_GetProcAddress);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Transform the origin to the top left corner and set width and height to the aspect ratio
 	Matrix4x4 logicalMatrix(2.f / (float)logicalScreenSize.x, 0,                                           0, -1,
