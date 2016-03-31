@@ -16,7 +16,6 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	logicalScreenSize.x = aspectX;
 	logicalScreenSize.y = aspectY;
 	loadGLFunctions(SDL_GL_GetProcAddress);
-	glClearColor(0, 0, 0, 1);
 
 	//Transform the origin to the top left corner and set width and height to the aspect ratio
 	Matrix4x4 logicalMatrix(2.f / (float)logicalScreenSize.x, 0,                                           0, -1,
@@ -49,7 +48,6 @@ void LayersEngine::run() {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)){
 		}
-
 		Vector2<int> touchPosPhys;
 		if (SDL_GetMouseState(&touchPosPhys.x, &touchPosPhys.y) == SDL_BUTTON(SDL_BUTTON_LEFT)){
 			touchActive = true;

@@ -19,6 +19,7 @@ public:
 		return manager;
 	}
 	static std::vector<GLfloat> rectangleVertices2D(float x, float y, float width, float height);
+	static std::vector<GLfloat> rectangleVertices2DUV(float x, float y, float width, float height);
 	GLuint createBuffer(std::vector<GLfloat> data, GLenum target = GL_ARRAY_BUFFER, GLenum usage = GL_STATIC_DRAW);
 	int bufferSize(GLuint buffer);
 	void bindBuffer(GLuint buffer);

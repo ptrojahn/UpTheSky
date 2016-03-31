@@ -19,7 +19,7 @@ void RenderSystem::update(LayersEngine& engine) {
 			int offset = 0;
 			for (int index = 0; index < sizes.size(); ++index){
 				glEnableVertexAttribArray(index);
-				glVertexAttribPointer(index, sizes[index], GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)offset);
+				glVertexAttribPointer(index, sizes[index], GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(offset * sizeof(GLfloat)));
 				offset += sizes[index];
 			}
 			TransformComponent* transformComponent = entity->getComponent<TransformComponent>();
