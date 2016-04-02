@@ -63,8 +63,18 @@ void LayersEngine::run() {
 			touchActive = false;
 
 		glClear(GL_COLOR_BUFFER_BIT);
+		std::vector<ClassId> runSystems;
 		for (System* system : systems){
+			bool found = false;
+			for (ClassId id : runSystems)
+				if (id == system->getId()){
+					found = true;
+					break;
+				}
+			if (found)
+				continue;
 			system->update(*this);
+			runSystems.push_back(system->getId());
 		}
 
 		SDL_GL_SwapWindow(window);

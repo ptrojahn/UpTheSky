@@ -1,41 +1,22 @@
 #pragma once
 
-typedef unsigned int ComponentType;
+#include "ClassId.h"
 
 class Component
 {
 public:
-	Component(ComponentType compType) {
-		type = compType;
+	Component(ClassId id) : id(id){
 	}
 	virtual ~Component() {}
-	ComponentType getType() { return type; }
+	ClassId getId() { return id; }
 private:
-	ComponentType type;
+	ClassId id;
 };
-
-//Creates a unique id for every component class
-class ComponentTypeManager{
-public:
-	template<class TComponent>
-	static unsigned int getId() {
-		static unsigned int id = nextComponentID++;
-		return id;
-	}
-private:
-	static ComponentType nextComponentID;
-};
-
-template<typename TComponent>
-static unsigned int getComponentType() {
-	return ComponentTypeManager::getId<TComponent>();
-}
 
 //Base class that takes care of the component type initialisation 
 template<typename TComponent>
 class BaseComponent : public Component
 {
 public:
-	BaseComponent() : Component(getComponentType<TComponent>()){
-	}
+	BaseComponent() : Component(classId<TComponent>()){}
 };

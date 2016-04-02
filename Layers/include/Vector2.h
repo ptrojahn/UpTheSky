@@ -4,9 +4,7 @@ template<typename T>
 class Vector2
 {
 public:
-	Vector2<T>(T first, T second) {
-		x = first;
-		y = second;
+	Vector2<T>(T x, T y) : x(x), y(y){
 	}
 	Vector2<T>() {
 		x = 0;

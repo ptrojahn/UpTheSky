@@ -9,6 +9,7 @@
 std::string readFile(std::string path) {
 	SDL_RWops* file = SDL_RWFromFile(path.c_str(), "r");
 	if (file == nullptr){
+		std::cout << "Can't find file: " << path.c_str() << std::endl;
 		return std::string();
 	}
 	std::vector<char> fileData(SDL_RWsize(file));

@@ -2,10 +2,10 @@
 
 #include "System.h"
 
-class ButtonSystem : public System
+class ButtonSystem : public BaseSystem<ButtonSystem>
 {
 public:
-	ButtonSystem(int updatePriority) : System(updatePriority) {
+	ButtonSystem(int updatePriority) : BaseSystem(updatePriority) {
 	}
 	void update(LayersEngine& data);
 };

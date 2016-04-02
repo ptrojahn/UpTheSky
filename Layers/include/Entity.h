@@ -17,7 +17,7 @@ public:
 	template<typename TComponent>
 	TComponent* getComponent() {
 		for (Component* component : components){
-			if (component->getType() == getComponentType<TComponent>())
+			if (component->getId() == classId<TComponent>())
 				return dynamic_cast<TComponent*>(component);
 		}
 		return nullptr;

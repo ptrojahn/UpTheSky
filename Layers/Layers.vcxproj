@@ -66,7 +66,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ButtonSystem.cpp" />
-    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ClassId.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="glFunctions.cpp" />
     <ClCompile Include="Layer.cpp" />
@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClInclude Include="include\BufferManager.h" />
     <ClInclude Include="include\ButtonComponent.h" />
+    <ClInclude Include="include\ClassId.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\glFunctions.h" />
