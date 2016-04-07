@@ -23,7 +23,7 @@ public:
 	Vector2<int> getLogicalScreenSize() { return logicalScreenSize; }
 	Vector2<int> getPhysicalScreenSize() { return physicalScreenSize; }
 	Matrix4x4 getProjectionMatrix() { return projectionMatrix; }
-	bool getTouchActive() { return touchActive; }
+	bool isTouchActive() { return touchActive; }
 	Vector2<float> getTouchPosition() { return touchPosition; }
 	void run();
 private:
@@ -37,4 +37,5 @@ private:
 	Vector2<int> logicalScreenSize;
 	Vector2<int> physicalScreenSize;
 	Matrix4x4 projectionMatrix;
+	uint32_t lastTick;
 };

@@ -15,6 +15,7 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	SDL_GetWindowSize(window, &physicalScreenSize.x, &physicalScreenSize.y);
 	logicalScreenSize.x = aspectX;
 	logicalScreenSize.y = aspectY;
+	lastTick = SDL_GetTicks();
 	loadGLFunctions(SDL_GL_GetProcAddress);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -61,6 +62,11 @@ void LayersEngine::run() {
 				/ Vector2<float>(width, height) * Vector2<float>(logicalScreenSize.x, logicalScreenSize.y);
 		} else
 			touchActive = false;
+
+		uint32_t currentTick = SDL_GetTicks();
+		deltaTime = (currentTick - lastTick) / 1000.f;
+		lastTick = currentTick;
+
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		std::vector<ClassId> runSystems;
