@@ -70,6 +70,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuLayer.cpp" />
+    <ClCompile Include="PlayerLayer.cpp" />
+    <ClCompile Include="Player.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainMenuLayer.h" />
+    <ClInclude Include="PlayerLayer.h" />
+    <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\assets\mainMenuButton.frag" />
+    <None Include="..\..\..\assets\mainMenuButton.vert" />
+    <None Include="..\..\..\assets\player.frag" />
+    <None Include="..\..\..\assets\player.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
