@@ -78,12 +78,15 @@
     <ClInclude Include="MainMenuLayer.h" />
     <ClInclude Include="PlayerLayer.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="StaticColliderComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\assets\mainMenuButton.frag" />
-    <None Include="..\..\..\assets\mainMenuButton.vert" />
-    <None Include="..\..\..\assets\player.frag" />
-    <None Include="..\..\..\assets\player.vert" />
+    <None Include="..\assets\levelGeometry.frag" />
+    <None Include="..\assets\levelGeometry.vert" />
+    <None Include="..\assets\mainMenuButton.frag" />
+    <None Include="..\assets\mainMenuButton.vert" />
+    <None Include="..\assets\player.frag" />
+    <None Include="..\assets\player.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

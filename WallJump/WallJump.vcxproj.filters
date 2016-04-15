@@ -41,18 +41,27 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StaticColliderComponent.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\assets\mainMenuButton.vert">
+    <None Include="..\assets\levelGeometry.frag">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\..\..\assets\mainMenuButton.frag">
+    <None Include="..\assets\levelGeometry.vert">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\..\..\assets\player.frag">
+    <None Include="..\assets\mainMenuButton.frag">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\..\..\assets\player.vert">
+    <None Include="..\assets\mainMenuButton.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\player.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\player.vert">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

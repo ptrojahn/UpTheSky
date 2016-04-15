@@ -6,7 +6,9 @@
 class PlayerComponent : public BaseComponent<PlayerComponent>
 {
 public:
-	Vector2<float> acceleration;
+	PlayerComponent() { lastFramePressed = false;}
+	Vector2<float> velocity;
+	bool lastFramePressed;
 };
 
 
