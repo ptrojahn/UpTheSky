@@ -5,6 +5,6 @@
 class MainMenuLayer : public Layer
 {
 public:
-	MainMenuLayer() : Layer(10000) {}
+	MainMenuLayer() : Layer(true) {}
 	void load();
 };

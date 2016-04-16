@@ -69,15 +69,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuLayer.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scroll.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameLayer.h" />
     <ClInclude Include="MainMenuLayer.h" />
     <ClInclude Include="PlayerLayer.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Scroll.h" />
     <ClInclude Include="StaticColliderComponent.h" />
   </ItemGroup>
   <ItemGroup>

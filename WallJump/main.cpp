@@ -2,6 +2,7 @@
 
 #include "MainMenuLayer.h"
 #include "PlayerLayer.h"
+#include "GameLayer.h"
 #include "glFunctions.h"
 
 int main(int argc, char* argv[]) {
@@ -9,6 +10,7 @@ int main(int argc, char* argv[]) {
 	glClearColor(0.63922, 0.89804, 0.89804, 1);
 	engine.addLayer(new MainMenuLayer());
 	engine.addLayer(new PlayerLayer());
+	engine.addLayer(new GameLayer());
 	engine.run();
 	return 0;
 }
