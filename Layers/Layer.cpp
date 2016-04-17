@@ -28,6 +28,16 @@ void Layer::addEntity(Entity* entity) {
 	entity->setLayer(this);
 }
 
+std::vector<Entity*>::iterator Layer::deleteEntity(Entity* entity) {
+	for (std::vector<Entity*>::iterator iterEntities = engine->getEntities().begin(); iterEntities != engine->getEntities().end(); iterEntities++){
+		if ((*iterEntities) == entity){
+			delete entity;
+			return engine->getEntities().erase(iterEntities);
+		}
+	}
+	return engine->getEntities().end();
+}
+
 void Layer::update() {
 	
 }

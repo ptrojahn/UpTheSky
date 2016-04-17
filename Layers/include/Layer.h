@@ -14,6 +14,7 @@ public:
 	bool isEnabled() { return enabled; }
 	void addSystem(System* system);
 	void addEntity(Entity* entity);
+	std::vector<Entity*>::iterator deleteEntity(Entity* entity);
 protected:
 	virtual void load() = 0;
 private:
