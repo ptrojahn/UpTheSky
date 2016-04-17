@@ -72,6 +72,7 @@
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuLayer.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scroll.cpp" />
@@ -79,6 +80,7 @@
   <ItemGroup>
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="MainMenuLayer.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="PlayerLayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scroll.h" />
