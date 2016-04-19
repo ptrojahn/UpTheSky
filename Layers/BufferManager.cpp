@@ -43,13 +43,13 @@ std::vector<GLfloat> BufferManager::rectangleVertices2D(float x, float y, float 
 			x		,y};
 }
 
-std::vector<GLfloat> BufferManager::rectangleVertices2DUV(float x, float y, float w, float h) {
-	return{ x, y,         0.f, 0.f,
-	        x + w, y,     1.f, 0.f,
-	        x + w, y + h, 1.f, 1.f,
-	        x + w, y + h, 1.f, 1.f,
-	        x, y + h,     0.f, 1.f,
-	        x, y,         0.f, 0.f};
+std::vector<GLfloat> BufferManager::rectangleVertices2DUV(float x, float y, float w, float h, float uvWidth, float uvHeight) {
+	return{ x, y,         0.f,		0.f,
+	        x + w, y,     uvWidth,	0.f,
+	        x + w, y + h, uvWidth,	uvHeight,
+	        x + w, y + h, uvWidth,	uvHeight,
+	        x, y + h,     0.f,		uvHeight,
+	        x, y,         0.f,		0.f};
 }
 
 int BufferManager::bufferSize(GLuint buffer) {
