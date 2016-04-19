@@ -50,9 +50,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StaticColliderComponent.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scroll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticColliderComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,6 +80,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="..\assets\player.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\spikes.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\spikes.frag">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

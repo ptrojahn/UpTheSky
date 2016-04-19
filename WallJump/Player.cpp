@@ -2,6 +2,8 @@
 
 #include "TransformComponent.h"
 #include "StaticColliderComponent.h"
+#include "LevelManager.h"
+#include "Layer.h"
 
 bool intersect(Vector2<float> pos1, Vector2<float> size1, Vector2<float> pos2, Vector2<float> size2) {
 	return pos1.x < pos2.x + size2.x
@@ -31,10 +33,10 @@ int getJumpBlock(std::vector<Entity*> entities, Vector2<float> playerPosition, V
 }
 
 void PlayerSystem::update(LayersEngine& engine) {
-	for (Entity* entity : engine.getEntities()){
-		PlayerComponent* playerComponent = entity->getComponent<PlayerComponent>();
+	for (Entity* playerEntity : engine.getEntities()){
+		PlayerComponent* playerComponent = playerEntity->getComponent<PlayerComponent>();
 		if (playerComponent){
-			TransformComponent* transformComponent = entity->getComponent<TransformComponent>();
+			TransformComponent* transformComponent = playerEntity->getComponent<TransformComponent>();
 			Vector2<float> playerSize = Vector2<float>(1, 2);
 			int jumpBlock = getJumpBlock(engine.getEntities(), transformComponent->position, playerSize);
 			//Only increase x velocity if the direction is not blocked by a wall. This is needed to avoid glitches on collider corners 
@@ -76,6 +78,19 @@ void PlayerSystem::update(LayersEngine& engine) {
 				}
 			}
 			transformComponent->position += playerComponent->velocity * velocityFactor * engine.getDeltaTime();
+
+			for (Entity* entity : engine.getEntities()){
+				LethalTriggerComponent* triggerComponent = entity->getComponent<LethalTriggerComponent>();
+				if (triggerComponent){
+					TransformComponent* triggerTransformComponent = entity->getComponent<TransformComponent>();
+					Vector2<float> triggerSize = triggerComponent->size * triggerTransformComponent->scale;
+					if (intersect(transformComponent->position, playerSize, triggerTransformComponent->position, triggerSize)){
+						playerEntity->getLayer()->disable();
+						break;
+					}
+				}
+			}
+			break;
 		}
 	}
 }

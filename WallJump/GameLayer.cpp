@@ -8,6 +8,7 @@
 #include "RenderSystem.h"
 
 void GameLayer::load() {
+	//Level edge
 	addEntity((new Entity(200))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 16))))
 		->addComponent(new TransformComponent(Vector2<float>(-3.5, 0)))
@@ -16,6 +17,7 @@ void GameLayer::load() {
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 16))))
 		->addComponent(new TransformComponent(Vector2<float>(8.5, 0)))
 		->addComponent(new StaticColliderComponent(Vector2<float>(4, 16))));
+	//Level generator helper
 	addEntity((new Entity(400))
 		->addComponent(new LevelManagerHelperComponent())
 		->addComponent(new TransformComponent())

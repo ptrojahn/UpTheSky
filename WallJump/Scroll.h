@@ -5,7 +5,6 @@
 
 class ScrollComponent : public BaseComponent<ScrollComponent>
 {
-
 };
 
 class ScrollSystem : public BaseSystem<ScrollSystem>

@@ -7,6 +7,13 @@ class LevelManagerHelperComponent : public BaseComponent<LevelManagerHelperCompo
 {
 };
 
+class LethalTriggerComponent : public BaseComponent<LethalTriggerComponent>
+{
+public:
+	LethalTriggerComponent(Vector2<float> size) : size(size) {}
+	Vector2<float> size;
+};
+
 class LevelManagerSystem : public BaseSystem<LevelManagerSystem>
 {
 public:
