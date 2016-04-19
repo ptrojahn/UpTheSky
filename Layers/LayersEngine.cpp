@@ -44,6 +44,45 @@ void LayersEngine::addLayer(Layer* layer) {
 	layer->load();
 }
 
+void LayersEngine::addEntity(Entity* entity) {
+	for (std::vector<Entity*>::iterator iterEntities = entities.begin(); iterEntities != entities.end(); iterEntities++){
+		if ((*iterEntities)->getPriority() < entity->getPriority()){
+			entities.insert(iterEntities, entity);
+			updateActiveEntities();
+			return;
+		}
+	}
+	entities.push_back(entity);
+	updateActiveEntities();
+}
+
+void LayersEngine::addSystem(System* system) {
+	for (std::vector<System*>::iterator iterSystems = systems.begin(); iterSystems != systems.end(); iterSystems++){
+		if ((*iterSystems)->getPriority() < system->getPriority()){
+			systems.insert(iterSystems, system);
+			updateActiveSystems();
+			return;
+		}
+	}
+	systems.push_back(system);
+	updateActiveSystems();
+}
+
+std::vector<Entity*>::iterator LayersEngine::deleteEntity(Entity* entity) {
+	for (std::vector<Entity*>::iterator iterEntities = entities.begin(); iterEntities != entities.end(); iterEntities++){
+		if ((*iterEntities) == entity){
+			delete entity;
+			entities.erase(iterEntities);
+			break;
+		}
+	}
+	for (std::vector<Entity*>::iterator iterEntities = activeEntities.begin(); iterEntities != activeEntities.end(); iterEntities++){
+		if ((*iterEntities) == entity)
+			return activeEntities.erase(iterEntities);
+	}
+	return activeEntities.end();
+}
+
 //Takes control of the mainloop. Should be called at the end of main()
 void LayersEngine::run() {
 	bool quit = false;
@@ -84,5 +123,20 @@ void LayersEngine::run() {
 		}
 
 		SDL_GL_SwapWindow(window);
+	}
+}
+
+void LayersEngine::updateActiveEntities() {
+	activeEntities.clear();
+	for (Entity* entity : entities){
+		if (entity->getLayer()->isEnabled())
+			activeEntities.push_back(entity);
+	}
+}
+void LayersEngine::updateActiveSystems() {
+	activeSystems.clear();
+	for (System* system : systems){
+		if (system->getLayer()->isEnabled())
+			activeSystems.push_back(system);
 	}
 }
