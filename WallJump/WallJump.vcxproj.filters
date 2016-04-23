@@ -85,7 +85,13 @@
     <None Include="..\assets\spikes.vert">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\assets\spikes.frag">
+    <None Include="..\assets\spikes_up.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\spikes_left.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\spikes_right.frag">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

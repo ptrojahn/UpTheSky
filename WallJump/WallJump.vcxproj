@@ -93,7 +93,9 @@
     <None Include="..\assets\mainMenuButton.vert" />
     <None Include="..\assets\player.frag" />
     <None Include="..\assets\player.vert" />
-    <None Include="..\assets\spikes.frag" />
+    <None Include="..\assets\spikes_left.frag" />
+    <None Include="..\assets\spikes_right.frag" />
+    <None Include="..\assets\spikes_up.frag" />
     <None Include="..\assets\spikes.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

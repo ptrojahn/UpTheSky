@@ -20,7 +20,7 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 					->addComponent(new StaticColliderComponent(Vector2<float>(4, 5)))
 					->addComponent(new ScrollComponent()));
 				getLayer()->addEntity((new Entity(200))
-					->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes.frag"),
+					->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
 					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 					->addComponent(new TransformComponent(Vector2<float>(0.5, -5.25)))
 					->addComponent(new ScrollComponent())
