@@ -60,6 +60,10 @@ void RenderSystem::update(LayersEngine& engine) {
 						if (uniform.location == 0)
 							uniform.location = glGetUniformLocation(renderComponent->shaderId, uniform.name.c_str());
 						glUniform4fv(uniform.location, 1, (GLfloat*)&uniform.data[0]);
+					} else if (uniform.type == UniformBool){
+						if (uniform.location == 0)
+							uniform.location = glGetUniformLocation(renderComponent->shaderId, uniform.name.c_str());
+						glUniform1i(uniform.location, *(bool*)&uniform.data[0] == true ? 1 : 0);
 					}
 				}
 			}
