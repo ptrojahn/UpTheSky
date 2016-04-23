@@ -4,13 +4,7 @@
 #include "StaticColliderComponent.h"
 #include "LevelManager.h"
 #include "Layer.h"
-
-bool intersect(Vector2<float> pos1, Vector2<float> size1, Vector2<float> pos2, Vector2<float> size2) {
-	return pos1.x < pos2.x + size2.x
-		&& pos1.x + size1.x > pos2.x
-		&& pos1.y < pos2.y + size2.y
-		&& pos1.y + size1.y > pos2.y;
-}
+#include "helper.h"
 
 int getJumpBlock(std::vector<Entity*> entities, Vector2<float> playerPosition, Vector2<float> playerSize) {
 	for (Entity* entity : entities){
@@ -32,12 +26,13 @@ int getJumpBlock(std::vector<Entity*> entities, Vector2<float> playerPosition, V
 	return 0;
 }
 
+const Vector2<float> PlayerSystem::playerSize = Vector2<float>(1, 2);
+
 void PlayerSystem::update(LayersEngine& engine) {
 	for (Entity* playerEntity : engine.getEntities()){
 		PlayerComponent* playerComponent = playerEntity->getComponent<PlayerComponent>();
 		if (playerComponent){
 			TransformComponent* transformComponent = playerEntity->getComponent<TransformComponent>();
-			Vector2<float> playerSize = Vector2<float>(1, 2);
 			int jumpBlock = getJumpBlock(engine.getEntities(), transformComponent->position, playerSize);
 			//Only increase x velocity if the direction is not blocked by a wall. This is needed to avoid glitches on collider corners 
 			if (engine.isTouchActive() && !playerComponent->lastFramePressed && jumpBlock){
@@ -48,7 +43,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 			playerComponent->lastFramePressed = engine.isTouchActive();
 			playerComponent->velocity += Vector2<float>(0, 25 * engine.getDeltaTime());
 
-			//Collision handling. The position needs to be set explicitly to avoid float precission problems
+			//Collision handling. The position needs to be set explicitly to avoid float precision problems
 			Vector2<float> velocityFactor = Vector2<float>(1, 1);
 			Vector2<float> futurePosition = transformComponent->position + playerComponent->velocity * engine.getDeltaTime();
 			for (Entity* entity : engine.getEntities()){

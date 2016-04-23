@@ -5,6 +5,8 @@
 #include "RenderComponent.h"
 #include "Scroll.h"
 #include "StaticColliderComponent.h"
+#include "GhostWall.h"
+#include "UniformsComponent.h"
 
 void LevelManagerSystem::update(LayersEngine& engine) {
 	//Add new entities
@@ -12,19 +14,13 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 		if (entity->getComponent<LevelManagerHelperComponent>()){
 			float& distance = entity->getComponent<TransformComponent>()->position.y;
 			if (distance > 10){
-				distance = 0;
+				distance -= 10;
 				getLayer()->addEntity((new Entity(200))
-					->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"), 
-					                                   BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 5))))
-					->addComponent(new TransformComponent(Vector2<float>(0.5, -5)))
-					->addComponent(new StaticColliderComponent(Vector2<float>(4, 5)))
+					->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometryGhost.frag"), 
+					                                   BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 4))))
+					->addComponent(new TransformComponent(Vector2<float>(3, -5 + distance)))
+					->addComponent(new GhostWallComponent(Vector2<float>(1, 4)))
 					->addComponent(new ScrollComponent()));
-				getLayer()->addEntity((new Entity(200))
-					->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
-					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
-					->addComponent(new TransformComponent(Vector2<float>(0.5, -5.25)))
-					->addComponent(new ScrollComponent())
-					->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25))));
 				break;
 			}
 		}

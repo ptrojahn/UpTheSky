@@ -5,6 +5,7 @@
 #include "RenderSystem.h"
 #include "Scroll.h"
 #include "Player.h"
+#include "GhostWall.h"
 
 void PlayerLayer::load() {
 	addEntity((new Entity(100))
@@ -14,5 +15,6 @@ void PlayerLayer::load() {
 		->addComponent(new ScrollComponent()));
 
 	addSystem(new PlayerSystem());
+	addSystem(new GhostWallSystem());
 	addSystem(new RenderSystem(0));
 }
