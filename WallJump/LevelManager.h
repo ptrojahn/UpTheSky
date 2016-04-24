@@ -2,9 +2,13 @@
 
 #include "Component.h"
 #include "System.h"
+#include <time.h>
 
 class LevelManagerHelperComponent : public BaseComponent<LevelManagerHelperComponent>
 {
+public:
+	LevelManagerHelperComponent() : levelSectionId(-1) {}
+	int levelSectionId;
 };
 
 class LethalTriggerComponent : public BaseComponent<LethalTriggerComponent>
@@ -17,6 +21,6 @@ public:
 class LevelManagerSystem : public BaseSystem<LevelManagerSystem>
 {
 public:
-	LevelManagerSystem() : BaseSystem(10) {}
+	LevelManagerSystem() : BaseSystem(10) { srand(time(nullptr)); }
 	void update(LayersEngine& engine);
 };

@@ -11,10 +11,10 @@ void ScrollSystem::update(LayersEngine& engine) {
 			break;
 		}
 	}
-	if (playerPosition.y < 4){
+	if (playerPosition.y < 6){
 		for (Entity* entity : engine.getEntities()){
 			if (entity->getComponent<ScrollComponent>()){
-				entity->getComponent<TransformComponent>()->position.y += 4 - playerPosition.y;
+				entity->getComponent<TransformComponent>()->position.y += 6 - playerPosition.y;
 			}
 		}
 	}
