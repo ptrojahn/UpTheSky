@@ -12,6 +12,7 @@ class Layer
 public:
 	Layer(bool startEnabled);
 	bool isEnabled() { return enabled; }
+	LayersEngine* getEngine() { return engine; }
 	void enable();
 	void disable();
 	void addSystem(System* system);
