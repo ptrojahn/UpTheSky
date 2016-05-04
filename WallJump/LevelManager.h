@@ -2,25 +2,31 @@
 
 #include "Component.h"
 #include "System.h"
-#include <time.h>
+#include "TransformComponent.h"
+#include "LethalTriggerComponent.h"
+#include "Player.h"
+
+#include <random>
 
 class LevelManagerHelperComponent : public BaseComponent<LevelManagerHelperComponent>
 {
 public:
-	LevelManagerHelperComponent() : levelSectionId(-1) {}
-	int levelSectionId;
-};
-
-class LethalTriggerComponent : public BaseComponent<LethalTriggerComponent>
-{
-public:
-	LethalTriggerComponent(Vector2<float> size) : size(size) {}
-	Vector2<float> size;
+	LevelManagerHelperComponent() : firstUse(true), jumpStartYMin(0), jumpStartYMax(0), jumpDestX(0), playerPosition(Right){}
+	float jumpStartYMin;
+	float jumpStartYMax;
+	float jumpStartX;
+	float jumpDestX;
+	enum PlayerPosition{
+		Left,
+		Right
+	} playerPosition;
+	bool firstUse;
 };
 
 class LevelManagerSystem : public BaseSystem<LevelManagerSystem>
 {
 public:
-	LevelManagerSystem() : BaseSystem(10) { srand(time(nullptr)); }
+	LevelManagerSystem() : BaseSystem(10) {}
+	void addBlocks(LevelManagerHelperComponent* helperComponent, float distance);
 	void update(LayersEngine& engine);
 };

@@ -83,6 +83,7 @@
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="LethalTriggerComponent.h" />
     <ClInclude Include="MainMenuLayer.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="PlayerLayer.h" />
@@ -91,6 +92,8 @@
     <ClInclude Include="StaticColliderComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\assets\blue.frag" />
+    <None Include="..\assets\green.frag" />
     <None Include="..\assets\levelGeometry.frag" />
     <None Include="..\assets\levelGeometry.vert" />
     <None Include="..\assets\levelGeometryGhost.frag" />

@@ -2,9 +2,13 @@
 
 #include "TransformComponent.h"
 #include "StaticColliderComponent.h"
-#include "LevelManager.h"
+#include "LethalTriggerComponent.h"
 #include "Layer.h"
 #include "helper.h"
+
+const Vector2<float> PlayerSystem::playerSize = Vector2<float>(1, 2);
+const Vector2<float> PlayerSystem::jumpVelocity = Vector2<float>(8, -13);
+const float PlayerSystem::gravity = 25;
 
 int getJumpBlock(std::vector<Entity*> entities, Vector2<float> playerPosition, Vector2<float> playerSize) {
 	for (Entity* entity : entities){
@@ -26,8 +30,6 @@ int getJumpBlock(std::vector<Entity*> entities, Vector2<float> playerPosition, V
 	return 0;
 }
 
-const Vector2<float> PlayerSystem::playerSize = Vector2<float>(1, 2);
-
 void PlayerSystem::update(LayersEngine& engine) {
 	for (Entity* playerEntity : engine.getEntities()){
 		PlayerComponent* playerComponent = playerEntity->getComponent<PlayerComponent>();
@@ -37,11 +39,11 @@ void PlayerSystem::update(LayersEngine& engine) {
 			//Only increase x velocity if the direction is not blocked by a wall. This is needed to avoid glitches on collider corners 
 			if (engine.isTouchActive() && !playerComponent->lastFramePressed && jumpBlock){
 				if (jumpBlock != copysign(1.0, engine.getTouchPosition().x - engine.getLogicalScreenSize().x / 2))
-					playerComponent->velocity.x = copysign(1.0, engine.getTouchPosition().x - engine.getLogicalScreenSize().x / 2) * 8.f;
-				playerComponent->velocity.y = -12;
+					playerComponent->velocity.x = copysign(1.0, engine.getTouchPosition().x - engine.getLogicalScreenSize().x / 2) * jumpVelocity.x;
+				playerComponent->velocity.y = jumpVelocity.y;
 			}
 			playerComponent->lastFramePressed = engine.isTouchActive();
-			playerComponent->velocity += Vector2<float>(0, 25 * engine.getDeltaTime());
+			playerComponent->velocity += Vector2<float>(0, gravity * engine.getDeltaTime());
 
 			//Collision handling. The position needs to be set explicitly to avoid float precision problems
 			Vector2<float> velocityFactor = Vector2<float>(1, 1);

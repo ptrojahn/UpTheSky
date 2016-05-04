@@ -18,4 +18,6 @@ public:
 	PlayerSystem() : BaseSystem(2) {}
 	void update(LayersEngine& engine);
 	static const Vector2<float> playerSize;
+	static const Vector2<float> jumpVelocity;
+	static const float gravity;
 };

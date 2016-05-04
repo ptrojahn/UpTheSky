@@ -20,7 +20,7 @@ void GameLayer::load() {
 	//Level generator helper
 	addEntity((new Entity(400))
 		->addComponent(new LevelManagerHelperComponent())
-		->addComponent(new TransformComponent())
+		->addComponent(new TransformComponent(Vector2<float>(0, 2)))
 		->addComponent(new ScrollComponent()));
 
 	addSystem(new LevelManagerSystem());
