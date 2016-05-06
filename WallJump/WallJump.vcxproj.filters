@@ -121,5 +121,8 @@
     <None Include="..\assets\blue.frag">
       <Filter>Shader</Filter>
     </None>
+    <None Include="..\assets\yellow.frag">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
