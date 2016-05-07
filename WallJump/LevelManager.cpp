@@ -18,7 +18,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 	if (helperComponent->playerPosition == LevelManagerHelperComponent::Right){
 		//Player is on the right side
 		if (helperComponent->jumpStartYMax - helperComponent->jumpStartYMin + 0.1 < helperComponent->height){
-			//Right wall
+			//extend right wall
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "yellow.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
@@ -35,16 +35,14 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		} else {
 			//Right side clutter
 			int maxWidth = 4;
-			if (helperComponent->jumpStartYMin < -1.5)
-				maxWidth = (8.5 - helperComponent->jumpStartX) * 2 + 1;
-			else
-				for (int width = 0; width < 4; width++){
-					if (jumpFunction(helperComponent->jumpStartX - (8.5 - width * 0.5)) + helperComponent->jumpStartYMin < 0){
-						//This is the first width that is not allowed
-						maxWidth = width;
-						break;
-					}
+			int minWidth = (8.5 - helperComponent->jumpStartX) * 2;
+			for (int width = minWidth + 1; width <= maxWidth; width++){
+				if (jumpFunction(helperComponent->jumpStartX - (8.5 - width * 0.5)) + helperComponent->jumpStartYMin < 0){
+					//This is the first wall width that would cause a collision with the player
+					maxWidth = width - 1;
+					break;
 				}
+			}
 			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth - 1);
 			float xPos = 8.5 - wallWidthGenerator(mtEngine) * 0.5;
 			getLayer()->addEntity((new Entity(200))
@@ -61,6 +59,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 		}
 		if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + helperComponent->jumpStartYMin > -2){
+			//Start wall on the left side
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
@@ -81,13 +80,12 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
 			helperComponent->jumpDestX = 6.5 + rand() % 4 * 0.5;
 		} else {
-			//left side clutter
+			//Left side clutter
 			int maxWidth = 4;
 			if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
 				int minWidth = (helperComponent->jumpDestX - 0.5) * 2 + 1;
 				for (int width = minWidth; width <= maxWidth; width++){
-					float playerBottomY = jumpFunction(8.5 - width * 0.5 - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2;
-					if (playerBottomY > -2.25){
+					if (jumpFunction(8.5 - width * 0.5 - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
 						//This is the first width that is not allowed
 						maxWidth = width - 1;
 						break;
@@ -112,7 +110,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 	} else {
 		//Player is on the left side
 		if (helperComponent->jumpStartYMax - helperComponent->jumpStartYMin + 0.1 < helperComponent->height){
-			//Left wall
+			//Extend left wall
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "yellow.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
@@ -127,19 +125,17 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 			helperComponent->jumpStartYMin -= 2;
 		} else {
-			//left side clutter
+			//Left side clutter
 			int maxWidth = 4;
-			if (helperComponent->jumpStartYMin < -1.5)
-				maxWidth = (helperComponent->jumpStartX - 0.5) * 2 + 1;
-			else
-				for (int width = 0; width < 4; width++){
-					if (jumpFunction(width * 0.5 + 0.5 - helperComponent->jumpStartX) + helperComponent->jumpStartYMin < 0){
-						//This is the first width that is not allowed
-						maxWidth = width;
-						break;
-					}
+			int minWidth = (helperComponent->jumpStartX - 0.5) * 2;
+			for (int width = minWidth + 1; width <= maxWidth; width++){
+				if (jumpFunction(width * 0.5 + 0.5 - helperComponent->jumpStartX) + helperComponent->jumpStartYMin < 0){
+					//This is the first wall width that would cause a collision with the player
+					maxWidth = width - 1;
+					break;
 				}
-			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth - 1);
+			}
+			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 			float xPos = wallWidthGenerator(mtEngine) * 0.5 - 4 + 0.5;
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "green.frag"),
@@ -155,7 +151,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 		}
 		if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + helperComponent->jumpStartYMin > -2){
-			//Switch sides
+			//Start wall on the right side
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
@@ -181,8 +177,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
 				int minWidth = (8.5 - helperComponent->jumpDestX) * 2 + 1;
 				for (int width = minWidth; width <= maxWidth; width++){
-					float playerBottomY = jumpFunction(8.5 - width * 0.5 - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2;
-					if (playerBottomY > -2.25){
+					if (jumpFunction(8.5 - width * 0.5 - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
 						//This is the first width that is not allowed
 						maxWidth = width - 1;
 						break;
