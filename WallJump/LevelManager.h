@@ -27,7 +27,7 @@ public:
 class LevelManagerSystem : public BaseSystem<LevelManagerSystem>
 {
 public:
-	LevelManagerSystem() : BaseSystem(10) { mtEngine = std::mt19937(randDevice()); }
+	LevelManagerSystem() : BaseSystem(1) { mtEngine = std::mt19937(randDevice()); }
 	void addBlocks(LevelManagerHelperComponent* helperComponent, float distance);
 	void update(LayersEngine& engine);
 private:

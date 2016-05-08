@@ -10,6 +10,6 @@ class ScrollComponent : public BaseComponent<ScrollComponent>
 class ScrollSystem : public BaseSystem<ScrollSystem>
 {
 public:
-	ScrollSystem() : BaseSystem(1) {}
+	ScrollSystem() : BaseSystem(2) {}
 	void update(LayersEngine& engine);
 };

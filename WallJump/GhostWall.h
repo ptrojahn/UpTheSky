@@ -20,6 +20,6 @@ public:
 class GhostWallSystem : public BaseSystem<GhostWallSystem>
 {
 public:
-	GhostWallSystem() : BaseSystem(1) {}
+	GhostWallSystem() : BaseSystem(3) {}
 	void update(LayersEngine& engine);
 };

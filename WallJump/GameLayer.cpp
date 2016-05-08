@@ -3,6 +3,7 @@
 #include "RenderComponent.h"
 #include "TransformComponent.h"
 #include "StaticColliderComponent.h"
+#include "GhostWall.h"
 #include "Scroll.h"
 #include "LevelManager.h"
 #include "RenderSystem.h"
@@ -23,7 +24,9 @@ void GameLayer::load() {
 		->addComponent(new TransformComponent(Vector2<float>(0, 2)))
 		->addComponent(new ScrollComponent()));
 
-	addSystem(new LevelManagerSystem());
+	addSystem(new PlayerSystem());
+	addSystem(new GhostWallSystem());
 	addSystem(new ScrollSystem());
+	addSystem(new LevelManagerSystem());
 	addSystem(new RenderSystem(0));
 }
