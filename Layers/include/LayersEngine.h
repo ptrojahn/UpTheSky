@@ -3,12 +3,12 @@
 #include "Vector2.h"
 #include "Matrix4x4.h"
 #include "Entity.h"
+#include "Layer.h"
 
 #include <SDL.h>
 
 #include <vector>
 
-class Layer;
 class System;
 
 class LayersEngine
@@ -26,6 +26,14 @@ public:
 	bool isTouchActive() { return touchActive; }
 	Vector2<float> getTouchPosition() { return touchPosition; }
 	void run();
+	template<class TLayer> Layer* getLayer() {
+		for (Layer* layer : getLayers()){
+			if (layer->isClass<TLayer>())
+				return layer;
+		}
+		return nullptr;
+	}
+
 private:
 	SDL_Window* window;
 	std::vector<Layer*> layers;
