@@ -2,9 +2,9 @@
 
 #include "Layer.h"
 
-class MainMenuLayer : public Layer
+class MainMenuLayer : public BaseLayer<MainMenuLayer>
 {
 public:
-	MainMenuLayer() : Layer(true) {}
+	MainMenuLayer() : BaseLayer(true) {}
 	void load();
 };

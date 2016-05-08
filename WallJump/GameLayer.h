@@ -2,9 +2,9 @@
 
 #include "Layer.h"
 
-class GameLayer : public Layer
+class GameLayer : public BaseLayer<GameLayer>
 {
 public:
-	GameLayer() : Layer(true) {}
+	GameLayer() : BaseLayer(false) {}
 	void load();
 };
