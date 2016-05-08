@@ -106,10 +106,9 @@ void LayersEngine::run() {
 		deltaTime = (currentTick - lastTick) / 1000.f;
 		lastTick = currentTick;
 
-
 		glClear(GL_COLOR_BUFFER_BIT);
 		std::vector<ClassId> runSystems;
-		for (System* system : systems){
+		for (System* system : activeSystems){
 			bool found = false;
 			for (ClassId id : runSystems)
 				if (id == system->getId()){
