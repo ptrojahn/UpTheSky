@@ -19,6 +19,8 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	loadGLFunctions(SDL_GL_GetProcAddress);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	updateSystems = false;
+	updateEntities = false;
 
 	//Transform the origin to the top left corner and set width and height to the aspect ratio
 	Matrix4x4 logicalMatrix(2.f / (float)logicalScreenSize.x, 0,                                           0, -1,
@@ -48,24 +50,24 @@ void LayersEngine::addEntity(Entity* entity) {
 	for (std::vector<Entity*>::iterator iterEntities = entities.begin(); iterEntities != entities.end(); iterEntities++){
 		if ((*iterEntities)->getPriority() < entity->getPriority()){
 			entities.insert(iterEntities, entity);
-			updateActiveEntities();
+			activeEntitiesChanged();
 			return;
 		}
 	}
 	entities.push_back(entity);
-	updateActiveEntities();
+	activeEntitiesChanged();
 }
 
 void LayersEngine::addSystem(System* system) {
 	for (std::vector<System*>::iterator iterSystems = systems.begin(); iterSystems != systems.end(); iterSystems++){
 		if ((*iterSystems)->getPriority() < system->getPriority()){
 			systems.insert(iterSystems, system);
-			updateActiveSystems();
+			activeSystemsChanged();
 			return;
 		}
 	}
 	systems.push_back(system);
-	updateActiveSystems();
+	activeSystemsChanged();
 }
 
 std::vector<Entity*>::iterator LayersEngine::deleteEntity(Entity* entity) {
@@ -90,12 +92,21 @@ void LayersEngine::run() {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)){
 		}
+		if (updateEntities){
+			updateActiveEntities();
+			updateEntities = false;
+		}
+		if (updateSystems){
+			updateActiveSystems();
+			updateSystems = false;
+		}
+
 		Vector2<int> touchPosPhys;
 		if (SDL_GetMouseState(&touchPosPhys.x, &touchPosPhys.y) == SDL_BUTTON(SDL_BUTTON_LEFT)){
 			touchActive = true;
 			float width = (float)logicalScreenSize.x / (float)logicalScreenSize.y > (float)physicalScreenSize.x / (float)physicalScreenSize.y ?
 				(float)physicalScreenSize.x : (float)logicalScreenSize.x / (float)logicalScreenSize.y * (float)physicalScreenSize.y;
-			float height = logicalScreenSize.x / (float)logicalScreenSize.y > (float)physicalScreenSize.x > (float)physicalScreenSize.y ?
+			float height = logicalScreenSize.x / (float)logicalScreenSize.y > (float)physicalScreenSize.x / (float)physicalScreenSize.y ?
 				(float)logicalScreenSize.y / (float)logicalScreenSize.x * (float)physicalScreenSize.x : (float)physicalScreenSize.y;
 			touchPosition = (Vector2<float>(touchPosPhys.x, touchPosPhys.y) - Vector2<float>((physicalScreenSize.x - width) / 2, (physicalScreenSize.y - height) / 2)) 
 				/ Vector2<float>(width, height) * Vector2<float>(logicalScreenSize.x, logicalScreenSize.y);
@@ -120,7 +131,6 @@ void LayersEngine::run() {
 			system->update(*this);
 			runSystems.push_back(system->getId());
 		}
-
 		SDL_GL_SwapWindow(window);
 	}
 }

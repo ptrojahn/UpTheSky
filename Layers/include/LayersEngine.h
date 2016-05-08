@@ -25,8 +25,6 @@ public:
 	Matrix4x4 getProjectionMatrix() { return projectionMatrix; }
 	bool isTouchActive() { return touchActive; }
 	Vector2<float> getTouchPosition() { return touchPosition; }
-	void updateActiveEntities();
-	void updateActiveSystems();
 	void run();
 private:
 	SDL_Window* window;
@@ -36,15 +34,21 @@ private:
 	std::vector<System*> systems;
 	std::vector<System*> activeSystems;
 	float deltaTime;
-	Vector2<float> touchPosition;
 	bool touchActive;
+	bool updateEntities;
+	bool updateSystems;
+	Vector2<float> touchPosition;
 	Vector2<int> logicalScreenSize;
 	Vector2<int> physicalScreenSize;
 	Matrix4x4 projectionMatrix;
 	uint32_t lastTick;
+	void updateActiveEntities();
+	void updateActiveSystems();
 
 	friend class Layer;
 	void addEntity(Entity* entity);
 	void addSystem(System* system);
 	std::vector<Entity*>::iterator deleteEntity(Entity* entity);
+	void activeEntitiesChanged() { updateEntities = true; }
+	void activeSystemsChanged() { updateSystems = true; }
 };

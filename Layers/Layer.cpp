@@ -1,8 +1,6 @@
 #include "Layer.h"
 
-Layer::Layer(bool startEnabled) {
-	enabled = startEnabled;
-}
+#include "System.h"
 
 void Layer::addSystem(System* system) {
 	system->setLayer(this);
@@ -25,15 +23,15 @@ void Layer::update() {
 void Layer::enable() {
 	if (!enabled){
 		enabled = true;
-		engine->updateActiveEntities();
-		engine->updateActiveSystems();
+		engine->activeEntitiesChanged();
+		engine->activeSystemsChanged();
 	}
 }
 
 void Layer::disable() {
 	if (enabled){
 		enabled = false;
-		engine->updateActiveEntities();
-		engine->updateActiveSystems();
+		engine->activeEntitiesChanged();
+		engine->activeSystemsChanged();
 	}
 }
