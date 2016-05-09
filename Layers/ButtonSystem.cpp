@@ -12,8 +12,8 @@ void ButtonSystem::update(LayersEngine& engine) {
 			Vector2<int> mousePosPhys;
 			if (engine.isTouchActive()){
 				TransformComponent* transformComponent = entity->getComponent<TransformComponent>();
-				if (transformComponent->position.x > engine.getTouchPosition().x - buttonComponent->size.x / 2 && transformComponent->position.x < engine.getTouchPosition().x + buttonComponent->size.x / 2
-					&& transformComponent->position.y > engine.getTouchPosition().y - buttonComponent->size.y / 2 && transformComponent->position.y < engine.getTouchPosition().y + buttonComponent->size.y / 2
+				if (engine.getTouchPosition().x > transformComponent->position.x && engine.getTouchPosition().x < transformComponent->position.x + buttonComponent->size.x
+					&& engine.getTouchPosition().y > transformComponent->position.y && engine.getTouchPosition().y < transformComponent->position.y + buttonComponent->size.y
 					&& !buttonComponent->pressed){
 					buttonComponent->onClick(entity);
 					buttonComponent->pressed = true;
