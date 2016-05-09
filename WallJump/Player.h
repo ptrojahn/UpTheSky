@@ -17,6 +17,7 @@ class PlayerSystem : public BaseSystem<PlayerSystem>
 public:
 	PlayerSystem() : BaseSystem(4) {}
 	void update(LayersEngine& engine);
+	static std::vector<Entity*>::iterator onPlayerDeath(Entity* player);
 	static const Vector2<float> playerSize;
 	static const Vector2<float> jumpVelocity;
 	static const float gravity;

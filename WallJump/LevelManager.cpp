@@ -242,7 +242,10 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 	//Remove entities that are no longer visible
 	for (std::vector<Entity*>::iterator iterEntities = engine.getEntities().begin(); iterEntities != engine.getEntities().end();){
 		if ((*iterEntities)->getComponent<ScrollComponent>() && (*iterEntities)->getComponent<TransformComponent>()->position.y > engine.getLogicalScreenSize().y){
-			iterEntities = getLayer()->deleteEntity((*iterEntities));
+			if ((*iterEntities)->getComponent<PlayerComponent>())
+				iterEntities = PlayerSystem::onPlayerDeath((*iterEntities));
+			else
+				iterEntities = getLayer()->deleteEntity((*iterEntities));
 		} else
 			iterEntities++;
 	}

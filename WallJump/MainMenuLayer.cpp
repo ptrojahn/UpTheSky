@@ -46,10 +46,10 @@ void MainMenuLayer::load() {
 
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent())
-		->addComponent(new ButtonComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2, getEngine()->getLogicalScreenSize().y - 2), &jumpLeft)));
+		->addComponent(new ButtonComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f, getEngine()->getLogicalScreenSize().y - 2), &jumpLeft)));
 	addEntity((new Entity(0))
-		->addComponent(new TransformComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2, 0)))
-		->addComponent(new ButtonComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2, getEngine()->getLogicalScreenSize().y - 2), &jumpRight)));
+		->addComponent(new TransformComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f, 0)))
+		->addComponent(new ButtonComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f, getEngine()->getLogicalScreenSize().y - 2), &jumpRight)));
 
 	addSystem(new ButtonSystem(1));
 	addSystem(new RenderSystem(0));

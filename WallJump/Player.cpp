@@ -3,6 +3,12 @@
 #include "TransformComponent.h"
 #include "StaticColliderComponent.h"
 #include "LethalTriggerComponent.h"
+#include "PlayerLayer.h"
+#include "LevelManager.h"
+#include "Scroll.h"
+#include "RenderComponent.h"
+#include "GameLayer.h"
+#include "MainMenuLayer.h"
 #include "Layer.h"
 #include "helper.h"
 
@@ -82,7 +88,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 					TransformComponent* triggerTransformComponent = entity->getComponent<TransformComponent>();
 					Vector2<float> triggerSize = triggerComponent->size * triggerTransformComponent->scale;
 					if (intersect(transformComponent->position, playerSize, triggerTransformComponent->position, triggerSize)){
-						playerEntity->getLayer()->disable();
+						onPlayerDeath(playerEntity);
 						break;
 					}
 				}
@@ -90,4 +96,29 @@ void PlayerSystem::update(LayersEngine& engine) {
 			break;
 		}
 	}
+}
+
+std::vector<Entity*>::iterator PlayerSystem::onPlayerDeath(Entity* player) {
+	player->getLayer()->getEngine()->getLayer<GameLayer>()->disable();
+	player->getLayer()->getEngine()->getLayer<MainMenuLayer>()->enable();
+
+	//Reset game layer
+	for (std::vector<Entity*>::iterator entityIter = player->getLayer()->getEngine()->getEntities().begin(); entityIter != player->getLayer()->getEngine()->getEntities().end();){
+		if ((*entityIter)->getLayer()->isClass<GameLayer>() && (*entityIter)->getComponent<ScrollComponent>())
+			entityIter = player->getLayer()->deleteEntity((*entityIter));
+		else 
+			entityIter++;
+	}
+	player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(400))
+		->addComponent(new LevelManagerHelperComponent())
+		->addComponent(new TransformComponent(Vector2<float>(0, 2)))
+		->addComponent(new ScrollComponent()));
+
+	//Reset the player
+	player->getLayer()->addEntity((new Entity(100))
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("player.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))))
+		->addComponent(new TransformComponent(Vector2<float>(player->getLayer()->getEngine()->getLogicalScreenSize().x / 2.f - 0.5, player->getLayer()->getEngine()->getLogicalScreenSize().y / 2.f - 1)))
+		->addComponent(new PlayerComponent())
+		->addComponent(new ScrollComponent()));
+	return player->getLayer()->deleteEntity(player);
 }
