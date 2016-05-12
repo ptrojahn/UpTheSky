@@ -74,6 +74,7 @@
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="BufferManager.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BufferManager.h" />
@@ -89,6 +90,8 @@
     <ClInclude Include="include\RenderComponent.h" />
     <ClInclude Include="include\RenderSystem.h" />
     <ClInclude Include="include\System.h" />
+    <ClInclude Include="include\TextureComponent.h" />
+    <ClInclude Include="include\TextureManager.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\UniformsComponent.h" />
     <ClInclude Include="include\Vector2.h" />

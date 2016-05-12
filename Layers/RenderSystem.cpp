@@ -3,6 +3,7 @@
 #include "RenderComponent.h"
 #include "TransformComponent.h"
 #include "UniformsComponent.h"
+#include "TextureComponent.h"
 
 #include <math.h>
 
@@ -66,6 +67,11 @@ void RenderSystem::update(LayersEngine& engine) {
 						glUniform1i(uniform.location, *(bool*)&uniform.data[0] == true ? 1 : 0);
 					}
 				}
+			}
+
+			TextureComponent* textureComponent = entity->getComponent<TextureComponent>();
+			if (textureComponent){
+				TextureManager::instance().bindTexture(textureComponent->textureId);
 			}
 			
 			glUniformMatrix4fv(renderComponent->shaderMatrixId, 1, GL_FALSE, finalMatrix.values);
