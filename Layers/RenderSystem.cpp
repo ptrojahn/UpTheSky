@@ -44,7 +44,7 @@ void RenderSystem::update(LayersEngine& engine) {
 
 			UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
 			if (uniforms){
-				for (Uniform uniform : uniforms->uniforms){
+				for (Uniform& uniform : uniforms->uniforms){
 					if (uniform.type == UniformFloat){
 						if (uniform.location == 0)
 							uniform.location = glGetUniformLocation(renderComponent->shaderId, uniform.name.c_str());
@@ -65,6 +65,10 @@ void RenderSystem::update(LayersEngine& engine) {
 						if (uniform.location == 0)
 							uniform.location = glGetUniformLocation(renderComponent->shaderId, uniform.name.c_str());
 						glUniform1i(uniform.location, *(bool*)&uniform.data[0] == true ? 1 : 0);
+					} else if (uniform.type == UniformInt){
+						if (uniform.location == 0)
+							uniform.location = glGetUniformLocation(renderComponent->shaderId, uniform.name.c_str());
+						glUniform1i(uniform.location, *(int*)&uniform.data[0]);
 					}
 				}
 			}

@@ -8,7 +8,8 @@ enum UniformType
 	UniformFloat2,
 	UniformFloat3,
 	UniformFloat4,
-	UniformBool
+	UniformBool,
+	UniformInt
 };
 
 class Uniform
@@ -43,6 +44,11 @@ public:
 	Uniform(std::string name, bool v0) : name(name), type(UniformBool) {
 		data.resize(sizeof(bool));
 		*(bool*)&data[0] = v0;
+		location = 0;
+	}
+	Uniform(std::string name, int v0) : name(name), type(UniformInt) {
+		data.resize(sizeof(int));
+		(*(int*)&data[0]) = v0;
 		location = 0;
 	}
 
