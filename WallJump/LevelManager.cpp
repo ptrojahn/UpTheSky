@@ -241,7 +241,6 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 							UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
 							(*(int*)&uniforms->uniforms[0].data[0])++;
 							*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
-							SDL_Log(std::to_string(*(int*)&uniforms->uniforms[0].data[0]).c_str());
 							break;
 						}
 					}
