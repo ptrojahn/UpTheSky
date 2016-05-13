@@ -80,6 +80,9 @@
     <ClInclude Include="LethalTriggerComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\levelGeometry.frag">
@@ -122,6 +125,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="..\assets\yellow.frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\score.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\assets\score.frag">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

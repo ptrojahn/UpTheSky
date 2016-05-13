@@ -6,6 +6,8 @@
 #include "StaticColliderComponent.h"
 #include "GhostWall.h"
 #include "UniformsComponent.h"
+#include "PlayerLayer.h"
+#include "ScoreComponent.h"
 
 float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);
@@ -212,6 +214,7 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 				distance -= 2;
 				float lengthLeft = 1;
 				float lengthRight = 1;
+
 				if (helperComponent->firstUse){
 					getLayer()->addEntity((new Entity(200))
 						->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
@@ -232,8 +235,19 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 					helperComponent->playerPosition = LevelManagerHelperComponent::Right;
 					helperComponent->firstUse = false;
 					distance -= 2;
-				} else
+				} else{
+					for (Entity* entity : engine.getEntities()){
+						if (entity->getComponent<ScoreComponent>()){
+							UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
+							(*(int*)&uniforms->uniforms[0].data[0])++;
+							*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
+							SDL_Log(std::to_string(*(int*)&uniforms->uniforms[0].data[0]).c_str());
+							break;
+						}
+					}
+
 					addBlocks(helperComponent, distance);
+				}
 			}
 			break;
 		}
