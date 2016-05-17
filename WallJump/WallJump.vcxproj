@@ -72,6 +72,7 @@
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="GhostWall.cpp" />
     <ClCompile Include="helper.cpp" />
+    <ClCompile Include="HighScoreUpdateSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuLayer.cpp" />
     <ClCompile Include="LevelManager.cpp" />
@@ -83,6 +84,8 @@
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="HighScoreComponent.h" />
+    <ClInclude Include="HighScoreUpdateSystem.h" />
     <ClInclude Include="LethalTriggerComponent.h" />
     <ClInclude Include="MainMenuLayer.h" />
     <ClInclude Include="LevelManager.h" />
