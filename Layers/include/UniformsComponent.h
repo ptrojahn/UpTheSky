@@ -1,6 +1,8 @@
 #include "Component.h"
 
+#include "glFunctions.h"
 #include <vector>
+#include <string>
 
 enum UniformType
 {
@@ -48,7 +50,7 @@ public:
 	}
 	Uniform(std::string name, int v0) : name(name), type(UniformInt) {
 		data.resize(sizeof(int));
-		(*(int*)&data[0]) = v0;
+		*(int*)&data[0] = v0;
 		location = 0;
 	}
 
