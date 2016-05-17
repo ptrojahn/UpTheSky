@@ -10,6 +10,7 @@ class Entity
 {
 public:
 	Entity(int updatePriority);
+	~Entity();
 	int getPriority() { return priority; }
 	Entity* addComponent(Component* component);
 	Layer* getLayer() { return layer; }
