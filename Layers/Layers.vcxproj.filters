@@ -51,6 +51,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SharedPreferences.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LayersEngine.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="include\TextureComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SharedPreferences.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
