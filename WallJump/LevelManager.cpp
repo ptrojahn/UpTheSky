@@ -13,9 +13,78 @@ float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);
 }
 
+void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX) {
+	int maxWidth = 4;
+	float playerPos = jumpFunction(position.x - minX) + position.y;
+	if (playerPos < -4.25f - jumpDifficultyReduction || playerPos > 0){
+		for (int width = (minX - 0.5f)*2 + 1; width <= maxWidth; width++){
+			playerPos = jumpFunction(fabsf(position.x - (0.5f + width*0.5f))) + position.y;
+			if (playerPos > -4.25f - jumpDifficultyReduction && playerPos < 0){
+				//This is the first width that is not allowed
+				maxWidth = width - 1;
+				break;
+			}
+		}
+	} else
+		maxWidth = (minX - 0.5f) * 2.f;
+	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
+	float xPos = 0.5f - 4.f + wallWidthGenerator(randDevice) * 0.5f;
+	getLayer()->addEntity((new Entity(200))
+	->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "blue.frag"),
+	BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
+	->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
+	->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
+	->addComponent(new ScrollComponent()));
+	getLayer()->addEntity((new Entity(200))
+	->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+	BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
+	->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
+	->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
+	->addComponent(new ScrollComponent()));
+}
+
+void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDifficultyReduction, float distance, float maxX) {
+	int maxWidth = 4;
+	float playerPos = jumpFunction(position.x + 1.f - (8.5f - maxX)) + position.y;
+	if (playerPos < -4.25f - jumpDifficultyReduction || playerPos > 0){
+		for (int width = (8.5f - maxX)*2.f + 1; width <= maxWidth; width++){
+			playerPos = jumpFunction(fabsf(position.x + 1.f - (8.5f - width*0.5f))) + position.y;
+			if (playerPos > -4.25f - jumpDifficultyReduction && playerPos < 0){
+				//This is the first width that is not allowed
+				maxWidth = width - 1;
+				break;
+			}
+		}
+	} else
+		maxWidth = (8.5f - maxX) * 2.f;
+	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
+	float xPos = 8.5f - wallWidthGenerator(randDevice) * 0.5f;
+	getLayer()->addEntity((new Entity(200))
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "green.frag"),
+		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
+		->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
+		->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
+		->addComponent(new ScrollComponent()));
+	getLayer()->addEntity((new Entity(200))
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
+		->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
+		->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
+		->addComponent(new ScrollComponent()));
+}
+
 void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent, float distance) {
 	helperComponent->jumpStartYMin += 2;
 	helperComponent->jumpStartYMax += 2;
+
+	int score = 0;
+	for (Entity* entity : this->getLayer()->getEngine()->getEntities()){
+		if (entity->getComponent<ScoreComponent>()){
+			score = *(int*)&entity->getComponent<UniformsComponent>()->uniforms[0].data[0];
+			break;
+		}
+	}
+	float jumpDifficultyReduction = std::max(0.f, (100 - score) / 50.f);
 
 	if (helperComponent->playerPosition == LevelManagerHelperComponent::Right){
 		//Player is on the right side
@@ -35,32 +104,9 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 			helperComponent->jumpStartYMin -= 2;
 		} else {
-			//Right side clutter
-			int maxWidth = 4;
-			int minWidth = (8.5 - helperComponent->jumpStartX) * 2;
-			for (int width = minWidth + 1; width <= maxWidth; width++){
-				if (jumpFunction(helperComponent->jumpStartX - (8.5 - width * 0.5)) + helperComponent->jumpStartYMin < 0){
-					//This is the first wall width that would cause a collision with the player
-					maxWidth = width - 1;
-					break;
-				}
-			}
-			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth - 1);
-			float xPos = 8.5 - wallWidthGenerator(mtEngine) * 0.5;
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "green.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
-				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
-				->addComponent(new ScrollComponent()));
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
-				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
-				->addComponent(new ScrollComponent()));
+			addClutterRight(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpStartX);
 		}
-		if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + helperComponent->jumpStartYMin > -2){
+		if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + helperComponent->jumpStartYMin + jumpDifficultyReduction > -2){
 			//Start wall on the left side
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
@@ -75,39 +121,15 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
 				->addComponent(new ScrollComponent()));
 			helperComponent->playerPosition = LevelManagerHelperComponent::Left;
-			std::uniform_int_distribution<int> wallHeightGenerator(4, 8);
-			helperComponent->height = wallHeightGenerator(mtEngine);
+			int minHeight = 2 + std::max(0, (100 - score) / 50);
+			std::uniform_int_distribution<int> wallHeightGenerator(minHeight, minHeight + 2);
+			helperComponent->height = wallHeightGenerator(mtEngine)*2;
 			helperComponent->jumpStartYMin = -4 + distance;
 			helperComponent->jumpStartYMax = helperComponent->jumpStartYMin + 4;
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
 			helperComponent->jumpDestX = 6.5 + rand() % 4 * 0.5;
 		} else {
-			//Left side clutter
-			int maxWidth = 4;
-			if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
-				int minWidth = (helperComponent->jumpDestX - 0.5) * 2 + 1;
-				for (int width = minWidth; width <= maxWidth; width++){
-					if (jumpFunction(8.5 - width * 0.5 - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
-						//This is the first width that is not allowed
-						maxWidth = width - 1;
-						break;
-					}
-				}
-			}
-			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
-			float xPos = 0.5 - 4 + wallWidthGenerator(mtEngine) * 0.5;
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "blue.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
-				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
-				->addComponent(new ScrollComponent()));
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
-				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
-				->addComponent(new ScrollComponent()));
+			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX);
 		}
 	} else {
 		//Player is on the left side
@@ -127,32 +149,9 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 			helperComponent->jumpStartYMin -= 2;
 		} else {
-			//Left side clutter
-			int maxWidth = 4;
-			int minWidth = (helperComponent->jumpStartX - 0.5) * 2;
-			for (int width = minWidth + 1; width <= maxWidth; width++){
-				if (jumpFunction(width * 0.5 + 0.5 - helperComponent->jumpStartX) + helperComponent->jumpStartYMin < 0){
-					//This is the first wall width that would cause a collision with the player
-					maxWidth = width - 1;
-					break;
-				}
-			}
-			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
-			float xPos = wallWidthGenerator(mtEngine) * 0.5 - 4 + 0.5;
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "green.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
-				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
-				->addComponent(new ScrollComponent()));
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
-				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
-				->addComponent(new ScrollComponent()));
+			addClutterLeft(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpStartX);
 		}
-		if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + helperComponent->jumpStartYMin > -2){
+		if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + helperComponent->jumpStartYMin + jumpDifficultyReduction > -2){
 			//Start wall on the right side
 			getLayer()->addEntity((new Entity(200))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
@@ -167,39 +166,15 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
 				->addComponent(new ScrollComponent()));
 			helperComponent->playerPosition = LevelManagerHelperComponent::Right;
-			std::uniform_int_distribution<int> wallHeightGenerator(4, 8);
-			helperComponent->height = wallHeightGenerator(mtEngine);
+			int minHeight = 2 + std::max(0, (100 - score) / 50);
+			std::uniform_int_distribution<int> wallHeightGenerator(minHeight, minHeight + 4);
+			helperComponent->height = wallHeightGenerator(mtEngine)*2;
 			helperComponent->jumpStartYMin = -4 + distance;
 			helperComponent->jumpStartYMax = helperComponent->jumpStartYMin + 4;
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
 			helperComponent->jumpDestX = 0.5 + rand() % 4 * 0.5;
 		} else {
-			//Right side clutter
-			int maxWidth = 4;
-			if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
-				int minWidth = (8.5 - helperComponent->jumpDestX) * 2 + 1;
-				for (int width = minWidth; width <= maxWidth; width++){
-					if (jumpFunction(8.5 - width * 0.5 - helperComponent->jumpStartX - 1) + (helperComponent->jumpStartYMax - helperComponent->height) + 2 > -2.25){
-						//This is the first width that is not allowed
-						maxWidth = width - 1;
-						break;
-					}
-				}
-			}
-			std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
-			float xPos = 8.5 - wallWidthGenerator(mtEngine) * 0.5;
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "blue.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
-				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
-				->addComponent(new ScrollComponent()));
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
-				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
-				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
-				->addComponent(new ScrollComponent()));
+			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX);
 		}
 	}
 }
@@ -231,6 +206,7 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 					helperComponent->jumpStartX = 7.5;
 					helperComponent->jumpStartYMin = -4;
 					helperComponent->jumpStartYMax = 0;
+					helperComponent->height = 4;
 					helperComponent->jumpDestX = 0.5 + rand() % 4 * 0.5;
 					helperComponent->playerPosition = LevelManagerHelperComponent::Right;
 					helperComponent->firstUse = false;
@@ -244,7 +220,6 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 							break;
 						}
 					}
-
 					addBlocks(helperComponent, distance);
 				}
 			}
