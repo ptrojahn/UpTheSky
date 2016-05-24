@@ -23,16 +23,14 @@ void HighScoreUpdateSystem::update(LayersEngine& engine) {
 							UniformsComponent* uniforms = highScore->getComponent<UniformsComponent>();
 							*(int*)&uniforms->uniforms[0].data[0] = *(int*)&score->getComponent<UniformsComponent>()->uniforms[0].data[0];
 							*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
-							SharedPreferences preferences = SharedPreferences::getSharedPreferences();
-							preferences.putInt("highScore", *(int*)&score->getComponent<UniformsComponent>()->uniforms[0].data[0]);
-							preferences.apply();
+							SharedPreferences::getSharedPreferences().putInt("highScore", *(int*)&score->getComponent<UniformsComponent>()->uniforms[0].data[0]);
+							SharedPreferences::getSharedPreferences().apply();
 							break;
 						} else if (*(int*)&highScore->getComponent<UniformsComponent>()->uniforms[0].data[0] == 0){
 							//The game started: Load highscore from SharedPreferences
 							highScoreComponent->updated = true;
 							UniformsComponent* uniforms = highScore->getComponent<UniformsComponent>();
-							SharedPreferences preferences = SharedPreferences::getSharedPreferences();
-							*(int*)&uniforms->uniforms[0].data[0] = preferences.getInt("highScore", 0);
+							*(int*)&uniforms->uniforms[0].data[0] = SharedPreferences::getSharedPreferences().getInt("highScore", 0);
 							*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
 							break;
 						}
