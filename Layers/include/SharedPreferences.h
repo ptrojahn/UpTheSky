@@ -17,7 +17,6 @@ public:
 	void apply();
 private:
 #ifdef ANDROID
-	JNIEnv* jni;
 	jobject sharedPrefs;
 	jobject sharedPrefsEditor;
 	jmethodID putIntMethod;
