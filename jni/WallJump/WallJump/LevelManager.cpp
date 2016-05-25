@@ -43,7 +43,7 @@ void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDiffi
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 	float xPos = 0.5f - 4.f + wallWidthGenerator(randDevice) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "blue.frag"),
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
 		->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
@@ -86,7 +86,7 @@ void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDiff
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 	float xPos = 8.5f - wallWidthGenerator(randDevice) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "green.frag"),
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
 		->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
@@ -125,7 +125,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		if (helperComponent->jumpStartYMax - helperComponent->jumpStartYMin + 0.1 < helperComponent->height){
 			//extend right wall
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "yellow.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpStartX, -2 + distance)))
 				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
@@ -170,7 +170,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		if (helperComponent->jumpStartYMax - helperComponent->jumpStartYMin + 0.1 < helperComponent->height){
 			//Extend left wall
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "yellow.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpStartX - 4, -2 + distance)))
 				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))

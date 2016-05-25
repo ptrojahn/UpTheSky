@@ -127,15 +127,6 @@
     <None Include="..\assets\levelGeometryGhost.frag">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\assets\green.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\blue.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\yellow.frag">
-      <Filter>Shader</Filter>
-    </None>
     <None Include="..\assets\score.vert">
       <Filter>Shader</Filter>
     </None>
