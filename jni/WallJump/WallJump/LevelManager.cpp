@@ -84,7 +84,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			break;
 		}
 	}
-	float jumpDifficultyReduction = std::max(0.f, (100 - score) / 50.f);
+	float jumpDifficultyReduction = std::max(0.f, (100 - score) / 50.f) + 0.25;
 
 	if (helperComponent->playerPosition == LevelManagerHelperComponent::Right){
 		//Player is on the right side
