@@ -13,12 +13,21 @@ float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);
 }
 
-void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX) {
+bool genHorizontalSpikes(int score, std::random_device& randDevice) {
+	if (score > 75){
+		std::uniform_int_distribution<int> horizontalSpikes(0, std::max((200 - (score - 75)) / 20, 1));
+		return horizontalSpikes(randDevice) == 0;
+	}
+	return false;
+}
+
+void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score) {
+	bool genRightSpikes = genHorizontalSpikes(score, randDevice);
 	int maxWidth = 4;
-	float playerPos = jumpFunction(position.x - minX) + position.y;
+	float playerPos = jumpFunction(position.x - (minX + genRightSpikes*0.25f)) + position.y;
 	if (playerPos < -4.25f - jumpDifficultyReduction || playerPos > 0){
 		for (int width = (minX - 0.5f)*2 + 1; width <= maxWidth; width++){
-			playerPos = jumpFunction(fabsf(position.x - (0.5f + width*0.5f))) + position.y;
+			playerPos = jumpFunction(fabsf(position.x - (0.5f + width*0.5f + genRightSpikes*0.25f))) + position.y;
 			if (playerPos > -4.25f - jumpDifficultyReduction && playerPos < 0){
 				//This is the first width that is not allowed
 				maxWidth = width - 1;
@@ -27,36 +36,53 @@ void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDiffi
 		}
 	} else
 		maxWidth = (minX - 0.5f) * 2.f;
+
+	if (minX == 0.5f + maxWidth*0.5f)
+		genRightSpikes = false;
+
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 	float xPos = 0.5f - 4.f + wallWidthGenerator(randDevice) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
-	->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "blue.frag"),
-	BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
-	->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
-	->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
-	->addComponent(new ScrollComponent()));
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "blue.frag"),
+			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
+		->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
+		->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
+		->addComponent(new ScrollComponent()));
 	getLayer()->addEntity((new Entity(200))
-	->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
-	BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
-	->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
-	->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
-	->addComponent(new ScrollComponent()));
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
+		->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
+		->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
+		->addComponent(new ScrollComponent()));
+	if (genRightSpikes){
+		getLayer()->addEntity((new Entity(200))
+			->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_right.frag"),
+			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.25, 2, 1, 8))))
+			->addComponent(new TransformComponent(Vector2<float>(xPos + 4, -2 + distance)))
+			->addComponent(new LethalTriggerComponent(Vector2<float>(0.25, 2)))
+			->addComponent(new ScrollComponent()));
+	}
 }
 
-void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDifficultyReduction, float distance, float maxX) {
+void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDifficultyReduction, float distance, float maxX, int score) {
+	bool genLeftSpikes = genHorizontalSpikes(score, randDevice);
 	int maxWidth = 4;
-	float playerPos = jumpFunction(position.x + 1.f - (8.5f - maxX)) + position.y;
+	float playerPos = jumpFunction(position.x + 1.f - (8.5f - (maxX - genLeftSpikes*0.25f))) + position.y;
 	if (playerPos < -4.25f - jumpDifficultyReduction || playerPos > 0){
 		for (int width = (8.5f - maxX)*2.f + 1; width <= maxWidth; width++){
-			playerPos = jumpFunction(fabsf(position.x + 1.f - (8.5f - width*0.5f))) + position.y;
+			playerPos = jumpFunction(fabsf(position.x + 1.f - (8.5f - width*0.5f - genLeftSpikes*0.25f))) + position.y;
 			if (playerPos > -4.25f - jumpDifficultyReduction && playerPos < 0){
 				//This is the first width that is not allowed
 				maxWidth = width - 1;
 				break;
 			}
 		}
-	} else
+	} else 
 		maxWidth = (8.5f - maxX) * 2.f;
+	
+	if (maxX == 8.5f - maxWidth * 0.5f)
+		genLeftSpikes = false;
+
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 	float xPos = 8.5f - wallWidthGenerator(randDevice) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
@@ -71,6 +97,14 @@ void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDiff
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
 		->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
 		->addComponent(new ScrollComponent()));
+	if (genLeftSpikes){
+		getLayer()->addEntity((new Entity(200))
+			->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_left.frag"),
+			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.25, 2, 1, 8))))
+			->addComponent(new TransformComponent(Vector2<float>(xPos -0.25, -2 + distance)))
+			->addComponent(new LethalTriggerComponent(Vector2<float>(0.25, 2)))
+			->addComponent(new ScrollComponent()));
+	}
 }
 
 void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent, float distance) {
@@ -104,7 +138,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 			helperComponent->jumpStartYMin -= 2;
 		} else {
-			addClutterRight(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpStartX);
+			addClutterRight(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpStartX, score);
 		}
 		if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + helperComponent->jumpStartYMin + jumpDifficultyReduction > -2){
 			//Start wall on the left side
@@ -129,7 +163,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
 			helperComponent->jumpDestX = 6.5 + rand() % 4 * 0.5;
 		} else {
-			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX);
+			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
 	} else {
 		//Player is on the left side
@@ -149,7 +183,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new ScrollComponent()));
 			helperComponent->jumpStartYMin -= 2;
 		} else {
-			addClutterLeft(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpStartX);
+			addClutterLeft(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpStartX, score);
 		}
 		if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + helperComponent->jumpStartYMin + jumpDifficultyReduction > -2){
 			//Start wall on the right side
@@ -174,7 +208,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
 			helperComponent->jumpDestX = 0.5 + rand() % 4 * 0.5;
 		} else {
-			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX);
+			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
 	}
 }

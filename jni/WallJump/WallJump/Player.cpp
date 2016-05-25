@@ -81,6 +81,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 				}
 			}
 			transformComponent->position += playerComponent->velocity * velocityFactor * engine.getDeltaTime();
+			SDL_Log("%f %f", transformComponent->position.x, transformComponent->position.y);
 
 			for (Entity* entity : engine.getEntities()){
 				LethalTriggerComponent* triggerComponent = entity->getComponent<LethalTriggerComponent>();
