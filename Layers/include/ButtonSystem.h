@@ -7,5 +7,5 @@ class ButtonSystem : public BaseSystem<ButtonSystem>
 public:
 	ButtonSystem(int updatePriority) : BaseSystem(updatePriority) {
 	}
-	void update(LayersEngine& data);
+	void update(LayersEngine& engine);
 };

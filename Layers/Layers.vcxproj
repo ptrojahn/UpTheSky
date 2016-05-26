@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationSystem.cpp" />
     <ClCompile Include="ButtonSystem.cpp" />
     <ClCompile Include="ClassId.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -78,6 +79,8 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AnimationComponent.h" />
+    <ClInclude Include="include\AnimationSystem.h" />
     <ClInclude Include="include\BufferManager.h" />
     <ClInclude Include="include\ButtonComponent.h" />
     <ClInclude Include="include\ClassId.h" />
