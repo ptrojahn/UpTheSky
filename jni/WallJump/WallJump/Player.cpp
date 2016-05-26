@@ -118,7 +118,7 @@ std::vector<Entity*>::iterator PlayerSystem::onPlayerDeath(Entity* player) {
 	//Reset the player
 	player->getLayer()->addEntity((new Entity(100))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("player.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))))
-		->addComponent(new TransformComponent(Vector2<float>(player->getLayer()->getEngine()->getLogicalScreenSize().x / 2.f - 0.5, player->getLayer()->getEngine()->getLogicalScreenSize().y / 2.f - 1)))
+		->addComponent(new TransformComponent(Vector2<float>(player->getLayer()->getEngine()->getLogicalScreenSize().x / 2.f - 1, player->getLayer()->getEngine()->getLogicalScreenSize().y / 2.f - 2), 0, Vector2<float>(2.f, 2.f)))
 		->addComponent(new PlayerComponent())
 		->addComponent(new ScrollComponent()));
 	return player->getLayer()->deleteEntity(player);
