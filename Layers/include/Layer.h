@@ -20,6 +20,7 @@ public:
 	void addEntity(Entity* entity);
 	std::vector<Entity*>::iterator deleteEntity(Entity* entity);
 	template<class TLayer> bool isClass() { return classId<TLayer>() == id; }
+	ClassId getId() { return id; }
 protected:
 	virtual void load() = 0;
 private:
