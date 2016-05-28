@@ -8,16 +8,18 @@ void AnimationSystem::update(LayersEngine& engine) {
 		if (animationComponent){
 			animationComponent->stateTime += engine.getDeltaTime();
 
-			AnimationState currentState = animationComponent->states[animationComponent->stateIndex];
+			AnimationState& currentState = animationComponent->states[animationComponent->stateIndex];
 			if (animationComponent->stateTime < currentState.length){
 				//Update current value
 				for (AnimationChange& change : currentState.animationChanges){
-					*change.pointer += (change.endValue - change.startValue) * (engine.getDeltaTime() / currentState.length);
+					float delta = (change.endValue - change.startValue) * (engine.getDeltaTime() / currentState.length);
+					*change.pointer += delta;
+					change.currentValue += delta;
 				}
 			} else {
 				//Update current value and update next value if possible
 				for (AnimationChange& change : currentState.animationChanges){
-					*change.pointer += (change.endValue - change.startValue) * (engine.getDeltaTime() - (animationComponent->stateTime - currentState.length));
+					*change.pointer += change.endValue - (change.currentValue + change.startValue);
 				}
 				animationComponent->stateIndex++;
 				if (animationComponent->stateIndex == animationComponent->states.size()){
@@ -29,7 +31,7 @@ void AnimationSystem::update(LayersEngine& engine) {
 				}
 				AnimationState newState = animationComponent->states[animationComponent->stateIndex];
 				for (AnimationChange& change : newState.animationChanges){
-					*change.pointer += (change.endValue - change.startValue) * ((animationComponent->stateTime - currentState.length) / newState.length);
+					*change.pointer += (change.endValue - change.startValue) * ((animationComponent->stateTime - currentState.length) / currentState.length) * (engine.getDeltaTime() / currentState.length);
 				}
 				animationComponent->stateTime = 0;
 			}

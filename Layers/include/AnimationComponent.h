@@ -5,10 +5,11 @@
 #include <vector>
 
 struct AnimationChange{
-	AnimationChange(float* pointer, float startValue, float endValue) : pointer(pointer), startValue(startValue), endValue(endValue) {}
+	AnimationChange(float* pointer, float startValue, float endValue) : pointer(pointer), startValue(startValue), endValue(endValue), currentValue(0) {}
 	float* pointer;
 	float startValue;
 	float endValue;
+	float currentValue;
 };
 
 struct AnimationState
@@ -25,7 +26,7 @@ public:
 		Once,
 		Loop
 	} animationType;
-	AnimationComponent(std::vector<AnimationState> states, AnimationType animationType) : states(states), animationType(animationType) {}
+	AnimationComponent(std::vector<AnimationState> states, AnimationType animationType) : states(states), animationType(animationType), stateIndex(0), stateTime(0) {}
 	std::vector<AnimationState> states;
 	unsigned int stateIndex;
 	float stateTime;
