@@ -1,7 +1,6 @@
 #include "HighScoreUpdateSystem.h"
 
 #include "GameLayer.h"
-#include "MainMenuLayer.h"
 #include "PlayerLayer.h"
 #include "ScoreComponent.h"
 #include "HighScoreComponent.h"

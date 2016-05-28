@@ -24,9 +24,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,11 +48,14 @@
     <ClCompile Include="HighScoreUpdateSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuLayerLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuLayerGraphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainMenuLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -91,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="HighScoreComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuLayerLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuLayerGraphics.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

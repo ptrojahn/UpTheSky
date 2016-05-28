@@ -22,7 +22,7 @@ void PlayerLayer::load() {
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("score.vert", "score.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.625, -1, 1.25, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(4.5, 2)))
 		->addComponent(new TextureComponent("numbers.bmp", GL_NEAREST))
-		->addComponent(new UniformsComponent({Uniform("score", 0), Uniform("length", 1)}))
+		->addComponent(new UniformsComponent({ Uniform("score", 0), Uniform("length", 1), Uniform("alpha", 1.f) }))
 		->addComponent(new ScoreComponent()));
 
 	addSystem(new AnimationSystem(10));

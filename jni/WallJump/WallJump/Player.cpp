@@ -8,7 +8,7 @@
 #include "Scroll.h"
 #include "RenderComponent.h"
 #include "GameLayer.h"
-#include "MainMenuLayer.h"
+#include "MainMenuLayerLogic.h"
 #include "Layer.h"
 #include "helper.h"
 
@@ -101,7 +101,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 
 std::vector<Entity*>::iterator PlayerSystem::onPlayerDeath(Entity* player) {
 	player->getLayer()->getEngine()->getLayer<GameLayer>()->disable();
-	player->getLayer()->getEngine()->getLayer<MainMenuLayer>()->enable();
+	player->getLayer()->getEngine()->getLayer<MainMenuLayerLogic>()->enable();
 
 	//Reset game layer
 	for (std::vector<Entity*>::iterator entityIter = player->getLayer()->getEngine()->getEntities().begin(); entityIter != player->getLayer()->getEngine()->getEntities().end();){

@@ -3,6 +3,7 @@ precision mediump float;
 uniform sampler2D numbers;
 uniform int length;
 uniform int score;
+uniform float alpha;
 
 varying vec2 uvPos;
 
@@ -14,5 +15,5 @@ void main(){
 	digit = mod(digit, 10.);
 
 	vec4 color = texture2D(numbers, vec2(digit * (10. / 128.) + fract(uvPos.x)*(10. / 128.), uvPos.y));
-	gl_FragColor = vec4(color.rgb, 1. - color.r);
+	gl_FragColor = vec4(color.rgb, (1. - color.r) * alpha);
 }

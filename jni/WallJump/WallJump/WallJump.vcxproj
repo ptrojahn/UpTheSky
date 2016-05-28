@@ -74,7 +74,8 @@
     <ClCompile Include="helper.cpp" />
     <ClCompile Include="HighScoreUpdateSystem.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuLayer.cpp" />
+    <ClCompile Include="MainMenuLayerGraphics.cpp" />
+    <ClCompile Include="MainMenuLayerLogic.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -87,7 +88,8 @@
     <ClInclude Include="HighScoreComponent.h" />
     <ClInclude Include="HighScoreUpdateSystem.h" />
     <ClInclude Include="LethalTriggerComponent.h" />
-    <ClInclude Include="MainMenuLayer.h" />
+    <ClInclude Include="MainMenuLayerGraphics.h" />
+    <ClInclude Include="MainMenuLayerLogic.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="PlayerLayer.h" />
     <ClInclude Include="Player.h" />
