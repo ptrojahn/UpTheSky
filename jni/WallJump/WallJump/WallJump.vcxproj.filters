@@ -45,9 +45,6 @@
     <ClCompile Include="helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HighScoreUpdateSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MainMenuLayerLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,12 +81,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="HighScoreUpdateSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HighScoreComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuLayerLogic.h">

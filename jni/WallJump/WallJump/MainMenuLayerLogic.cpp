@@ -8,8 +8,6 @@
 #include "TextureComponent.h"
 #include "UniformsComponent.h"
 #include "ScoreComponent.h"
-#include "HighScoreComponent.h"
-#include "HighScoreUpdateSystem.h"
 #include "GameLayer.h"
 #include "PlayerLayer.h"
 #include "Player.h"
@@ -30,18 +28,12 @@ void startGame(Entity* button, float direction) {
 			}, AnimationComponent::Once));
 		}
 	}
+	//Reset score
 	for (Entity* entity : button->getLayer()->getEngine()->getEntities()){
 		if (entity->getComponent<ScoreComponent>()){
 			UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
 			(*(int*)&uniforms->uniforms[0].data[0]) = 0;
 			*(int*)&uniforms->uniforms[1].data[0] = 1;
-			break;
-		}
-	}
-	for (Entity* highScore : button->getLayer()->getEngine()->getEntities()){
-		HighScoreComponent* highScoreComponent = highScore->getComponent<HighScoreComponent>();
-		if (highScoreComponent){
-			highScoreComponent->updated = false;
 			break;
 		}
 	}
