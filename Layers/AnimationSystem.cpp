@@ -6,9 +6,6 @@ void AnimationSystem::update(LayersEngine& engine) {
 	for (Entity* entity : engine.getEntities()){
 		AnimationComponent* animationComponent = entity->getComponent<AnimationComponent>();
 		if (animationComponent){
-			if (animationComponent->stateIndex == animationComponent->states.size())
-				return;
-
 			animationComponent->stateTime += engine.getDeltaTime();
 
 			AnimationState currentState = animationComponent->states[animationComponent->stateIndex];
@@ -24,9 +21,10 @@ void AnimationSystem::update(LayersEngine& engine) {
 				}
 				animationComponent->stateIndex++;
 				if (animationComponent->stateIndex == animationComponent->states.size()){
-					if (animationComponent->animationType == AnimationComponent::Once)
-						return;
-					else if (animationComponent->animationType == AnimationComponent::Loop)
+					if (animationComponent->animationType == AnimationComponent::Once){
+						entity->deleteComponent(animationComponent);
+						continue;
+					} else if (animationComponent->animationType == AnimationComponent::Loop)
 						animationComponent->stateIndex = 0;
 				}
 				AnimationState newState = animationComponent->states[animationComponent->stateIndex];

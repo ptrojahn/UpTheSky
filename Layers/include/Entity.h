@@ -13,6 +13,7 @@ public:
 	~Entity();
 	int getPriority() { return priority; }
 	Entity* addComponent(Component* component);
+	std::vector<Component*>::iterator deleteComponent(Component* component);
 	Layer* getLayer() { return layer; }
 
 	template<typename TComponent>
