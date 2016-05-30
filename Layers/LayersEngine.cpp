@@ -47,15 +47,23 @@ void LayersEngine::addLayer(Layer* layer) {
 }
 
 void LayersEngine::addEntity(Entity* entity) {
+	bool inserted = false;
 	for (std::vector<Entity*>::iterator iterEntities = entities.begin(); iterEntities != entities.end(); iterEntities++){
 		if ((*iterEntities)->getPriority() < entity->getPriority()){
 			entities.insert(iterEntities, entity);
-			activeEntitiesChanged();
+			inserted = true;
+			break;
+		}
+	}
+	if (!inserted)
+		entities.push_back(entity);
+	for (std::vector<Entity*>::iterator iterEntities = activeEntities.begin(); iterEntities != activeEntities.end(); iterEntities++){
+		if ((*iterEntities)->getPriority() < entity->getPriority()){
+			activeEntities.insert(iterEntities, entity);
 			return;
 		}
 	}
-	entities.push_back(entity);
-	activeEntitiesChanged();
+	activeEntities.push_back(entity);
 }
 
 void LayersEngine::addSystem(System* system) {
