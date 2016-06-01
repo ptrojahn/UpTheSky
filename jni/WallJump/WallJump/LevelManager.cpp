@@ -8,6 +8,8 @@
 #include "UniformsComponent.h"
 #include "PlayerLayer.h"
 #include "ScoreComponent.h"
+#include "SharedPreferences.h"
+#include "AnimationComponent.h"
 
 float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);
@@ -252,6 +254,28 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 							UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
 							(*(int*)&uniforms->uniforms[0].data[0])++;
 							*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
+
+							int highscore = SharedPreferences::getSharedPreferences().getInt("highscore");
+							if ((*(int*)&uniforms->uniforms[0].data[0]) == highscore + 1 && highscore != 0){
+								//Change score color to red
+								*(float*)&uniforms->uniforms[3].data[0] = 1.f;
+
+								TransformComponent* transform = entity->getComponent<TransformComponent>();
+								entity->addComponent(new AnimationComponent({ 
+									AnimationState({ 
+										AnimationChange(&transform->scale.x, 1.f, 1.2f),
+										AnimationChange(&transform->scale.y, 1.f, 1.2f),
+										AnimationChange(&transform->position.x, 0.f, -0.025f),
+										AnimationChange(&transform->position.y, 0.f, -0.1f)
+									}, 0.2),
+									AnimationState({
+										AnimationChange(&transform->scale.x, 1.2f, 1.f),
+										AnimationChange(&transform->scale.y, 1.2f, 1.f),
+										AnimationChange(&transform->position.x, -0.025f, 0.f),
+										AnimationChange(&transform->position.y, -0.1f, 0.f)
+									}, 0.2)
+								}, AnimationComponent::Once));
+							}
 							break;
 						}
 					}

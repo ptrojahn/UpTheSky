@@ -34,6 +34,7 @@ void startGame(Entity* button, float direction) {
 			UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
 			(*(int*)&uniforms->uniforms[0].data[0]) = 0;
 			*(int*)&uniforms->uniforms[1].data[0] = 1;
+			*(float*)&uniforms->uniforms[3].data[0] = 0.f;
 			break;
 		}
 	}
