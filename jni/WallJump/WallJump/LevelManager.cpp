@@ -246,6 +246,7 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 					helperComponent->firstUse = false;
 					distance -= 2;
 				} else{
+					//Increase score by one
 					for (Entity* entity : engine.getEntities()){
 						if (entity->getComponent<ScoreComponent>()){
 							UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();

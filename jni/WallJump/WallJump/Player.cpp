@@ -60,19 +60,19 @@ void PlayerSystem::update(LayersEngine& engine) {
 					TransformComponent* colliderTransformComponent = entity->getComponent<TransformComponent>();
 					Vector2<float> colliderSize = colliderComponent->size * colliderTransformComponent->scale;
 					if (intersect(futurePosition, playerSize, colliderTransformComponent->position, colliderSize)){
-						if (colliderTransformComponent->position.x - transformComponent->position.x - playerSize.x >= 0 && playerComponent->velocity.x > 0){
+						if (transformComponent->position.x + playerSize.x <= colliderTransformComponent->position.x && playerComponent->velocity.x > 0){
 							transformComponent->position.x = colliderTransformComponent->position.x - playerSize.x;
 							playerComponent->velocity.x = 0;
 							velocityFactor.x = 0;
-						} else if (transformComponent->position.x - colliderTransformComponent->position.x - colliderSize.x >= 0 && playerComponent->velocity.x < 0){
+						} else if (transformComponent->position.x >= colliderTransformComponent->position.x + colliderSize.x && playerComponent->velocity.x < 0){
 							transformComponent->position.x = colliderTransformComponent->position.x + colliderSize.x;
 							playerComponent->velocity.x = 0;
 							velocityFactor.x = 0;
-						} else if (transformComponent->position.y - colliderTransformComponent->position.y - colliderComponent->size.y >= 0 && playerComponent->velocity.y < 0){
+						} else if (transformComponent->position.y >= colliderTransformComponent->position.y + colliderComponent->size.y && playerComponent->velocity.y < 0){
 							transformComponent->position.y = colliderTransformComponent->position.y + colliderComponent->size.y;
 							playerComponent->velocity.y = 0;
 							velocityFactor.y = 0;
-						} else if (colliderTransformComponent->position.y - transformComponent->position.y - playerSize.y >= 0 && playerComponent->velocity.y > 0){
+						} else if (transformComponent->position.y + playerSize.y <= colliderTransformComponent->position.y && playerComponent->velocity.y > 0){
 							transformComponent->position.y = colliderTransformComponent->position.y - playerSize.y;
 							playerComponent->velocity.y = 0;
 							velocityFactor.y = 0;
@@ -81,7 +81,6 @@ void PlayerSystem::update(LayersEngine& engine) {
 				}
 			}
 			transformComponent->position += playerComponent->velocity * velocityFactor * engine.getDeltaTime();
-			SDL_Log("%f %f", transformComponent->position.x, transformComponent->position.y);
 
 			for (Entity* entity : engine.getEntities()){
 				LethalTriggerComponent* triggerComponent = entity->getComponent<LethalTriggerComponent>();
