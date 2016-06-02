@@ -19,6 +19,12 @@
     <Filter Include="Components">
       <UniqueIdentifier>{15c3df88-561d-4f3b-b529-08aed0c0d071}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\Vertex">
+      <UniqueIdentifier>{55e9dea6-a7d8-4c6c-bec3-f6b7c61dbe67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Fragment">
+      <UniqueIdentifier>{7967a195-3c27-4956-a5b9-7b25e407f125}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,43 +98,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\levelGeometry.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\levelGeometry.vert">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\mainMenuButton.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\mainMenuButton.vert">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\player.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\player.vert">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\spikes.vert">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\spikes_up.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\spikes_left.frag">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\assets\spikes_right.frag">
-      <Filter>Shader</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="..\assets\levelGeometryGhost.frag">
-      <Filter>Shader</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
-    <None Include="..\assets\score.vert">
-      <Filter>Shader</Filter>
+    <None Include="..\assets\mainMenuButton.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\player.frag">
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="..\assets\score.frag">
-      <Filter>Shader</Filter>
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\spikes_left.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\spikes_right.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\spikes_up.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\default.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="..\assets\defaultUV.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="..\assets\score.vert">
+      <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>
 </Project>

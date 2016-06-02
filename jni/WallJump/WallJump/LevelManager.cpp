@@ -45,20 +45,20 @@ void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDiffi
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 	float xPos = 0.5f - 4.f + wallWidthGenerator(randDevice) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
 		->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
 		->addComponent(new ScrollComponent()));
 	getLayer()->addEntity((new Entity(200))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_up.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
 		->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
 		->addComponent(new ScrollComponent()));
 	if (genRightSpikes){
 		getLayer()->addEntity((new Entity(200))
-			->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_right.frag"),
+			->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_right.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.25, 2, 1, 8))))
 			->addComponent(new TransformComponent(Vector2<float>(xPos + 4, -2 + distance)))
 			->addComponent(new LethalTriggerComponent(Vector2<float>(0.25, 2)))
@@ -88,20 +88,20 @@ void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDiff
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
 	float xPos = 8.5f - wallWidthGenerator(randDevice) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2 + distance)))
 		->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
 		->addComponent(new ScrollComponent()));
 	getLayer()->addEntity((new Entity(200))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_up.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 		->addComponent(new TransformComponent(Vector2<float>(xPos, -2.25 + distance)))
 		->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
 		->addComponent(new ScrollComponent()));
 	if (genLeftSpikes){
 		getLayer()->addEntity((new Entity(200))
-			->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_left.frag"),
+			->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_left.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.25, 2, 1, 8))))
 			->addComponent(new TransformComponent(Vector2<float>(xPos -0.25, -2 + distance)))
 			->addComponent(new LethalTriggerComponent(Vector2<float>(0.25, 2)))
@@ -127,13 +127,13 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		if (helperComponent->jumpStartYMax - helperComponent->jumpStartYMin + 0.1 < helperComponent->height){
 			//extend right wall
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpStartX, -2 + distance)))
 				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
 				->addComponent(new ScrollComponent()));
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_up.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpStartX, -2.25 + distance)))
 				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
@@ -145,13 +145,13 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		if (jumpFunction(helperComponent->jumpStartX - helperComponent->jumpDestX - 1) + helperComponent->jumpStartYMin + jumpDifficultyReduction > -2){
 			//Start wall on the left side
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpDestX - 4, -2 + distance)))
 				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
 				->addComponent(new ScrollComponent()));
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_up.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpDestX - 4, -2.25 + distance)))
 				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
@@ -172,13 +172,13 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		if (helperComponent->jumpStartYMax - helperComponent->jumpStartYMin + 0.1 < helperComponent->height){
 			//Extend left wall
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpStartX - 4, -2 + distance)))
 				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
 				->addComponent(new ScrollComponent()));
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_up.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpStartX - 4, -2.25 + distance)))
 				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
@@ -190,13 +190,13 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 		if (jumpFunction(helperComponent->jumpDestX - helperComponent->jumpStartX - 1) + helperComponent->jumpStartYMin + jumpDifficultyReduction > -2){
 			//Start wall on the right side
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpDestX, -2 + distance)))
 				->addComponent(new StaticColliderComponent(Vector2<float>(4, 2)))
 				->addComponent(new ScrollComponent()));
 			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("spikes.vert", "spikes_up.frag"),
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "spikes_up.frag"),
 				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 4, 0.25, 16, 1))))
 				->addComponent(new TransformComponent(Vector2<float>(helperComponent->jumpDestX, -2.25 + distance)))
 				->addComponent(new LethalTriggerComponent(Vector2<float>(4, 0.25)))
@@ -228,13 +228,13 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 
 				if (helperComponent->firstUse){
 					getLayer()->addEntity((new Entity(200))
-						->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+						->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 						BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 4))))
 						->addComponent(new TransformComponent(Vector2<float>(0.5, -4 + distance)))
 						->addComponent(new StaticColliderComponent(Vector2<float>(1, 4)))
 						->addComponent(new ScrollComponent()));
 					getLayer()->addEntity((new Entity(200))
-						->addComponent(new RenderComponent(ShaderManager::instance().createShader("levelGeometry.vert", "levelGeometry.frag"),
+						->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 						BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))))
 						->addComponent(new TransformComponent(Vector2<float>(7.5, -4 + distance)))
 						->addComponent(new StaticColliderComponent(Vector2<float>(1, 2)))
