@@ -7,6 +7,7 @@
 
 struct TextureData
 {
+	TextureData(GLuint id, std::string fileName) : id(id), fileName(fileName) {}
 	GLuint id;
 	std::string fileName;
 };
