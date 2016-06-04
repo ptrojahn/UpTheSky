@@ -57,13 +57,15 @@ void LayersEngine::addEntity(Entity* entity) {
 	}
 	if (!inserted)
 		entities.push_back(entity);
-	for (std::vector<Entity*>::iterator iterEntities = activeEntities.begin(); iterEntities != activeEntities.end(); iterEntities++){
-		if ((*iterEntities)->getPriority() < entity->getPriority()){
-			activeEntities.insert(iterEntities, entity);
-			return;
+	if (entity->getLayer()->isEnabled()){
+		for (std::vector<Entity*>::iterator iterEntities = activeEntities.begin(); iterEntities != activeEntities.end(); iterEntities++){
+			if ((*iterEntities)->getPriority() < entity->getPriority()){
+				activeEntities.insert(iterEntities, entity);
+				return;
+			}
 		}
+		activeEntities.push_back(entity);
 	}
-	activeEntities.push_back(entity);
 }
 
 void LayersEngine::addSystem(System* system) {
