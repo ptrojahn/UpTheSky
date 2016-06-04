@@ -4,7 +4,8 @@
 #include "TransformComponent.h"
 #include "StaticColliderComponent.h"
 #include "GhostWall.h"
-#include "Scroll.h"
+#include "ScrollSystem.h"
+#include "ScrollComponent.h"
 #include "LevelManager.h"
 #include "RenderSystem.h"
 

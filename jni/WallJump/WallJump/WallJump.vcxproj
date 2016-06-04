@@ -69,6 +69,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundLayer.cpp" />
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="GhostWall.cpp" />
     <ClCompile Include="helper.cpp" />
@@ -78,9 +79,10 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Scroll.cpp" />
+    <ClCompile Include="ScrollSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundLayer.h" />
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
     <ClInclude Include="helper.h" />
@@ -91,10 +93,14 @@
     <ClInclude Include="PlayerLayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ScoreComponent.h" />
-    <ClInclude Include="Scroll.h" />
+    <ClInclude Include="ScrollSystem.h" />
+    <ClInclude Include="ScrollComponent.h" />
     <ClInclude Include="StaticColliderComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\assets\backgroundHeightMap.frag" />
+    <None Include="..\assets\backgroundHill.frag" />
+    <None Include="..\assets\backgroundMountain.frag" />
     <None Include="..\assets\levelGeometry.frag" />
     <None Include="..\assets\levelGeometryGhost.frag" />
     <None Include="..\assets\mainMenuButton.frag" />

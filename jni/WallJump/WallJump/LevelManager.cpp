@@ -2,7 +2,7 @@
 
 #include "Layer.h"
 #include "RenderComponent.h"
-#include "Scroll.h"
+#include "ScrollComponent.h"
 #include "StaticColliderComponent.h"
 #include "GhostWall.h"
 #include "UniformsComponent.h"

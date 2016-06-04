@@ -1,15 +1,17 @@
-#include "Scroll.h"
+#include "ScrollSystem.h"
 
 #include "Player.h"
 #include "TransformComponent.h"
+#include "ScrollComponent.h"
 
 void ScrollSystem::update(LayersEngine& engine) {
 	for (Entity* player : engine.getEntities()){
 		if (player->getComponent<PlayerComponent>()){
 			if (player->getComponent<TransformComponent>()->position.y < 6){
 				for (Entity* entity : engine.getEntities()){
-					if (entity->getComponent<ScrollComponent>()){
-						entity->getComponent<TransformComponent>()->position.y += 6 - player->getComponent<TransformComponent>()->position.y;
+					ScrollComponent* scrollComponent = entity->getComponent<ScrollComponent>();
+					if (scrollComponent){
+						entity->getComponent<TransformComponent>()->position.y += (6 - player->getComponent<TransformComponent>()->position.y) * scrollComponent->factor;
 					}
 				}
 			}

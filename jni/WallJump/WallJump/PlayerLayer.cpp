@@ -3,7 +3,7 @@
 #include "RenderComponent.h"
 #include "TransformComponent.h"
 #include "RenderSystem.h"
-#include "Scroll.h"
+#include "ScrollComponent.h"
 #include "Player.h"
 #include "GhostWall.h"
 #include "TextureComponent.h"

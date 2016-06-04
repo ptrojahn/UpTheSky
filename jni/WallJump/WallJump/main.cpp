@@ -4,6 +4,7 @@
 #include "MainMenuLayerGraphics.h"
 #include "PlayerLayer.h"
 #include "GameLayer.h"
+#include "BackgroundLayer.h"
 #include "glFunctions.h"
 
 int main(int argc, char* argv[]) {
@@ -13,6 +14,7 @@ int main(int argc, char* argv[]) {
 	engine.addLayer(new MainMenuLayerGraphics());
 	engine.addLayer(new PlayerLayer());
 	engine.addLayer(new GameLayer());
+	engine.addLayer(new BackgroundLayer());
 	engine.run();
 	return 0;
 }

@@ -5,7 +5,7 @@
 #include "LethalTriggerComponent.h"
 #include "PlayerLayer.h"
 #include "LevelManager.h"
-#include "Scroll.h"
+#include "ScrollComponent.h"
 #include "RenderComponent.h"
 #include "GameLayer.h"
 #include "MainMenuLayerLogic.h"
