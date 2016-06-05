@@ -57,6 +57,9 @@
     <ClCompile Include="AnimationSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="OnUpdateSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LayersEngine.h">
@@ -116,9 +119,6 @@
     <ClInclude Include="include\SharedPreferences.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\AnimationSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="include\AnimationComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -127,6 +127,18 @@
     </ClInclude>
     <ClInclude Include="include\OnLayerEnabledComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="OnUpdateComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OnUpdateSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OnUpdateComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AnimationSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

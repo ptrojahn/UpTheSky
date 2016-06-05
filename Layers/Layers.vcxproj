@@ -72,6 +72,7 @@
     <ClCompile Include="glFunctions.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayersEngine.cpp" />
+    <ClCompile Include="OnUpdateSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="BufferManager.cpp" />
@@ -93,6 +94,8 @@
     <ClInclude Include="include\Matrix4x4.h" />
     <ClInclude Include="include\OnLayerDisabledComponent.h" />
     <ClInclude Include="include\OnLayerEnabledComponent.h" />
+    <ClInclude Include="include\OnUpdateComponent.h" />
+    <ClInclude Include="include\OnUpdateSystem.h" />
     <ClInclude Include="include\RenderComponent.h" />
     <ClInclude Include="include\RenderSystem.h" />
     <ClInclude Include="include\SharedPreferences.h" />
@@ -102,6 +105,7 @@
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\UniformsComponent.h" />
     <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="OnUpdateComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
