@@ -139,13 +139,13 @@
     <None Include="..\assets\score.vert">
       <Filter>Shader\Vertex</Filter>
     </None>
-    <None Include="..\assets\backgroundHill.frag">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="..\assets\backgroundMountain.frag">
-      <Filter>Shader\Fragment</Filter>
-    </None>
     <None Include="..\assets\backgroundHeightMap.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\sun.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\sunOverlay.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>

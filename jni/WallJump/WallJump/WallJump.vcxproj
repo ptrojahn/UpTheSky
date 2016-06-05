@@ -99,8 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\backgroundHeightMap.frag" />
-    <None Include="..\assets\backgroundHill.frag" />
-    <None Include="..\assets\backgroundMountain.frag" />
     <None Include="..\assets\levelGeometry.frag" />
     <None Include="..\assets\levelGeometryGhost.frag" />
     <None Include="..\assets\mainMenuButton.frag" />
@@ -112,6 +110,8 @@
     <None Include="..\assets\spikes_right.frag" />
     <None Include="..\assets\spikes_up.frag" />
     <None Include="..\assets\defaultUV.vert" />
+    <None Include="..\assets\sun.frag" />
+    <None Include="..\assets\sunOverlay.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
