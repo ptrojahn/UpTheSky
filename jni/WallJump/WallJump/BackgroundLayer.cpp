@@ -12,22 +12,36 @@
 #include "OnUpdateSystem.h"
 #include "OnUpdateComponent.h"
 
+class SunComponent : public BaseComponent<SunComponent>{
+public:
+	SunComponent(Entity* overlay) : overlay(overlay) {}
+	Entity* overlay;
+};
+
 void updateSun(Entity* entity) {
 	float time = (10.f - (entity->getComponent<TransformComponent>()->position.y - 5)) / 10.f;
 	*(float*)&entity->getComponent<UniformsComponent>()->uniforms[0].data[0] = time;
-	if (time > 0.2)
-		glClearColor(0.63922 * (time - 0.2) / 0.8 + 0.8f * (1 - (time - 0.2) / 0.8),
-		             0.89804 * (time - 0.2) / 0.8 + 0.8f * (1 - (time - 0.2) / 0.8),
-		             0.89804 * (time - 0.2) / 0.8 + 0.6f * (1 - (time - 0.2) / 0.8),
-		             1);
-	else if(time > 0)
-		glClearColor(0.8f * time / 0.2 + 0.4f * (1 - time / 0.2),
-		             0.8f * time / 0.2 + 0.4f * (1 - time / 0.2),
-		             0.6f * time / 0.2 + .5f * (1 - time / 0.2),
-		             1);
+
+	Uniform& color = entity->getComponent<SunComponent>()->overlay->getComponent<UniformsComponent>()->uniforms[0];
+	if (time > 0.2){
+		*(float*)&color.data[0                ] = 0.63922 * (time - 0.3) / 0.7 + 1.0f * (1 - (time - 0.3) / 0.7);
+		*(float*)&color.data[1 * sizeof(float)] = 0.89804 * (time - 0.3) / 0.7 + 0.5f * (1 - (time - 0.3) / 0.7);
+		*(float*)&color.data[2 * sizeof(float)] = 0.89804 * (time - 0.3) / 0.7 + 0.1f * (1 - (time - 0.3) / 0.7);
+		*(float*)&color.data[3 * sizeof(float)] =                                0.3f * (1 - (time - 0.2) / 0.7);
+	} else if (time > 0){
+		*(float*)&color.data[0                ] = 1.0f * time / 0.3 + 0.2f * (1 - time / 0.3);
+		*(float*)&color.data[1 * sizeof(float)] = 0.5f * time / 0.3 + 0.2f * (1 - time / 0.3);
+		*(float*)&color.data[2 * sizeof(float)] = 0.1f * time / 0.3 + .25f * (1 - time / 0.3);
+		*(float*)&color.data[3 * sizeof(float)] = 0.3f * time / 0.3 + .60f * (1 - time / 0.3);
+	}
 }
 
 void BackgroundLayer::load() {
+	Entity* sunOverlay = (new Entity(300))
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "sunOverlay.frag"),
+		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0.f, 0.f, 9.f, 16.f))))
+		->addComponent(new UniformsComponent({ Uniform("color", 0.f, 0.f, 0.f, 0.f) }));
+	addEntity(sunOverlay);
 	addEntity((new Entity(301))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "backgroundHeightMap.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
@@ -52,7 +66,8 @@ void BackgroundLayer::load() {
 		->addComponent(new TransformComponent(Vector2<float>(3.f, 15.f)))
 		->addComponent(new UniformsComponent({ Uniform("time", 0.f) }))
 		->addComponent(new ScrollComponent(0.2))
-		->addComponent(new OnUpdateComponent(updateSun));
+		->addComponent(new OnUpdateComponent(updateSun))
+		->addComponent(new SunComponent(sunOverlay));
 	addEntity(sun
 		->addComponent(new AnimationComponent({
 			AnimationState({ 
