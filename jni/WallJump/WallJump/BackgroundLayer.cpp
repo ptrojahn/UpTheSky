@@ -11,6 +11,8 @@
 #include "AnimationSystem.h"
 #include "OnUpdateSystem.h"
 #include "OnUpdateComponent.h"
+#include "OnLayerDisabledComponent.h"
+#include "GameLayer.h"
 
 class SunComponent : public BaseComponent<SunComponent>{
 public:
@@ -19,20 +21,23 @@ public:
 };
 
 void updateSun(Entity* entity) {
-	float time = (10.f - (entity->getComponent<TransformComponent>()->position.y - 5)) / 10.f;
-	*(float*)&entity->getComponent<UniformsComponent>()->uniforms[0].data[0] = time;
+	float& yPos = entity->getComponent<TransformComponent>()->position.y;
+	if (yPos > 15)
+		yPos = 15;
+	float sunProgress = (10.f - (yPos - 5)) / 10.f;
+	*(float*)&entity->getComponent<UniformsComponent>()->uniforms[0].data[0] = sunProgress;
 
 	Uniform& color = entity->getComponent<SunComponent>()->overlay->getComponent<UniformsComponent>()->uniforms[0];
-	if (time > 0.2){
-		*(float*)&color.data[0                ] = 0.63922 * (time - 0.3) / 0.7 + 1.0f * (1 - (time - 0.3) / 0.7);
-		*(float*)&color.data[1 * sizeof(float)] = 0.89804 * (time - 0.3) / 0.7 + 0.5f * (1 - (time - 0.3) / 0.7);
-		*(float*)&color.data[2 * sizeof(float)] = 0.89804 * (time - 0.3) / 0.7 + 0.1f * (1 - (time - 0.3) / 0.7);
-		*(float*)&color.data[3 * sizeof(float)] =                                0.3f * (1 - (time - 0.2) / 0.7);
-	} else if (time > 0){
-		*(float*)&color.data[0                ] = 1.0f * time / 0.3 + 0.2f * (1 - time / 0.3);
-		*(float*)&color.data[1 * sizeof(float)] = 0.5f * time / 0.3 + 0.2f * (1 - time / 0.3);
-		*(float*)&color.data[2 * sizeof(float)] = 0.1f * time / 0.3 + .25f * (1 - time / 0.3);
-		*(float*)&color.data[3 * sizeof(float)] = 0.3f * time / 0.3 + .60f * (1 - time / 0.3);
+	if (sunProgress > 0.4){
+		*(float*)&color.data[0                ] = 0.63922 * (sunProgress - 0.4) / 0.6 + 1.0f * (1 - (sunProgress - 0.4) / 0.6);
+		*(float*)&color.data[1 * sizeof(float)] = 0.89804 * (sunProgress - 0.4) / 0.6 + 0.45f * (1 - (sunProgress - 0.4) / 0.6);
+		*(float*)&color.data[2 * sizeof(float)] = 0.89804 * (sunProgress - 0.4) / 0.6 + 0.1f * (1 - (sunProgress - 0.4) / 0.6);
+		*(float*)&color.data[3 * sizeof(float)] = 0.3f * (1 - (sunProgress - 0.4) / 0.6);
+	} else if (sunProgress > 0){
+		*(float*)&color.data[0                ] = 1.0f * sunProgress / 0.4 + 0.2f * (1 - sunProgress / 0.4);
+		*(float*)&color.data[1 * sizeof(float)] = 0.45f * sunProgress / 0.4 + 0.2f * (1 - sunProgress / 0.4);
+		*(float*)&color.data[2 * sizeof(float)] = 0.1f * sunProgress / 0.4 + .25f * (1 - sunProgress / 0.4);
+		*(float*)&color.data[3 * sizeof(float)] = 0.3f * sunProgress / 0.4 + .60f * (1 - sunProgress / 0.4);
 	}
 }
 
@@ -60,20 +65,22 @@ void BackgroundLayer::load() {
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 11.f)))
 		->addComponent(new UniformsComponent({ Uniform("color", 0.5f, 0.5f, 0.5f) }))
 		->addComponent(new TextureComponent("hills2.bmp")));
-	Entity* sun = (new Entity(304))
+	addEntity((new Entity(304))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "sun.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 3.f, 3.f))))
-		->addComponent(new TransformComponent(Vector2<float>(3.f, 15.f)))
-		->addComponent(new UniformsComponent({ Uniform("time", 0.f) }))
+		->addComponent(new TransformComponent(Vector2<float>(3.f, 5.f)))
+		->addComponent(new UniformsComponent({ Uniform("sunProgress", 0.f) }))
 		->addComponent(new ScrollComponent(0.2))
 		->addComponent(new OnUpdateComponent(updateSun))
-		->addComponent(new SunComponent(sunOverlay));
-	addEntity(sun
-		->addComponent(new AnimationComponent({
-			AnimationState({ 
-				AnimationChange(&sun->getComponent<TransformComponent>()->position.y, 15.f, 5.f) 
-			}, 1.f)
-		}, AnimationComponent::Once)));
+		->addComponent(new OnLayerDisabledComponent([](Entity* entity){
+		float& posY = entity->getComponent<TransformComponent>()->position.y;
+			entity->addComponent(new AnimationComponent({
+				AnimationState({
+					AnimationChange(&posY, posY, 5)
+				}, (posY - 5) / 10 * 0.5),
+			}, AnimationComponent::Once));
+		}, getEngine()->getLayer<GameLayer>()->getId()))
+		->addComponent(new SunComponent(sunOverlay)));
 
 	addSystem(new OnUpdateSystem(2));
 	addSystem(new AnimationSystem(1));
