@@ -159,11 +159,12 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->playerPosition = LevelManagerHelperComponent::Left;
 			int minHeight = 2 + std::max(0, (100 - score) / 50);
 			std::uniform_int_distribution<int> wallHeightGenerator(minHeight, minHeight + 2);
+			std::uniform_int_distribution<int> wallWidthGenerator(0, 3);
 			helperComponent->height = wallHeightGenerator(mtEngine)*2;
 			helperComponent->jumpStartYMin = -4 + distance;
 			helperComponent->jumpStartYMax = helperComponent->jumpStartYMin + 4;
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
-			helperComponent->jumpDestX = 6.5 + rand() % 4 * 0.5;
+			helperComponent->jumpDestX = 6.5 + wallWidthGenerator(mtEngine) * 0.5;
 		} else {
 			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
@@ -204,11 +205,12 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->playerPosition = LevelManagerHelperComponent::Right;
 			int minHeight = 2 + std::max(0, (100 - score) / 50);
 			std::uniform_int_distribution<int> wallHeightGenerator(minHeight, minHeight + 4);
+			std::uniform_int_distribution<int> wallWidthGenerator(0, 3);
 			helperComponent->height = wallHeightGenerator(mtEngine)*2;
 			helperComponent->jumpStartYMin = -4 + distance;
 			helperComponent->jumpStartYMax = helperComponent->jumpStartYMin + 4;
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
-			helperComponent->jumpDestX = 0.5 + rand() % 4 * 0.5;
+			helperComponent->jumpDestX = 0.5 + wallWidthGenerator(mtEngine) * 0.5;
 		} else {
 			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
