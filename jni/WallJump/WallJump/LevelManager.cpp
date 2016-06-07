@@ -227,60 +227,57 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 				float lengthRight = 1;
 
 				if (helperComponent->firstUse){
-					getLayer()->addEntity((new Entity(200))
-						->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
-						BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 4))))
-						->addComponent(new TransformComponent(Vector2<float>(0.5, -4 + distance)))
-						->addComponent(new StaticColliderComponent(Vector2<float>(1, 4)))
-						->addComponent(new ScrollComponent()));
-					getLayer()->addEntity((new Entity(200))
-						->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
-						BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))))
-						->addComponent(new TransformComponent(Vector2<float>(7.5, -4 + distance)))
-						->addComponent(new StaticColliderComponent(Vector2<float>(1, 2)))
-						->addComponent(new ScrollComponent()));
-					helperComponent->jumpStartX = 7.5;
-					helperComponent->jumpStartYMin = -4;
-					helperComponent->jumpStartYMax = 0;
-					helperComponent->height = 4;
-					helperComponent->jumpDestX = 0.5 + rand() % 4 * 0.5;
-					helperComponent->playerPosition = LevelManagerHelperComponent::Right;
+					std::uniform_int_distribution<int> wallHeightGenerator(2, 4);
+					helperComponent->height = wallHeightGenerator(mtEngine) * 2;
+					helperComponent->jumpStartYMin = 0;
+					helperComponent->jumpStartYMax = 2;
 					helperComponent->firstUse = false;
-					distance -= 2;
-				} else{
-					//Increase score by one
-					for (Entity* entity : engine.getEntities()){
-						if (entity->getComponent<ScoreComponent>()){
-							UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
-							(*(int*)&uniforms->uniforms[0].data[0])++;
-							*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
 
-							int highscore = SharedPreferences::getSharedPreferences().getInt("highscore");
-							if ((*(int*)&uniforms->uniforms[0].data[0]) == highscore + 1 && highscore != 0){
-								//Change score color to red
-								*(float*)&uniforms->uniforms[3].data[0] = 1.f;
-
-								TransformComponent* transform = entity->getComponent<TransformComponent>();
-								entity->addComponent(new AnimationComponent({ 
-									AnimationState({ 
-										AnimationChange(&transform->scale.x, 1.f, 1.2f),
-										AnimationChange(&transform->scale.y, 1.f, 1.2f),
-										AnimationChange(&transform->position.x, 0.f, -0.025f),
-										AnimationChange(&transform->position.y, 0.f, -0.1f)
-									}, 0.2),
-									AnimationState({
-										AnimationChange(&transform->scale.x, 1.2f, 1.f),
-										AnimationChange(&transform->scale.y, 1.2f, 1.f),
-										AnimationChange(&transform->position.x, -0.025f, 0.f),
-										AnimationChange(&transform->position.y, -0.1f, 0.f)
-									}, 0.2)
-								}, AnimationComponent::Once));
-							}
-							break;
-						}
+					std::uniform_int_distribution<int> boolGenerator(0, 1);
+					bool left = boolGenerator(mtEngine);
+					std::uniform_int_distribution<int> wallWidthGenerator(0, 4);
+					if (left){
+						helperComponent->jumpStartX = 0.5;
+						helperComponent->jumpDestX = 8.5 - wallWidthGenerator(mtEngine) * 0.5;
+						helperComponent->playerPosition = LevelManagerHelperComponent::Left;
+					} else{
+						helperComponent->jumpStartX = 8.5;
+						helperComponent->jumpDestX = 0.5 + wallWidthGenerator(mtEngine) * 0.5;
+						helperComponent->playerPosition = LevelManagerHelperComponent::Right;
 					}
-					addBlocks(helperComponent, distance);
 				}
+				//Increase score by one
+				for (Entity* entity : engine.getEntities()){
+					if (entity->getComponent<ScoreComponent>()){
+						UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
+						(*(int*)&uniforms->uniforms[0].data[0])++;
+						*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
+
+						int highscore = SharedPreferences::getSharedPreferences().getInt("highscore");
+						if ((*(int*)&uniforms->uniforms[0].data[0]) == highscore + 1 && highscore != 0){
+							//Change score color to red
+							*(float*)&uniforms->uniforms[3].data[0] = 1.f;
+
+							TransformComponent* transform = entity->getComponent<TransformComponent>();
+							entity->addComponent(new AnimationComponent({ 
+								AnimationState({ 
+									AnimationChange(&transform->scale.x, 1.f, 1.2f),
+									AnimationChange(&transform->scale.y, 1.f, 1.2f),
+									AnimationChange(&transform->position.x, 0.f, -0.025f),
+									AnimationChange(&transform->position.y, 0.f, -0.1f)
+								}, 0.2),
+								AnimationState({
+									AnimationChange(&transform->scale.x, 1.2f, 1.f),
+									AnimationChange(&transform->scale.y, 1.2f, 1.f),
+									AnimationChange(&transform->position.x, -0.025f, 0.f),
+									AnimationChange(&transform->position.y, -0.1f, 0.f)
+								}, 0.2)
+							}, AnimationComponent::Once));
+						}
+						break;
+					}
+				}
+				addBlocks(helperComponent, distance);
 			}
 			break;
 		}
