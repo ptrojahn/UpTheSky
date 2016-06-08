@@ -60,6 +60,9 @@
     <ClCompile Include="OnUpdateSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="OnWaitFinishedSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LayersEngine.h">
@@ -128,9 +131,6 @@
     <ClInclude Include="include\OnLayerEnabledComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="OnUpdateComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="include\OnUpdateSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
@@ -139,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="include\AnimationSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OnWaitFinishedSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OnWaitFinishedComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
