@@ -70,6 +70,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundLayer.cpp" />
+    <ClCompile Include="GameOverlayLayer.cpp" />
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="GhostWall.cpp" />
     <ClCompile Include="helper.cpp" />
@@ -84,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundLayer.h" />
+    <ClInclude Include="GameOverlayLayer.h" />
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
     <ClInclude Include="helper.h" />

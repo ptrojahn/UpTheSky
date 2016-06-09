@@ -102,13 +102,14 @@ void PlayerSystem::update(LayersEngine& engine) {
 	}
 }
 
+//One second after the player died. Clean up the game layer for the next game
 void onPlayerRemoved(Entity* player) {
 	player->getLayer()->getEngine()->getLayer<GameLayer>()->disable();
 	player->getLayer()->getEngine()->getLayer<MainMenuLayerLogic>()->enable();
 
 	//Reset game layer
 	for (std::vector<Entity*>::iterator entityIter = player->getLayer()->getEngine()->getEntities().begin(); entityIter != player->getLayer()->getEngine()->getEntities().end();){
-		if ((*entityIter)->getLayer()->isClass<GameLayer>() && (*entityIter)->getComponent<ScrollComponent>())
+		if ((*entityIter)->getLayer()->isClass<GameLayer>())
 			entityIter = player->getLayer()->deleteEntity((*entityIter));
 		else
 			entityIter++;
@@ -127,6 +128,7 @@ void onPlayerRemoved(Entity* player) {
 	component->position = Vector2<float>(player->getLayer()->getEngine()->getLogicalScreenSize().x / 2.f - 1.f, player->getLayer()->getEngine()->getLogicalScreenSize().y / 2.f - 2.f);
 }
 
+//The player died. Play the death animation
 void PlayerSystem::onPlayerDeath(Entity* player) {
 	//Particles
 	PlayerComponent* playerComponent = player->getComponent<PlayerComponent>();
@@ -145,7 +147,7 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 			std::mt19937 mtEngine = std::mt19937(randDevice());
 			std::uniform_int_distribution<int> particleDistribution(-10, 10);
 			particleAngle += particleDistribution(mtEngine) / 10.f;
-			player->getLayer()->addEntity((new Entity(100))
+			player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(100))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"),
 					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0.f, 0.f, 0.5f, 0.5f))))
 				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x, 0.5 * y)))
