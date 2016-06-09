@@ -10,6 +10,7 @@
 #include "UniformsComponent.h"
 #include "ScoreComponent.h"
 #include "AnimationSystem.h"
+#include "ParticleSystem.h"
 
 void PlayerLayer::load() {
 	addEntity((new Entity(100))
@@ -25,6 +26,7 @@ void PlayerLayer::load() {
 		->addComponent(new UniformsComponent({ Uniform("score", 0), Uniform("length", 1), Uniform("alpha", 1.f), Uniform("textColor", 0.f, 0.f, 0.f) }))
 		->addComponent(new ScoreComponent()));
 
+	addSystem(new ParticleSystem());
 	addSystem(new AnimationSystem(10));
 	addSystem(new RenderSystem(0));
 }

@@ -11,6 +11,10 @@
 #include "MainMenuLayerLogic.h"
 #include "Layer.h"
 #include "helper.h"
+#include "OnWaitFinishedComponent.h"
+#include "ParticleComponent.h"
+
+#include <random>
 
 const Vector2<float> PlayerSystem::playerSize = Vector2<float>(1, 2);
 const Vector2<float> PlayerSystem::jumpVelocity = Vector2<float>(8, -13);
@@ -98,7 +102,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 	}
 }
 
-std::vector<Entity*>::iterator PlayerSystem::onPlayerDeath(Entity* player) {
+void onPlayerRemoved(Entity* player) {
 	player->getLayer()->getEngine()->getLayer<GameLayer>()->disable();
 	player->getLayer()->getEngine()->getLayer<MainMenuLayerLogic>()->enable();
 
@@ -106,7 +110,7 @@ std::vector<Entity*>::iterator PlayerSystem::onPlayerDeath(Entity* player) {
 	for (std::vector<Entity*>::iterator entityIter = player->getLayer()->getEngine()->getEntities().begin(); entityIter != player->getLayer()->getEngine()->getEntities().end();){
 		if ((*entityIter)->getLayer()->isClass<GameLayer>() && (*entityIter)->getComponent<ScrollComponent>())
 			entityIter = player->getLayer()->deleteEntity((*entityIter));
-		else 
+		else
 			entityIter++;
 	}
 	player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(400))
@@ -115,10 +119,42 @@ std::vector<Entity*>::iterator PlayerSystem::onPlayerDeath(Entity* player) {
 		->addComponent(new ScrollComponent()));
 
 	//Reset the player
-	player->getLayer()->addEntity((new Entity(100))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))))
-		->addComponent(new TransformComponent(Vector2<float>(player->getLayer()->getEngine()->getLogicalScreenSize().x / 2.f - 1, player->getLayer()->getEngine()->getLogicalScreenSize().y / 2.f - 2), 0, Vector2<float>(2.f, 2.f)))
-		->addComponent(new PlayerComponent())
-		->addComponent(new ScrollComponent()));
-	return player->getLayer()->deleteEntity(player);
+	player->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))));
+	player->addComponent(new PlayerComponent());
+	player->addComponent(new ScrollComponent());
+	TransformComponent* component = player->getComponent<TransformComponent>();
+	component->scale = Vector2<float>(2, 2);
+	component->position = Vector2<float>(player->getLayer()->getEngine()->getLogicalScreenSize().x / 2.f - 1.f, player->getLayer()->getEngine()->getLogicalScreenSize().y / 2.f - 2.f);
+}
+
+void PlayerSystem::onPlayerDeath(Entity* player) {
+	//Particles
+	PlayerComponent* playerComponent = player->getComponent<PlayerComponent>();
+	TransformComponent* transformComponent = player->getComponent<TransformComponent>();
+	float angle = atan2f(playerComponent->velocity.y, playerComponent->velocity.x) + M_PI * 0.5f;
+	if (angle < 0)
+		angle += 2.f * M_PI;
+	float speed = sqrtf(pow(playerComponent->velocity.y, 2) + pow(playerComponent->velocity.x, 2));
+	for (int x = 0; x < 2; x++){
+		for (int y = 0; y < 4; y++){
+			float particleAngle = atan2f(y * 0.5f + 0.25f - 1.f, x * 0.5f + 0.25f - 0.5f) + M_PI * 0.5f;
+			if (particleAngle < 0)
+				particleAngle += 2.f * M_PI;
+			particleAngle -= angle;
+			std::random_device randDevice;
+			std::mt19937 mtEngine = std::mt19937(randDevice());
+			std::uniform_int_distribution<int> particleDistribution(-10, 10);
+			particleAngle += particleDistribution(mtEngine) / 10.f;
+			player->getLayer()->addEntity((new Entity(100))
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"),
+					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0.f, 0.f, 0.5f, 0.5f))))
+				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x, 0.5 * y)))
+				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.5f + angle), cosf(particleAngle * 0.5f + angle)) * 4.f)));
+		}
+	}
+	//Make the player invisible and add the OnWaitFinishedComponent
+	player->deleteComponent(player->getComponent<RenderComponent>());
+	player->deleteComponent(player->getComponent<PlayerComponent>());
+	player->deleteComponent(player->getComponent<ScrollComponent>());
+	player->addComponent(new OnWaitFinishedComponent(1000, onPlayerRemoved));
 }

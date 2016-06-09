@@ -8,6 +8,7 @@
 #include "ScrollComponent.h"
 #include "LevelManager.h"
 #include "RenderSystem.h"
+#include "OnWaitFinishedSystem.h"
 
 void GameLayer::load() {
 	//Level edge
@@ -25,6 +26,7 @@ void GameLayer::load() {
 		->addComponent(new TransformComponent(Vector2<float>(0, 2)))
 		->addComponent(new ScrollComponent()));
 
+	addSystem(new OnWaitFinishedSystem(5));
 	addSystem(new PlayerSystem());
 	addSystem(new GhostWallSystem());
 	addSystem(new ScrollSystem());

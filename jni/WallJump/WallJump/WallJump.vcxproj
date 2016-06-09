@@ -77,6 +77,7 @@
     <ClCompile Include="MainMenuLayerGraphics.cpp" />
     <ClCompile Include="MainMenuLayerLogic.cpp" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScrollSystem.cpp" />
@@ -90,6 +91,8 @@
     <ClInclude Include="MainMenuLayerGraphics.h" />
     <ClInclude Include="MainMenuLayerLogic.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="ParticleComponent.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayerLayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ScoreComponent.h" />
