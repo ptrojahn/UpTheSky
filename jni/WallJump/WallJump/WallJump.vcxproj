@@ -109,6 +109,7 @@
     <None Include="..\assets\mainMenuButton.frag" />
     <None Include="..\assets\player.frag" />
     <None Include="..\assets\default.vert" />
+    <None Include="..\assets\playerTrail.frag" />
     <None Include="..\assets\score.frag" />
     <None Include="..\assets\score.vert" />
     <None Include="..\assets\spikes_left.frag" />
