@@ -145,13 +145,13 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 			particleAngle -= angle;
 			std::random_device randDevice;
 			std::mt19937 mtEngine = std::mt19937(randDevice());
-			std::uniform_int_distribution<int> particleDistribution(-10, 10);
+			std::uniform_int_distribution<int> particleDistribution(-20, 20);
 			particleAngle += particleDistribution(mtEngine) / 10.f;
 			player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(100))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"),
-					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0.f, 0.f, 0.5f, 0.5f))))
-				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x, 0.5 * y)))
-				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.5f + angle), cosf(particleAngle * 0.5f + angle)) * 4.f)));
+					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(-0.25f, -0.25f, 0.5f, 0.5f))))
+				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x + 0.25f, 0.5 * y + 0.25f)))
+				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.25f + angle), cosf(particleAngle * 0.25f + angle)) * 4.f, particleAngle * 2.f)));
 		}
 	}
 	//Make the player invisible and add the OnWaitFinishedComponent
