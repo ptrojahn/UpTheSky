@@ -20,7 +20,7 @@ public:
 		static TextureManager manager;
 		return manager;
 	}
-	GLuint createTexture(std::string texturePath, GLenum filter = GL_LINEAR);
+	GLuint createTexture(std::string texturePath, GLenum filter = GL_LINEAR, GLenum wrap = GL_CLAMP_TO_EDGE);
 	void bindTexture(GLuint id);
 private:
 	std::vector<TextureData> textures;

@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 
-GLuint TextureManager::createTexture(std::string fileName, GLenum filter) {
+GLuint TextureManager::createTexture(std::string fileName, GLenum filter, GLenum wrap) {
 	for (TextureData texture : textures){
 		if (texture.fileName == fileName)
 			return texture.id;
@@ -17,6 +17,8 @@ GLuint TextureManager::createTexture(std::string fileName, GLenum filter) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bmpData->w, bmpData->h, 0, GL_RGB, GL_UNSIGNED_BYTE, bmpData->pixels);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
 	textures.push_back(TextureData(textureId, fileName));
 	currentTextureId = textureId;
 	return textureId;
