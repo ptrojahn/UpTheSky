@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="clouds.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="432.22536"
+     inkscape:cy="757.60498"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="860"
+     inkscape:window-height="500"
+     inkscape:window-x="312"
+     inkscape:window-y="266"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingx="8px"
+       spacingy="8px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3765"
+       width="560"
+       height="280"
+       x="160"
+       y="92.362183"
+       rx="0"
+       ry="0"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect2987"
+       width="480"
+       height="32"
+       x="240"
+       y="124.36218"
+       ry="20"
+       rx="20.000004"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       rx="20.000004"
+       ry="20"
+       y="108.36218"
+       x="304"
+       height="32"
+       width="304"
+       id="rect3761"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3763"
+       width="64"
+       height="32"
+       x="480"
+       y="92.362183"
+       ry="20"
+       rx="20.000004"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3782"
+       width="560"
+       height="32"
+       x="160"
+       y="196.36218"
+       ry="20"
+       rx="20"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       rx="20.000002"
+       ry="20"
+       y="180.36218"
+       x="216"
+       height="32"
+       width="312"
+       id="rect3784"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3786"
+       width="100"
+       height="32"
+       x="572"
+       y="180.36218"
+       ry="20"
+       rx="20.000002"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       rx="20.000002"
+       ry="20"
+       y="164.36218"
+       x="344"
+       height="32"
+       width="120"
+       id="rect3788"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       rx="20.000002"
+       ry="20"
+       y="268.36218"
+       x="360"
+       height="32"
+       width="360"
+       id="rect3790"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3792"
+       width="140"
+       height="40"
+       x="372"
+       y="252.36218"
+       ry="20"
+       rx="20.000002"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       rx="20.000002"
+       ry="20"
+       y="252.36218"
+       x="576"
+       height="32"
+       width="120"
+       id="rect3794"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3796"
+       width="60"
+       height="32"
+       x="400"
+       y="236.36218"
+       ry="20"
+       rx="20.000002"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3798"
+       width="448"
+       height="32"
+       x="272"
+       y="340.36218"
+       ry="20"
+       rx="20.000002"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       rx="20.000002"
+       ry="20"
+       y="324.36218"
+       x="336"
+       height="32"
+       width="352"
+       id="rect3800"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3802"
+       width="60"
+       height="32"
+       x="576"
+       y="308.36218"
+       ry="20"
+       rx="20.000002"
+       inkscape:export-filename="C:\Users\pault_000\Documents\Visual Studio 2013\Projects\WallJump\jni\WallJump\assets\clouds.png"
+       inkscape:export-xdpi="41.142857"
+       inkscape:export-ydpi="41.142857" />
+  </g>
+</svg>

@@ -70,6 +70,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundLayer.cpp" />
+    <ClCompile Include="CloudSystem.cpp" />
     <ClCompile Include="GameOverlayLayer.cpp" />
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="GhostWall.cpp" />
@@ -85,6 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundLayer.h" />
+    <ClInclude Include="CloudComponent.h" />
+    <ClInclude Include="CloudSystem.h" />
     <ClInclude Include="GameOverlayLayer.h" />
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
@@ -104,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\backgroundHeightMap.frag" />
+    <None Include="..\assets\cloud.frag" />
     <None Include="..\assets\levelGeometry.frag" />
     <None Include="..\assets\levelGeometryGhost.frag" />
     <None Include="..\assets\mainMenuButton.frag" />

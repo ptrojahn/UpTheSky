@@ -13,6 +13,10 @@
 #include "OnUpdateComponent.h"
 #include "OnLayerDisabledComponent.h"
 #include "GameLayer.h"
+#include "CloudSystem.h"
+#include "CloudComponent.h"
+
+#include <random>
 
 class SunComponent : public BaseComponent<SunComponent>{
 public:
@@ -42,30 +46,30 @@ void updateSun(Entity* entity) {
 }
 
 void BackgroundLayer::load() {
-	Entity* sunOverlay = (new Entity(300))
+	Entity* sunOverlay = (new Entity(301))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "sunOverlay.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0.f, 0.f, 9.f, 16.f))))
 		->addComponent(new UniformsComponent({ Uniform("color", 0.f, 0.f, 0.f, 0.f) }));
 	addEntity(sunOverlay);
-	addEntity((new Entity(301))
+	addEntity((new Entity(302))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "backgroundHeightMap.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 13.f)))
 		->addComponent(new UniformsComponent({Uniform("color", 0.3f, 0.3f, 0.3f)}))
 		->addComponent(new TextureComponent("hills0.bmp")));
-	addEntity((new Entity(302))
+	addEntity((new Entity(303))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "backgroundHeightMap.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 12.f)))
 		->addComponent(new UniformsComponent({ Uniform("color", 0.4f, 0.4f, 0.4f) }))
 		->addComponent(new TextureComponent("hills1.bmp")));
-	addEntity((new Entity(303))
+	addEntity((new Entity(304))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "backgroundHeightMap.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 11.f)))
 		->addComponent(new UniformsComponent({ Uniform("color", 0.5f, 0.5f, 0.5f) }))
 		->addComponent(new TextureComponent("hills2.bmp")));
-	addEntity((new Entity(304))
+	addEntity((new Entity(305))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "sun.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 3.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(3.f, 5.f)))
@@ -82,6 +86,22 @@ void BackgroundLayer::load() {
 		}, getEngine()->getLayer<GameLayer>()->getId()))
 		->addComponent(new SunComponent(sunOverlay)));
 
+	std::random_device device;
+	std::mt19937 mtEngine(device());
+	std::uniform_real_distribution<float> xPosGenerator(0, 8);
+	std::uniform_real_distribution<float> yPosGenerator(0, 14);
+	std::uniform_int_distribution<int> indexGenerator(0, 3);
+	for (int i = 0; i < 3; i++){
+		addEntity((new Entity(300))
+			->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "cloud.frag"),
+			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 8, 1.0625))))
+			->addComponent(new TransformComponent(Vector2<float>(xPosGenerator(mtEngine), yPosGenerator(mtEngine))))
+			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(mtEngine)) }))
+			->addComponent(new TextureComponent("clouds.bmp"))
+			->addComponent(new CloudComponent(0.2f)));
+	}
+
+	addSystem(new CloudSystem());
 	addSystem(new OnUpdateSystem(2));
 	addSystem(new AnimationSystem(1));
 	addSystem(new RenderSystem(0));
