@@ -13,6 +13,7 @@
 #include "helper.h"
 #include "OnWaitFinishedComponent.h"
 #include "ParticleComponent.h"
+#include "MersenneTwisterEngine.h"
 
 #include <random>
 
@@ -143,10 +144,8 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 			if (particleAngle < 0)
 				particleAngle += 2.f * M_PI;
 			particleAngle -= angle;
-			std::random_device randDevice;
-			std::mt19937 mtEngine = std::mt19937(randDevice());
 			std::uniform_int_distribution<int> particleDistribution(-20, 20);
-			particleAngle += particleDistribution(mtEngine) / 10.f;
+			particleAngle += particleDistribution(getMtEngine()) / 10.f;
 			player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(100))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"),
 					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(-0.25f, -0.25f, 0.5f, 0.5f))))

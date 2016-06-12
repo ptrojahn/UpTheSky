@@ -10,21 +10,22 @@
 #include "ScoreComponent.h"
 #include "SharedPreferences.h"
 #include "AnimationComponent.h"
+#include "MersenneTwisterEngine.h"
 
 float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);
 }
 
-bool genHorizontalSpikes(int score, std::random_device& randDevice) {
+bool genHorizontalSpikes(int score) {
 	if (score > 75){
 		std::uniform_int_distribution<int> horizontalSpikes(0, std::max((200 - (score - 75)) / 20, 1));
-		return horizontalSpikes(randDevice) == 0;
+		return horizontalSpikes(getMtEngine()) == 0;
 	}
 	return false;
 }
 
 void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score) {
-	bool genRightSpikes = genHorizontalSpikes(score, randDevice);
+	bool genRightSpikes = genHorizontalSpikes(score);
 	int maxWidth = 4;
 	float playerPos = jumpFunction(position.x - (minX + genRightSpikes*0.25f)) + position.y;
 	if (playerPos < -4.25f - jumpDifficultyReduction || playerPos > 0){
@@ -43,7 +44,7 @@ void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDiffi
 		genRightSpikes = false;
 
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
-	float xPos = 0.5f - 4.f + wallWidthGenerator(randDevice) * 0.5f;
+	float xPos = 0.5f - 4.f + wallWidthGenerator(getMtEngine()) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
@@ -67,7 +68,7 @@ void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDiffi
 }
 
 void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDifficultyReduction, float distance, float maxX, int score) {
-	bool genLeftSpikes = genHorizontalSpikes(score, randDevice);
+	bool genLeftSpikes = genHorizontalSpikes(score);
 	int maxWidth = 4;
 	float playerPos = jumpFunction(position.x + 1.f - (8.5f - (maxX - genLeftSpikes*0.25f))) + position.y;
 	if (playerPos < -4.25f - jumpDifficultyReduction || playerPos > 0){
@@ -86,7 +87,7 @@ void LevelManagerSystem::addClutterRight(Vector2<float> position, float jumpDiff
 		genLeftSpikes = false;
 
 	std::uniform_int_distribution<int> wallWidthGenerator(0, maxWidth);
-	float xPos = 8.5f - wallWidthGenerator(randDevice) * 0.5f;
+	float xPos = 8.5f - wallWidthGenerator(getMtEngine()) * 0.5f;
 	getLayer()->addEntity((new Entity(200))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "levelGeometry.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 4, 2))))
@@ -160,11 +161,11 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			int minHeight = 2 + std::max(0, (100 - score) / 50);
 			std::uniform_int_distribution<int> wallHeightGenerator(minHeight, minHeight + 2);
 			std::uniform_int_distribution<int> wallWidthGenerator(0, 3);
-			helperComponent->height = wallHeightGenerator(mtEngine)*2;
+			helperComponent->height = wallHeightGenerator(getMtEngine())*2;
 			helperComponent->jumpStartYMin = -4 + distance;
 			helperComponent->jumpStartYMax = helperComponent->jumpStartYMin + 4;
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
-			helperComponent->jumpDestX = 6.5 + wallWidthGenerator(mtEngine) * 0.5;
+			helperComponent->jumpDestX = 6.5 + wallWidthGenerator(getMtEngine()) * 0.5;
 		} else {
 			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
@@ -206,11 +207,11 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			int minHeight = 2 + std::max(0, (100 - score) / 50);
 			std::uniform_int_distribution<int> wallHeightGenerator(minHeight, minHeight + 4);
 			std::uniform_int_distribution<int> wallWidthGenerator(0, 3);
-			helperComponent->height = wallHeightGenerator(mtEngine)*2;
+			helperComponent->height = wallHeightGenerator(getMtEngine())*2;
 			helperComponent->jumpStartYMin = -4 + distance;
 			helperComponent->jumpStartYMax = helperComponent->jumpStartYMin + 4;
 			helperComponent->jumpStartX = helperComponent->jumpDestX;
-			helperComponent->jumpDestX = 0.5 + wallWidthGenerator(mtEngine) * 0.5;
+			helperComponent->jumpDestX = 0.5 + wallWidthGenerator(getMtEngine()) * 0.5;
 		} else {
 			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
@@ -230,21 +231,21 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 
 				if (helperComponent->firstUse){
 					std::uniform_int_distribution<int> wallHeightGenerator(2, 4);
-					helperComponent->height = wallHeightGenerator(mtEngine) * 2;
+					helperComponent->height = wallHeightGenerator(getMtEngine()) * 2;
 					helperComponent->jumpStartYMin = 0;
 					helperComponent->jumpStartYMax = 2;
 					helperComponent->firstUse = false;
 
 					std::uniform_int_distribution<int> boolGenerator(0, 1);
-					bool left = boolGenerator(mtEngine);
+					bool left = boolGenerator(getMtEngine());
 					std::uniform_int_distribution<int> wallWidthGenerator(0, 4);
 					if (left){
 						helperComponent->jumpStartX = 0.5;
-						helperComponent->jumpDestX = 8.5 - wallWidthGenerator(mtEngine) * 0.5;
+						helperComponent->jumpDestX = 8.5 - wallWidthGenerator(getMtEngine()) * 0.5;
 						helperComponent->playerPosition = LevelManagerHelperComponent::Left;
 					} else{
 						helperComponent->jumpStartX = 8.5;
-						helperComponent->jumpDestX = 0.5 + wallWidthGenerator(mtEngine) * 0.5;
+						helperComponent->jumpDestX = 0.5 + wallWidthGenerator(getMtEngine()) * 0.5;
 						helperComponent->playerPosition = LevelManagerHelperComponent::Right;
 					}
 				}

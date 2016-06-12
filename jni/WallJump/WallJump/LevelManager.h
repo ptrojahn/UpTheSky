@@ -27,12 +27,9 @@ public:
 class LevelManagerSystem : public BaseSystem<LevelManagerSystem>
 {
 public:
-	LevelManagerSystem() : BaseSystem(1) { mtEngine = std::mt19937(randDevice()); }
+	LevelManagerSystem() : BaseSystem(1) {}
 	void addBlocks(LevelManagerHelperComponent* helperComponent, float distance);
 	void addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score);
 	void addClutterRight(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score);
 	void update(LayersEngine& engine);
-private:
-	std::random_device randDevice;
-	std::mt19937 mtEngine;
 };

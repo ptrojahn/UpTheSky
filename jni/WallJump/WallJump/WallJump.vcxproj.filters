@@ -69,6 +69,9 @@
     <ClCompile Include="CloudSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MersenneTwisterEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerLayer.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="CloudComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MersenneTwisterEngine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

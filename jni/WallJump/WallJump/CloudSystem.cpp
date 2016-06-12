@@ -7,22 +7,21 @@
 #include "UniformsComponent.h"
 #include "TextureComponent.h"
 #include "ScrollComponent.h"
+#include "MersenneTwisterEngine.h"
 
 #include <random>
 
 void CloudSystem::update(LayersEngine& engine) {
 	if (spawnTime < SDL_GetTicks()){
-		std::random_device device;
-		std::mt19937 mtEngine(device());
 		std::uniform_int_distribution<uint32_t> spawnTimeGenerator(20000, 22000);
-		spawnTime = SDL_GetTicks() + spawnTimeGenerator(mtEngine);
+		spawnTime = SDL_GetTicks() + spawnTimeGenerator(getMtEngine());
 		std::uniform_real_distribution<float> yPosGenerator(0, 14);
 		std::uniform_int_distribution<int> indexGenerator(0, 3);
 		engine.getLayer<BackgroundLayer>()->addEntity((new Entity(300))
 			->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "cloud.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 8, 1.0625))))
-			->addComponent(new TransformComponent(Vector2<float>(-8.f, yPosGenerator(mtEngine))))
-			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(mtEngine)) }))
+			->addComponent(new TransformComponent(Vector2<float>(-8.f, yPosGenerator(getMtEngine()))))
+			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(getMtEngine())) }))
 			->addComponent(new TextureComponent("clouds.bmp"))
 			->addComponent(new CloudComponent(0.2f)));
 	}

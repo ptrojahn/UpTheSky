@@ -15,8 +15,7 @@
 #include "GameLayer.h"
 #include "CloudSystem.h"
 #include "CloudComponent.h"
-
-#include <random>
+#include "MersenneTwisterEngine.h"
 
 class SunComponent : public BaseComponent<SunComponent>{
 public:
@@ -86,8 +85,6 @@ void BackgroundLayer::load() {
 		}, getEngine()->getLayer<GameLayer>()->getId()))
 		->addComponent(new SunComponent(sunOverlay)));
 
-	std::random_device device;
-	std::mt19937 mtEngine(device());
 	std::uniform_real_distribution<float> xPosGenerator(0, 8);
 	std::uniform_real_distribution<float> yPosGenerator(0, 14);
 	std::uniform_int_distribution<int> indexGenerator(0, 3);
@@ -95,8 +92,8 @@ void BackgroundLayer::load() {
 		addEntity((new Entity(300))
 			->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "cloud.frag"),
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 8, 1.0625))))
-			->addComponent(new TransformComponent(Vector2<float>(xPosGenerator(mtEngine), yPosGenerator(mtEngine))))
-			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(mtEngine)) }))
+			->addComponent(new TransformComponent(Vector2<float>(xPosGenerator(getMtEngine()), yPosGenerator(getMtEngine()))))
+			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(getMtEngine())) }))
 			->addComponent(new TextureComponent("clouds.bmp"))
 			->addComponent(new CloudComponent(0.2f)));
 	}
