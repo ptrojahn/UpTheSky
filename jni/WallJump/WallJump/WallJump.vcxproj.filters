@@ -184,5 +184,8 @@
     <None Include="..\assets\cloud.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
+    <None Include="..\assets\coin.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
   </ItemGroup>
 </Project>
