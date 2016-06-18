@@ -14,6 +14,9 @@
 #include "OnWaitFinishedComponent.h"
 #include "ParticleComponent.h"
 #include "MersenneTwisterEngine.h"
+#include "CoinComponent.h"
+#include "AnimationComponent.h"
+#include "UniformsComponent.h"
 
 #include <random>
 
@@ -95,6 +98,15 @@ void PlayerSystem::update(LayersEngine& engine) {
 					if (intersect(transformComponent->position, playerSize, triggerTransformComponent->position, triggerSize)){
 						onPlayerDeath(playerEntity);
 						break;
+					}
+				} else if (entity->getComponent<CoinComponent>()){
+					if (intersect(transformComponent->position, playerSize, entity->getComponent<TransformComponent>()->position, Vector2<float>(0.5f, 0.5f))
+						&& *(float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0] == 0.f){
+						entity->addComponent(new AnimationComponent({
+							AnimationState({
+									AnimationChange((float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0], 0, 1)
+								}, 0.6)
+						}, AnimationComponent::Once));
 					}
 				}
 			}

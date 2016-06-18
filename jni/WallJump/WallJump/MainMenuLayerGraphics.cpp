@@ -76,7 +76,7 @@ void MainMenuLayerGraphics::load() {
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("score.vert", "score.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.3125, -0.5, 0.625, 1))))
 		->addComponent(new TransformComponent(Vector2<float>(4.5, 4)))
-		->addComponent(new TextureComponent("numbers.bmp", GL_NEAREST))
+		->addComponent(new TextureComponent("digits.bmp", GL_NEAREST))
 		->addComponent(new UniformsComponent({ Uniform("score", score), Uniform("length", (int)std::to_string(score).length()), Uniform("alpha", 1.f), Uniform("textColor", 0.f, 0.f, 0.f) }))
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(updateHighScore, classId<MainMenuLayerLogic>())));

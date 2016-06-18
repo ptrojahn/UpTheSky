@@ -89,6 +89,7 @@
     <ClInclude Include="BackgroundLayer.h" />
     <ClInclude Include="CloudComponent.h" />
     <ClInclude Include="CloudSystem.h" />
+    <ClInclude Include="CoinComponent.h" />
     <ClInclude Include="GameOverlayLayer.h" />
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
