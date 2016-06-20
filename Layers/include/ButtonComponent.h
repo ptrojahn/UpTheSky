@@ -8,9 +8,8 @@
 class ButtonComponent : public BaseComponent < ButtonComponent >
 {
 public:
-	ButtonComponent(Vector2<float> size, void(*onClick)(Entity* entity)) : size(size), onClick(onClick), pressed(false) {
+	ButtonComponent(Vector2<float> size, void(*onClick)(Entity* entity)) : size(size), onClick(onClick) {
 	}
 	Vector2<float> size;
 	void(*onClick)(Entity* entity);
-	bool pressed;
 };
