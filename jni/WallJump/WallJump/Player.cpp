@@ -17,6 +17,7 @@
 #include "CoinComponent.h"
 #include "AnimationComponent.h"
 #include "UniformsComponent.h"
+#include "TextureComponent.h"
 
 #include <random>
 
@@ -133,7 +134,7 @@ void onPlayerRemoved(Entity* player) {
 		->addComponent(new ScrollComponent()));
 
 	//Reset the player
-	player->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))));
+	player->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 1, 2))));
 	player->addComponent(new PlayerComponent());
 	player->addComponent(new ScrollComponent());
 	TransformComponent* component = player->getComponent<TransformComponent>();
@@ -159,10 +160,16 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 			std::uniform_int_distribution<int> particleDistribution(-20, 20);
 			particleAngle += particleDistribution(getMtEngine()) / 10.f;
 			player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(100))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"),
-					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(-0.25f, -0.25f, 0.5f, 0.5f))))
+				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "playerParticle.frag"),
+					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.25f, -0.25f, 0.5f, 0.5f))))
 				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x + 0.25f, 0.5 * y + 0.25f)))
-				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.25f + angle), cosf(particleAngle * 0.25f + angle)) * 4.f, particleAngle * 2.f)));
+				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.25f + angle), cosf(particleAngle * 0.25f + angle)) * 4.f, particleAngle * 2.f))
+				->addComponent(new TextureComponent("playerAtlas.bmp"))
+				->addComponent(new UniformsComponent({ player->getComponent<UniformsComponent>()->uniforms[0],
+					player->getComponent<UniformsComponent>()->uniforms[1], 
+					player->getComponent<UniformsComponent>()->uniforms[2], 
+					player->getComponent<UniformsComponent>()->uniforms[3],
+					Uniform("uvOffset", x*0.5, y*0.25)})));
 		}
 	}
 	//Make the player invisible and add the OnWaitFinishedComponent

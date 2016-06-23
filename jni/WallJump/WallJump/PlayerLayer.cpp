@@ -39,10 +39,12 @@ void addTrailEntity(Entity* player) {
 
 void PlayerLayer::load() {
 	addEntity((new Entity(100))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, 1, 2))))
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 1, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f - 1, getEngine()->getLogicalScreenSize().y / 2.f - 2), 0, Vector2<float>(2.f, 2.f)))
 		->addComponent(new PlayerComponent())
 		->addComponent(new ScrollComponent())
+		->addComponent(new TextureComponent("playerAtlas.bmp", GL_NEAREST))
+		->addComponent(new UniformsComponent({ Uniform("color0", 0.f, 0.f, 0.f), Uniform("color1", 0.9f, 0.1f, 0.1f), Uniform("color2", 0.9f, 0.9f, 0.1f), Uniform("atlasIndex", 13) }))
 		->addComponent(new OnWaitFinishedComponent(5, addTrailEntity)));
 
 	addEntity((new Entity(0))

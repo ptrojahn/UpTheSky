@@ -190,5 +190,11 @@
     <None Include="..\assets\coin.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
+    <None Include="..\assets\player.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\playerParticle.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
   </ItemGroup>
 </Project>
