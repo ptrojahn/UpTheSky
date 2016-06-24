@@ -5,7 +5,9 @@
 
 #include <SDL.h>
 
-bool pressed = false;
+namespace{
+	bool pressed = false;
+}
 
 void ButtonSystem::update(LayersEngine& engine) {
 	for (Entity* entity : engine.getEntities()){
