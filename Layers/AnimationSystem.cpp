@@ -29,11 +29,13 @@ void AnimationSystem::update(LayersEngine& engine) {
 					} else if (animationComponent->animationType == AnimationComponent::Loop)
 						animationComponent->stateIndex = 0;
 				}
-				AnimationState newState = animationComponent->states[animationComponent->stateIndex];
+				AnimationState& newState = animationComponent->states[animationComponent->stateIndex];
 				for (AnimationChange& change : newState.animationChanges){
-					*change.pointer += (change.endValue - change.startValue) * ((animationComponent->stateTime - currentState.length) / currentState.length) * (engine.getDeltaTime() / currentState.length);
+					float delta = (change.endValue - change.startValue) * ((animationComponent->stateTime - currentState.length) / newState.length);
+					*change.pointer += delta;
+					change.currentValue += delta;
 				}
-				animationComponent->stateTime = 0;
+				animationComponent->stateTime = animationComponent->stateTime - currentState.length;
 			}
 		}
 	}
