@@ -45,6 +45,10 @@ int getJumpBlock(std::vector<Entity*> entities, Vector2<float> playerPosition, V
 	return 0;
 }
 
+void deleteTrailEntity(Entity* trailEntity) {
+	trailEntity->getLayer()->deleteEntity(trailEntity);
+}
+
 void PlayerSystem::update(LayersEngine& engine) {
 	for (Entity* playerEntity : engine.getEntities()){
 		PlayerComponent* playerComponent = playerEntity->getComponent<PlayerComponent>();
@@ -110,6 +114,24 @@ void PlayerSystem::update(LayersEngine& engine) {
 						}, AnimationComponent::Once));
 					}
 				}
+			}
+
+			//Trail
+			if (playerEntity->getComponent<RenderComponent>()->enabled){
+				TransformComponent* transformComponent = playerEntity->getComponent<TransformComponent>();
+				Entity* trailItem = new Entity(101);
+				trailItem->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "playerTrail.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, PlayerSystem::playerSize.x, PlayerSystem::playerSize.y))));
+				UniformsComponent* uniformsComponent = new UniformsComponent({ Uniform("alpha", 1.f) });
+				trailItem->addComponent(uniformsComponent);
+				trailItem->addComponent(new TransformComponent(transformComponent->position, transformComponent->rotation, transformComponent->scale));
+				trailItem->addComponent(new OnWaitFinishedComponent(100, deleteTrailEntity));
+				trailItem->addComponent(new ScrollComponent());
+				trailItem->addComponent(new AnimationComponent({
+					AnimationState({
+						AnimationChange((float*)(&uniformsComponent->uniforms[0].data[0]), 1.f, 0.f)
+					}, 0.1f)
+				}, AnimationComponent::Once));
+				playerEntity->getLayer()->addEntity(trailItem);
 			}
 			break;
 		}
