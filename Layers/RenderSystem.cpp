@@ -10,7 +10,7 @@
 void RenderSystem::update(LayersEngine& engine) {
 	for (Entity* entity : engine.getEntities()){
 		RenderComponent* renderComponent = entity->getComponent<RenderComponent>();
-		if (renderComponent){
+		if (renderComponent && renderComponent->enabled){
 			ShaderManager::instance().useShader(renderComponent->shaderId);
 			BufferManager::instance().bindBuffer(renderComponent->vboId);
 			std::vector<int> sizes = ShaderManager::instance().getAttributesSize(renderComponent->shaderId);
