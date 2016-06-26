@@ -134,7 +134,7 @@ void onPlayerRemoved(Entity* player) {
 		->addComponent(new ScrollComponent()));
 
 	//Reset the player
-	player->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 1, 2))));
+	player->getComponent<RenderComponent>()->enabled = true;
 	player->addComponent(new PlayerComponent());
 	player->addComponent(new ScrollComponent());
 	TransformComponent* component = player->getComponent<TransformComponent>();
@@ -173,7 +173,7 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 		}
 	}
 	//Make the player invisible and add the OnWaitFinishedComponent
-	player->deleteComponent(player->getComponent<RenderComponent>());
+	player->getComponent<RenderComponent>()->enabled = false;
 	player->deleteComponent(player->getComponent<PlayerComponent>());
 	player->deleteComponent(player->getComponent<ScrollComponent>());
 	player->addComponent(new OnWaitFinishedComponent(1000, onPlayerRemoved));

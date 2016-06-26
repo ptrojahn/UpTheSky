@@ -72,6 +72,18 @@
     <ClCompile Include="MersenneTwisterEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShopLayerGraphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationsCommon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopLayerLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalScrollSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerLayer.h">
@@ -137,6 +149,21 @@
     <ClInclude Include="CoinComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="ShopLayerGraphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationsCommon.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopLayerLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalScrollSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalScrollComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\levelGeometry.frag">
@@ -146,9 +173,6 @@
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="..\assets\mainMenuButton.frag">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="..\assets\player.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="..\assets\score.frag">
@@ -194,6 +218,9 @@
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="..\assets\playerParticle.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\skinChooser.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>

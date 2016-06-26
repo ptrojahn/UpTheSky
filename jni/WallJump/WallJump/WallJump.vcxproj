@@ -69,12 +69,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationsCommon.cpp" />
     <ClCompile Include="BackgroundLayer.cpp" />
     <ClCompile Include="CloudSystem.cpp" />
     <ClCompile Include="GameOverlayLayer.cpp" />
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="GhostWall.cpp" />
     <ClCompile Include="helper.cpp" />
+    <ClCompile Include="HorizontalScrollSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuLayerGraphics.cpp" />
     <ClCompile Include="MainMenuLayerLogic.cpp" />
@@ -84,8 +86,11 @@
     <ClCompile Include="PlayerLayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScrollSystem.cpp" />
+    <ClCompile Include="ShopLayerGraphics.cpp" />
+    <ClCompile Include="ShopLayerLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationsCommon.h" />
     <ClInclude Include="BackgroundLayer.h" />
     <ClInclude Include="CloudComponent.h" />
     <ClInclude Include="CloudSystem.h" />
@@ -94,6 +99,8 @@
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="HorizontalScrollComponent.h" />
+    <ClInclude Include="HorizontalScrollSystem.h" />
     <ClInclude Include="LethalTriggerComponent.h" />
     <ClInclude Include="MainMenuLayerGraphics.h" />
     <ClInclude Include="MainMenuLayerLogic.h" />
@@ -106,6 +113,8 @@
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScrollSystem.h" />
     <ClInclude Include="ScrollComponent.h" />
+    <ClInclude Include="ShopLayerGraphics.h" />
+    <ClInclude Include="ShopLayerLogic.h" />
     <ClInclude Include="StaticColliderComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +130,7 @@
     <None Include="..\assets\playerTrail.frag" />
     <None Include="..\assets\score.frag" />
     <None Include="..\assets\score.vert" />
+    <None Include="..\assets\skinChooser.frag" />
     <None Include="..\assets\spikes_left.frag" />
     <None Include="..\assets\spikes_right.frag" />
     <None Include="..\assets\spikes_up.frag" />
