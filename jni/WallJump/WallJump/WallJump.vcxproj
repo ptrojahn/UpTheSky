@@ -121,6 +121,7 @@
     <None Include="..\assets\backgroundHeightMap.frag" />
     <None Include="..\assets\cloud.frag" />
     <None Include="..\assets\coin.frag" />
+    <None Include="..\assets\colorChooser.frag" />
     <None Include="..\assets\levelGeometry.frag" />
     <None Include="..\assets\levelGeometryGhost.frag" />
     <None Include="..\assets\mainMenuButton.frag" />

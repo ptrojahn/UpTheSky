@@ -223,5 +223,8 @@
     <None Include="..\assets\skinChooser.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
+    <None Include="..\assets\colorChooser.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
   </ItemGroup>
 </Project>
