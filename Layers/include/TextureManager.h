@@ -15,14 +15,14 @@ struct TextureData
 class TextureManager
 {
 public:
-	TextureManager() : currentTextureId(0) {}
+	TextureManager() {}
 	static TextureManager& instance() {
 		static TextureManager manager;
 		return manager;
 	}
 	GLuint createTexture(std::string texturePath, GLenum filter = GL_LINEAR, GLenum wrap = GL_CLAMP_TO_EDGE);
-	void bindTexture(GLuint id);
+	void bindTexture(GLuint id, int textureUnit);
 private:
 	std::vector<TextureData> textures;
-	GLuint currentTextureId;
+	std::vector<GLuint> currentTextureId;
 };

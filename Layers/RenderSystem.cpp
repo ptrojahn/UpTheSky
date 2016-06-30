@@ -68,14 +68,20 @@ void RenderSystem::update(LayersEngine& engine) {
 					} else if (uniform.type == UniformInt){
 						if (uniform.location == 0)
 							uniform.location = glGetUniformLocation(renderComponent->shaderId, uniform.name.c_str());
-						glUniform1i(uniform.location, *(int*)&uniform.data[0]);
+						glUniform1i(uniform.location, *(GLint*)&uniform.data[0]);
 					}
 				}
 			}
 
 			TextureComponent* textureComponent = entity->getComponent<TextureComponent>();
 			if (textureComponent){
-				TextureManager::instance().bindTexture(textureComponent->textureId);
+				for (int i = 0; i < textureComponent->textures.size(); i++){
+					TextureInfo& texture = textureComponent->textures[i];
+					if (texture.location == 0)
+						texture.location = glGetUniformLocation(renderComponent->shaderId, texture.uniformName.c_str());
+					glUniform1i(texture.location, i);
+					TextureManager::instance().bindTexture(textureComponent->textures[i].id, i);
+				}
 			}
 			
 			glUniformMatrix4fv(renderComponent->shaderMatrixId, 1, GL_FALSE, finalMatrix.values);

@@ -20,13 +20,16 @@ GLuint TextureManager::createTexture(std::string fileName, GLenum filter, GLenum
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
 	textures.push_back(TextureData(textureId, fileName));
-	currentTextureId = textureId;
 	return textureId;
 }
 
-void TextureManager::bindTexture(GLuint id) {
-	if (id != currentTextureId){
-		glBindTexture(GL_TEXTURE_2D, id);
-		currentTextureId = id;
-	}
+void TextureManager::bindTexture(GLuint id, int textureUnit) {
+	if (textureUnit + 1 <= currentTextureId.size() && currentTextureId[textureUnit] == id)
+		return;
+	if (textureUnit + 1 > currentTextureId.size())
+		currentTextureId.push_back(id);
+	else if (currentTextureId[textureUnit] != id)
+		currentTextureId[textureUnit] = id;
+	glActiveTexture(GL_TEXTURE0 + textureUnit);
+	glBindTexture(GL_TEXTURE_2D, id);
 }
