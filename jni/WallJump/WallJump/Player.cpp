@@ -186,7 +186,7 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.25f, -0.25f, 0.5f, 0.5f))))
 				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x + 0.25f, 0.5 * y + 0.25f)))
 				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.25f + angle), cosf(particleAngle * 0.25f + angle)) * 4.f, particleAngle * 2.f))
-				->addComponent(new TextureComponent("playerAtlas.bmp"))
+				->addComponent(new TextureComponent({ Texture("playerAtlas.bmp", "atlas", GL_NEAREST), Texture("skinColors.bmp", "colors", GL_NEAREST) }))
 				->addComponent(new UniformsComponent({ player->getComponent<UniformsComponent>()->uniforms[0],
 					player->getComponent<UniformsComponent>()->uniforms[1], 
 					player->getComponent<UniformsComponent>()->uniforms[2], 

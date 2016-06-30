@@ -22,7 +22,7 @@ void CloudSystem::update(LayersEngine& engine) {
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 8, 1.0625))))
 			->addComponent(new TransformComponent(Vector2<float>(-8.f, yPosGenerator(getMtEngine()))))
 			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(getMtEngine())) }))
-			->addComponent(new TextureComponent("clouds.bmp"))
+			->addComponent(new TextureComponent({Texture("clouds.bmp", "texture") }))
 			->addComponent(new CloudComponent(0.2f)));
 	}
 

@@ -84,6 +84,9 @@
     <ClCompile Include="HorizontalScrollSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColorChooserSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerLayer.h">
@@ -131,9 +134,6 @@
     <ClInclude Include="ParticleComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameOverlayLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -163,6 +163,15 @@
     </ClInclude>
     <ClInclude Include="HorizontalScrollComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorChooserComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorChooserSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

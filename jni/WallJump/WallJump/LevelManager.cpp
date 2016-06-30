@@ -177,7 +177,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new TransformComponent(Vector2<float>(xPos + helperComponent->jumpStartX + 0.5f + PlayerSystem::playerSize.x / 2 - 0.25f, jumpFunction(xPos) - helperComponent->height + PlayerSystem::playerSize.y / 2 - 0.25f)))
 				->addComponent(new ScrollComponent())
 				->addComponent(new CoinComponent())
-				->addComponent(new TextureComponent("digits.bmp", GL_NEAREST))
+				->addComponent(new TextureComponent({Texture( "digits.bmp", "digits", GL_NEAREST) }))
 				->addComponent(new UniformsComponent({ Uniform("digit", 1), Uniform("animationState", 0.f), Uniform("color", 0., 0., 1.) })));
 		} else {
 			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
@@ -234,7 +234,7 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 				->addComponent(new TransformComponent(Vector2<float>(((helperComponent->jumpStartX - helperComponent->jumpDestX) - 1.5f - xPos) - 0.5f + helperComponent->jumpDestX + 0.5f + PlayerSystem::playerSize.x / 2 - 0.25f, jumpFunction(xPos) - helperComponent->height + PlayerSystem::playerSize.y / 2 - 0.25f)))
 				->addComponent(new ScrollComponent())
 				->addComponent(new CoinComponent())
-				->addComponent(new TextureComponent("digits.bmp", GL_NEAREST))
+				->addComponent(new TextureComponent({ Texture("digits.bmp", "digits", GL_NEAREST) }))
 				->addComponent(new UniformsComponent({ Uniform("digit", 1), Uniform("animationState", 0.f), Uniform("color", 0., 0., 1.) })));
 		} else {
 			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);

@@ -55,19 +55,19 @@ void BackgroundLayer::load() {
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 13.f)))
 		->addComponent(new UniformsComponent({Uniform("color", 0.3f, 0.3f, 0.3f)}))
-		->addComponent(new TextureComponent("hills0.bmp")));
+		->addComponent(new TextureComponent({ Texture("hills0.bmp", "texture") })));
 	addEntity((new Entity(303))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "backgroundHeightMap.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 12.f)))
 		->addComponent(new UniformsComponent({ Uniform("color", 0.4f, 0.4f, 0.4f) }))
-		->addComponent(new TextureComponent("hills1.bmp")));
+		->addComponent(new TextureComponent({ Texture("hills1.bmp", "texture") })));
 	addEntity((new Entity(304))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "backgroundHeightMap.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 9.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(0.f, 11.f)))
 		->addComponent(new UniformsComponent({ Uniform("color", 0.5f, 0.5f, 0.5f) }))
-		->addComponent(new TextureComponent("hills2.bmp")));
+		->addComponent(new TextureComponent({ Texture("hills2.bmp", "texture") })));
 	addEntity((new Entity(305))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "sun.frag"),
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 3.f, 3.f))))
@@ -94,7 +94,7 @@ void BackgroundLayer::load() {
 			BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 8, 1.0625))))
 			->addComponent(new TransformComponent(Vector2<float>(xPosGenerator(getMtEngine()), yPosGenerator(getMtEngine()))))
 			->addComponent(new UniformsComponent({ Uniform("index", indexGenerator(getMtEngine())) }))
-			->addComponent(new TextureComponent("clouds.bmp"))
+			->addComponent(new TextureComponent({ Texture("clouds.bmp", "texture") }))
 			->addComponent(new CloudComponent(0.2f)));
 	}
 

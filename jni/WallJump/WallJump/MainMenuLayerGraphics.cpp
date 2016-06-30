@@ -37,33 +37,33 @@ void MainMenuLayerGraphics::load() {
 		->addComponent(new UniformsComponent({ Uniform("alpha", 1.f) }))
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
-		->addComponent(new TextureComponent("menuButtonStore.bmp", GL_NEAREST)));
+		->addComponent(new TextureComponent({ Texture("menuButtonStore.bmp", "texture", GL_NEAREST) })));
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "mainMenuButton.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 2, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(2.4, 13.8)))
 		->addComponent(new UniformsComponent({ Uniform("alpha", 1.f) }))
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
-		->addComponent(new TextureComponent("menuButtonStore.bmp", GL_NEAREST)));
+		->addComponent(new TextureComponent({ Texture("menuButtonStore.bmp", "texture", GL_NEAREST) })));
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "mainMenuButton.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 2, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(4.6, 13.8)))
 		->addComponent(new UniformsComponent({ Uniform("alpha", 1.f) }))
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
-		->addComponent(new TextureComponent("menuButtonStore.bmp", GL_NEAREST)));
+		->addComponent(new TextureComponent({ Texture("menuButtonStore.bmp", "texture", GL_NEAREST) })));
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "mainMenuButton.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 2, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(6.8, 13.8)))
 		->addComponent(new UniformsComponent({ Uniform("alpha", 1.f) }))
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
-		->addComponent(new TextureComponent("menuButtonStore.bmp", GL_NEAREST)));
+		->addComponent(new TextureComponent({ Texture("menuButtonStore.bmp", "texture", GL_NEAREST) })));
 	int score = SharedPreferences::getSharedPreferences().getInt("highscore", 0);
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("score.vert", "score.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.3125, -0.5, 0.625, 1))))
 		->addComponent(new TransformComponent(Vector2<float>(4.5, 4)))
-		->addComponent(new TextureComponent("digits.bmp", GL_NEAREST))
+		->addComponent(new TextureComponent({ Texture("digits.bmp", "digits", GL_NEAREST) }))
 		->addComponent(new UniformsComponent({ Uniform("score", score), Uniform("length", (int)std::to_string(score).length()), Uniform("alpha", 1.f), Uniform("textColor", 0.f, 0.f, 0.f) }))
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(updateHighScore, classId<MainMenuLayerLogic>())));
