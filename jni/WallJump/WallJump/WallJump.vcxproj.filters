@@ -45,9 +45,6 @@
     <ClCompile Include="GameLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GhostWall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,15 +93,15 @@
     <ClCompile Include="PlayerSystem.cpp">
       <Filter>Systems\Source</Filter>
     </ClCompile>
+    <ClCompile Include="LevelManagerSystem.cpp">
+      <Filter>Systems\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GhostWall.h">
@@ -138,9 +135,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GameOverlayLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CloudSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CloudComponent.h">
@@ -184,6 +178,15 @@
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CloudSystem.h">
+      <Filter>Systems\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManagerHelperComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManagerSystem.h">
+      <Filter>Systems\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

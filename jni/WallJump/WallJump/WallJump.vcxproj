@@ -81,7 +81,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuLayerGraphics.cpp" />
     <ClCompile Include="MainMenuLayerLogic.cpp" />
-    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LevelManagerSystem.cpp" />
     <ClCompile Include="MersenneTwisterEngine.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
@@ -105,9 +105,10 @@
     <ClInclude Include="HorizontalScrollComponent.h" />
     <ClInclude Include="HorizontalScrollSystem.h" />
     <ClInclude Include="LethalTriggerComponent.h" />
+    <ClInclude Include="LevelManagerHelperComponent.h" />
     <ClInclude Include="MainMenuLayerGraphics.h" />
     <ClInclude Include="MainMenuLayerLogic.h" />
-    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="LevelManagerSystem.h" />
     <ClInclude Include="MersenneTwisterEngine.h" />
     <ClInclude Include="ParticleComponent.h" />
     <ClInclude Include="ParticleSystem.h" />

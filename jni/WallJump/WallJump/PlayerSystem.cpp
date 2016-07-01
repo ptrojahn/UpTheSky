@@ -4,7 +4,7 @@
 #include "StaticColliderComponent.h"
 #include "LethalTriggerComponent.h"
 #include "PlayerLayer.h"
-#include "LevelManager.h"
+#include "LevelManagerHelperComponent.h"
 #include "ScrollComponent.h"
 #include "RenderComponent.h"
 #include "GameLayer.h"
