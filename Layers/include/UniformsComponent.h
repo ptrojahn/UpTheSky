@@ -55,6 +55,13 @@ public:
 		*(int*)&data[0] = v0;
 		location = 0;
 	}
+	Uniform(const Uniform& uniform) {
+		name = uniform.name;
+		type = uniform.type;
+		data.resize(uniform.data.size());
+		std::memcpy(&data[0], &uniform.data[0], uniform.data.size());
+		location = 0;
+	}
 
 	std::string name;
 	UniformType type;
