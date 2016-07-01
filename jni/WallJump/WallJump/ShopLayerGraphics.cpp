@@ -80,34 +80,34 @@ void ShopLayerGraphics::load() {
 	Entity* colorChooser0 = new Entity(101);
 	colorChooser0->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "colorChooser.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 9, 1))));
 	colorChooser0->addComponent(new TransformComponent(Vector2<float>(0.f, 7.f)));
-	colorChooser0->addComponent(new UniformsComponent({ Uniform("offset", 0.f), Uniform("alpha", 0.f) }));
+	colorChooser0->addComponent(new UniformsComponent({ Uniform("offset", 0.f), Uniform("alpha", 0.f), Uniform("alphaEnabled", 0.f) }));
 	colorChooser0->addComponent(new HorizontalScrollComponent(-15.5f, 0.f, (float*)&colorChooser0->getComponent<UniformsComponent>()->uniforms[0].data[0], Vector2<float>(9, 1), 0.5f));
 	colorChooser0->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<ShopLayerLogic>()));
 	colorChooser0->addComponent(new OnLayerEnabledComponent(entityDelayedFadeIn, classId<ShopLayerLogic>()));
 	colorChooser0->addComponent(new TextureComponent({ Texture("skinColors.bmp", "colors", GL_NEAREST) }));
-	colorChooser0->addComponent(new ColorChooserComponent((int*)&skinChooser->getComponent<UniformsComponent>()->uniforms[2].data[0]));
+	colorChooser0->addComponent(new ColorChooserComponent((int*)&skinChooser->getComponent<UniformsComponent>()->uniforms[2].data[0], (float*)&skinChooser->getComponent<UniformsComponent>()->uniforms[0].data[0], 0));
 	addEntity(colorChooser0);
 
 	Entity* colorChooser1 = new Entity(101);
 	colorChooser1->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "colorChooser.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 9, 1))));
 	colorChooser1->addComponent(new TransformComponent(Vector2<float>(0.f, 8.5f)));
-	colorChooser1->addComponent(new UniformsComponent({ Uniform("offset", 0.f), Uniform("alpha", 0.f) }));
+	colorChooser1->addComponent(new UniformsComponent({ Uniform("offset", 0.f), Uniform("alpha", 0.f), Uniform("alphaEnabled", 0.f) }));
 	colorChooser1->addComponent(new HorizontalScrollComponent(-15.5f, 0.f, (float*)&colorChooser1->getComponent<UniformsComponent>()->uniforms[0].data[0], Vector2<float>(9, 1), 0.5f));
 	colorChooser1->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<ShopLayerLogic>()));
 	colorChooser1->addComponent(new OnLayerEnabledComponent(entityDelayedFadeIn, classId<ShopLayerLogic>()));
 	colorChooser1->addComponent(new TextureComponent({ Texture("skinColors.bmp", "colors", GL_NEAREST) }));
-	colorChooser1->addComponent(new ColorChooserComponent((int*)&skinChooser->getComponent<UniformsComponent>()->uniforms[3].data[0]));
+	colorChooser1->addComponent(new ColorChooserComponent((int*)&skinChooser->getComponent<UniformsComponent>()->uniforms[3].data[0], (float*)&skinChooser->getComponent<UniformsComponent>()->uniforms[0].data[0], 2));
 	addEntity(colorChooser1);
 
 	Entity* colorChooser2 = new Entity(101);
 	colorChooser2->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "colorChooser.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 9, 1))));
 	colorChooser2->addComponent(new TransformComponent(Vector2<float>(0.f, 10.f)));
-	colorChooser2->addComponent(new UniformsComponent({ Uniform("offset", 0.f), Uniform("alpha", 0.f) }));
+	colorChooser2->addComponent(new UniformsComponent({ Uniform("offset", 0.f), Uniform("alpha", 0.f), Uniform("alphaEnabled", 0.f) }));
 	colorChooser2->addComponent(new HorizontalScrollComponent(-15.5f, 0.f, (float*)&colorChooser2->getComponent<UniformsComponent>()->uniforms[0].data[0], Vector2<float>(9, 1), 0.5f));
 	colorChooser2->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<ShopLayerLogic>()));
 	colorChooser2->addComponent(new OnLayerEnabledComponent(entityDelayedFadeIn, classId<ShopLayerLogic>()));
 	colorChooser2->addComponent(new TextureComponent({ Texture("skinColors.bmp", "colors", GL_NEAREST) }));
-	colorChooser2->addComponent(new ColorChooserComponent((int*)&skinChooser->getComponent<UniformsComponent>()->uniforms[4].data[0]));
+	colorChooser2->addComponent(new ColorChooserComponent((int*)&skinChooser->getComponent<UniformsComponent>()->uniforms[4].data[0], (float*)&skinChooser->getComponent<UniformsComponent>()->uniforms[0].data[0], 16));
 	addEntity(colorChooser2);
 
 	addSystem(new ColorChooserSystem(3));

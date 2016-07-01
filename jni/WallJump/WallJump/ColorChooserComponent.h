@@ -5,6 +5,8 @@
 class ColorChooserComponent : public BaseComponent<ColorChooserComponent>
 {
 public:
-	ColorChooserComponent(int* offsetPointer) : offsetPointer(offsetPointer) {}
-	int* offsetPointer;
+	ColorChooserComponent(int* colorOffset, float* skinOffset, float edge) : colorOffset(colorOffset), skinOffset(skinOffset), edge(edge) {}
+	int* colorOffset;
+	float* skinOffset;
+	float edge;
 };
