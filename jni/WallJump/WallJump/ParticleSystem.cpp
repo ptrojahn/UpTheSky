@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 
 #include "ParticleComponent.h"
-#include "Player.h"
+#include "PlayerSystem.h"
 #include "TransformComponent.h"
 
 void ParticleSystem::update(LayersEngine& engine) {

@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "PlayerSystem.h"
 
 #include "TransformComponent.h"
 #include "StaticColliderComponent.h"
@@ -18,6 +18,7 @@
 #include "AnimationComponent.h"
 #include "UniformsComponent.h"
 #include "TextureComponent.h"
+#include "PlayerComponent.h"
 
 #include <random>
 
@@ -109,8 +110,8 @@ void PlayerSystem::update(LayersEngine& engine) {
 						&& *(float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0] == 0.f){
 						entity->addComponent(new AnimationComponent({
 							AnimationState({
-									AnimationChange((float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0], 0, 1)
-								}, 0.6)
+								AnimationChange((float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0], 0, 1)
+							}, 0.6)
 						}, AnimationComponent::Once));
 					}
 				}
@@ -183,15 +184,15 @@ void PlayerSystem::onPlayerDeath(Entity* player) {
 			particleAngle += particleDistribution(getMtEngine()) / 10.f;
 			player->getLayer()->getEngine()->getLayer<GameLayer>()->addEntity((new Entity(100))
 				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "playerParticle.frag"),
-					BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.25f, -0.25f, 0.5f, 0.5f))))
+				BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.25f, -0.25f, 0.5f, 0.5f))))
 				->addComponent(new TransformComponent(transformComponent->position + Vector2<float>(0.5 * x + 0.25f, 0.5 * y + 0.25f)))
 				->addComponent(new ParticleComponent(playerComponent->velocity + Vector2<float>(sinf(particleAngle * 0.25f + angle), cosf(particleAngle * 0.25f + angle)) * 4.f, particleAngle * 2.f))
 				->addComponent(new TextureComponent({ Texture("playerAtlas.bmp", "atlas", GL_NEAREST), Texture("skinColors.bmp", "colors", GL_NEAREST) }))
 				->addComponent(new UniformsComponent({ player->getComponent<UniformsComponent>()->uniforms[0],
-					player->getComponent<UniformsComponent>()->uniforms[1], 
-					player->getComponent<UniformsComponent>()->uniforms[2], 
-					player->getComponent<UniformsComponent>()->uniforms[3],
-					Uniform("uvOffset", x*0.5, y*0.25)})));
+				player->getComponent<UniformsComponent>()->uniforms[1],
+				player->getComponent<UniformsComponent>()->uniforms[2],
+				player->getComponent<UniformsComponent>()->uniforms[3],
+				Uniform("uvOffset", x*0.5, y*0.25) })));
 		}
 	}
 	//Make the player invisible and add the OnWaitFinishedComponent

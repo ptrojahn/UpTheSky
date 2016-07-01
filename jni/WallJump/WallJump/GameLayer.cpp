@@ -9,6 +9,7 @@
 #include "LevelManager.h"
 #include "RenderSystem.h"
 #include "OnWaitFinishedSystem.h"
+#include "PlayerSystem.h"
 
 void GameLayer::load() {
 	//Level generator helper

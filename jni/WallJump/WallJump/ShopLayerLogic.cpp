@@ -4,7 +4,7 @@
 #include "TransformComponent.h"
 #include "ButtonComponent.h"
 #include "MainMenuLayerLogic.h"
-#include "Player.h"
+#include "PlayerComponent.h"
 #include "AnimationComponent.h"
 #include "UniformsComponent.h"
 #include "ScoreComponent.h"

@@ -4,7 +4,6 @@
 #include "System.h"
 #include "TransformComponent.h"
 #include "LethalTriggerComponent.h"
-#include "Player.h"
 
 #include <random>
 

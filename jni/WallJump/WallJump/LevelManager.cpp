@@ -13,6 +13,8 @@
 #include "MersenneTwisterEngine.h"
 #include "TextureComponent.h"
 #include "CoinComponent.h"
+#include "PlayerSystem.h"
+#include "PlayerComponent.h"
 
 float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);

@@ -85,7 +85,7 @@
     <ClCompile Include="MersenneTwisterEngine.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayerLayer.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerSystem.cpp" />
     <ClCompile Include="ScrollSystem.cpp" />
     <ClCompile Include="ShopLayerGraphics.cpp" />
     <ClCompile Include="ShopLayerLogic.cpp" />
@@ -111,8 +111,9 @@
     <ClInclude Include="MersenneTwisterEngine.h" />
     <ClInclude Include="ParticleComponent.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlayerLayer.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerSystem.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScrollSystem.h" />
     <ClInclude Include="ScrollComponent.h" />

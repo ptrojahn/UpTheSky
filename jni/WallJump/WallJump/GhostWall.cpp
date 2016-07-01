@@ -1,6 +1,7 @@
 #include "GhostWall.h"
 
-#include "Player.h"
+#include "PlayerComponent.h"
+#include "PlayerSystem.h"
 #include "helper.h"
 #include "TransformComponent.h"
 #include "RenderComponent.h"

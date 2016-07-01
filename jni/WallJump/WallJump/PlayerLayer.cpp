@@ -4,7 +4,7 @@
 #include "TransformComponent.h"
 #include "RenderSystem.h"
 #include "ScrollComponent.h"
-#include "Player.h"
+#include "PlayerComponent.h"
 #include "GhostWall.h"
 #include "TextureComponent.h"
 #include "UniformsComponent.h"

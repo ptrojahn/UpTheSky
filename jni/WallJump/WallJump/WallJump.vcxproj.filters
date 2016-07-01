@@ -25,15 +25,21 @@
     <Filter Include="Shader\Fragment">
       <UniqueIdentifier>{7967a195-3c27-4956-a5b9-7b25e407f125}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{60055f06-cdf2-46e4-98a6-f6dabe401ec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Header">
+      <UniqueIdentifier>{264d5eb3-dc7f-49c5-9b99-a602eb5fa169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Source">
+      <UniqueIdentifier>{0c67f6db-da20-4bf6-a841-316af941cb98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameLayer.cpp">
@@ -57,16 +63,7 @@
     <ClCompile Include="BackgroundLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScrollSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameOverlayLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CloudSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MersenneTwisterEngine.cpp">
@@ -81,18 +78,27 @@
     <ClCompile Include="ShopLayerLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CloudSystem.cpp">
+      <Filter>Systems\Source</Filter>
+    </ClCompile>
     <ClCompile Include="HorizontalScrollSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Systems\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Systems\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollSystem.cpp">
+      <Filter>Systems\Source</Filter>
     </ClCompile>
     <ClCompile Include="ColorChooserSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Systems\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSystem.cpp">
+      <Filter>Systems\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameLayer.h">
@@ -128,9 +134,6 @@
     <ClInclude Include="ScrollComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="ScrollSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -158,9 +161,6 @@
     <ClInclude Include="ShopLayerLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HorizontalScrollSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HorizontalScrollComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -168,10 +168,22 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="ColorChooserSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Systems\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalScrollSystem.h">
+      <Filter>Systems\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollSystem.h">
+      <Filter>Systems\Header</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Systems\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSystem.h">
+      <Filter>Systems\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

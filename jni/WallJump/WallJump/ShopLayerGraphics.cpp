@@ -13,7 +13,7 @@
 #include "ShopLayerLogic.h"
 #include "HorizontalScrollComponent.h"
 #include "OnWaitFinishedSystem.h"
-#include "Player.h"
+#include "PlayerComponent.h"
 #include "ColorChooserComponent.h"
 #include "ColorChooserSystem.h"
 

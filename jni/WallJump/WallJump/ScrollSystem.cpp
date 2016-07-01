@@ -1,6 +1,6 @@
 #include "ScrollSystem.h"
 
-#include "Player.h"
+#include "PlayerComponent.h"
 #include "TransformComponent.h"
 #include "ScrollComponent.h"
 
