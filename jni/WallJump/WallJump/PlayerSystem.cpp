@@ -122,7 +122,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 				TransformComponent* transformComponent = playerEntity->getComponent<TransformComponent>();
 				Entity* trailItem = new Entity(101);
 				trailItem->addComponent(new RenderComponent(ShaderManager::instance().createShader("default.vert", "playerTrail.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2D(0, 0, PlayerSystem::playerSize.x, PlayerSystem::playerSize.y))));
-				UniformsComponent* uniformsComponent = new UniformsComponent({ Uniform("alpha", 1.f) });
+				UniformsComponent* uniformsComponent = new UniformsComponent({ Uniform("alpha", 1.f), playerEntity->getComponent<UniformsComponent>()->uniforms[0] });
 				trailItem->addComponent(uniformsComponent);
 				trailItem->addComponent(new TransformComponent(transformComponent->position, transformComponent->rotation, transformComponent->scale));
 				trailItem->addComponent(new OnWaitFinishedComponent(100, deleteTrailEntity));
@@ -132,6 +132,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 						AnimationChange((float*)(&uniformsComponent->uniforms[0].data[0]), 1.f, 0.f)
 					}, 0.1f)
 				}, AnimationComponent::Once));
+				trailItem->addComponent(new TextureComponent({Texture("skinColors.bmp", "colors", GL_NEAREST)}));
 				playerEntity->getLayer()->addEntity(trailItem);
 			}
 			break;
