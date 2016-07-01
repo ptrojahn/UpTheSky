@@ -18,8 +18,8 @@ void main(){
 	vec3 grey = texture2D(atlas, vec2(atlasXPos, uvPos.y)).rgb;
 	float pixel = texture2D(atlas, vec2(atlasXPos, uvPos.y)).r;
 	vec3 color = texture2D(colors, vec2(float(color0)/32., 0.)).bgr * step(pixel, 0.25) 
-	           + texture2D(colors, vec2(float(color1)/32., 0.)).bgr * step(0.25, pixel) * step(pixel, 0.75)
-	           + texture2D(colors, vec2(float(color2)/32., 0.)).bgr * step(0.75, pixel);
+	           + texture2D(colors, vec2(float(color2)/32., 0.)).bgr * step(0.25, pixel) * step(pixel, 0.75)
+	           + texture2D(colors, vec2(float(color1)/32., 0.)).bgr * step(0.75, pixel);
 
 	float fadeAnimation =  (2.*alpha - distance/((4.5/2.)/16.));
 	gl_FragColor = vec4(mix(grey, color, smoothstep(1./16., 0., distance)), fadeAnimation * step(0., atlasXPos) * step(atlasXPos, 1.));
