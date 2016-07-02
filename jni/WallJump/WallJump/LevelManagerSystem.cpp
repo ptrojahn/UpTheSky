@@ -15,6 +15,7 @@
 #include "CoinComponent.h"
 #include "PlayerSystem.h"
 #include "PlayerComponent.h"
+#include "Vector3.h"
 
 float jumpFunction(float length) {
 	return (PlayerSystem::gravity / 2)*pow((length / PlayerSystem::jumpVelocity.x), 2) + PlayerSystem::jumpVelocity.y * (length / PlayerSystem::jumpVelocity.x);
@@ -26,6 +27,26 @@ bool genHorizontalSpikes(int score) {
 		return horizontalSpikes(getMtEngine()) == 0;
 	}
 	return false;
+}
+
+void LevelManagerSystem::genCoin(Vector2<float> position, int score) {
+	int value = 1;
+	Vector3<float> color(0.f, 0.f, 1.f);
+	if (score > 150){
+		value = 2;
+		color = Vector3<float>(1.f, 0.f, 0.f);
+	} else if (score > 75){
+		value = 2;
+		color = Vector3<float>(0.f, 1.f, 0.f);
+	}
+
+	getLayer()->addEntity((new Entity(200))
+		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "coin.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.5, 0.5))))
+		->addComponent(new TransformComponent(position))
+		->addComponent(new ScrollComponent())
+		->addComponent(new CoinComponent())
+		->addComponent(new TextureComponent({ Texture("digits.bmp", "digits", GL_NEAREST) }))
+		->addComponent(new UniformsComponent({ Uniform("digit", value), Uniform("animationState", 0.f), Uniform("color", color.x, color.y, color.z) })));
 }
 
 void LevelManagerSystem::addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score) {
@@ -172,15 +193,9 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->jumpDestX = 6.5 + wallWidthGenerator(getMtEngine()) * 0.5;
 
 			//Generate items
-			std::uniform_real_distribution<float> xPosGenerator(0.f, (helperComponent->jumpDestX - helperComponent->jumpStartX) - 1.5f);
+			std::uniform_real_distribution<float> xPosGenerator(0.f, (helperComponent->jumpDestX - helperComponent->jumpStartX) - 1.f);
 			float xPos = xPosGenerator(getMtEngine());
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "coin.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.5, 0.5))))
-				->addComponent(new TransformComponent(Vector2<float>(xPos + helperComponent->jumpStartX + 0.5f + PlayerSystem::playerSize.x / 2 - 0.25f, jumpFunction(xPos) - helperComponent->height + PlayerSystem::playerSize.y / 2 - 0.25f)))
-				->addComponent(new ScrollComponent())
-				->addComponent(new CoinComponent())
-				->addComponent(new TextureComponent({Texture( "digits.bmp", "digits", GL_NEAREST) }))
-				->addComponent(new UniformsComponent({ Uniform("digit", 1), Uniform("animationState", 0.f), Uniform("color", 0., 0., 1.) })));
+			genCoin(Vector2<float>(xPos + helperComponent->jumpStartX + 0.25f, jumpFunction(xPos) - helperComponent->height + PlayerSystem::playerSize.y / 2 - 0.25f), score);
 		} else {
 			addClutterLeft(Vector2<float>(helperComponent->jumpStartX - 1, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}
@@ -229,15 +244,9 @@ void LevelManagerSystem::addBlocks(LevelManagerHelperComponent* helperComponent,
 			helperComponent->jumpDestX = 0.5 + wallWidthGenerator(getMtEngine()) * 0.5;
 
 			//Generate items
-			std::uniform_real_distribution<float> xPosGenerator(0.f, (helperComponent->jumpStartX - helperComponent->jumpDestX) - 1.5f);
+			std::uniform_real_distribution<float> xPosGenerator(0.f, (helperComponent->jumpStartX - helperComponent->jumpDestX) - 1.f);
 			float xPos = xPosGenerator(getMtEngine());
-			getLayer()->addEntity((new Entity(200))
-				->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "coin.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 0.5, 0.5))))
-				->addComponent(new TransformComponent(Vector2<float>(((helperComponent->jumpStartX - helperComponent->jumpDestX) - 1.5f - xPos) - 0.5f + helperComponent->jumpDestX + 0.5f + PlayerSystem::playerSize.x / 2 - 0.25f, jumpFunction(xPos) - helperComponent->height + PlayerSystem::playerSize.y / 2 - 0.25f)))
-				->addComponent(new ScrollComponent())
-				->addComponent(new CoinComponent())
-				->addComponent(new TextureComponent({ Texture("digits.bmp", "digits", GL_NEAREST) }))
-				->addComponent(new UniformsComponent({ Uniform("digit", 1), Uniform("animationState", 0.f), Uniform("color", 0., 0., 1.) })));
+			genCoin(Vector2<float>((helperComponent->jumpStartX - helperComponent->jumpDestX) + helperComponent->jumpDestX - 0.75f - xPos, jumpFunction(xPos) - helperComponent->height + PlayerSystem::playerSize.y / 2 - 0.25f), score);
 		} else {
 			addClutterRight(Vector2<float>(helperComponent->jumpStartX, helperComponent->jumpStartYMax - helperComponent->height), jumpDifficultyReduction, distance, helperComponent->jumpDestX, score);
 		}

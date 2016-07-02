@@ -131,6 +131,8 @@
     <None Include="..\assets\levelGeometryGhost.frag" />
     <None Include="..\assets\mainMenuButton.frag" />
     <None Include="..\assets\default.vert" />
+    <None Include="..\assets\money.frag" />
+    <None Include="..\assets\money.vert" />
     <None Include="..\assets\player.frag" />
     <None Include="..\assets\playerParticle.frag" />
     <None Include="..\assets\playerTrail.frag" />

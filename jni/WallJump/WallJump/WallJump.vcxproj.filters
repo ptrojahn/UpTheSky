@@ -250,5 +250,11 @@
     <None Include="..\assets\colorChooser.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
+    <None Include="..\assets\money.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="..\assets\money.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
   </ItemGroup>
 </Project>

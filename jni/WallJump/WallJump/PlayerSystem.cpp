@@ -19,6 +19,7 @@
 #include "UniformsComponent.h"
 #include "TextureComponent.h"
 #include "PlayerComponent.h"
+#include "SharedPreferences.h"
 
 #include <random>
 
@@ -105,9 +106,12 @@ void PlayerSystem::update(LayersEngine& engine) {
 						onPlayerDeath(playerEntity);
 						break;
 					}
-				} else if (entity->getComponent<CoinComponent>()){
-					if (intersect(transformComponent->position, playerSize, entity->getComponent<TransformComponent>()->position, Vector2<float>(0.5f, 0.5f))
-						&& *(float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0] == 0.f){
+				} else if (entity->getComponent<CoinComponent>() && !entity->getComponent<CoinComponent>()->collected){
+					if (intersect(transformComponent->position, playerSize, entity->getComponent<TransformComponent>()->position, Vector2<float>(0.5f, 0.5f))){
+						entity->getComponent<CoinComponent>()->collected = true;
+						SharedPreferences& sharedPrefs = SharedPreferences::getSharedPreferences();
+						sharedPrefs.putInt("money", *(int*)&entity->getComponent<UniformsComponent>()->uniforms[0].data[0] + sharedPrefs.getInt("money"));
+						sharedPrefs.apply();
 						entity->addComponent(new AnimationComponent({
 							AnimationState({
 								AnimationChange((float*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0], 0, 1)

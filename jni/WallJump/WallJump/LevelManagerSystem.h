@@ -15,4 +15,5 @@ public:
 	void addClutterLeft(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score);
 	void addClutterRight(Vector2<float> position, float jumpDifficultyReduction, float distance, float minX, int score);
 	void update(LayersEngine& engine);
+	void genCoin(Vector2<float> position, int score);
 };
