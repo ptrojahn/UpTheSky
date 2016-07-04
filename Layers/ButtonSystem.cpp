@@ -7,24 +7,26 @@
 
 namespace{
 	bool pressed = false;
+	Vector2<float> startPos;
 }
 
 void ButtonSystem::update(LayersEngine& engine) {
-	for (Entity* entity : engine.getEntities()){
-		ButtonComponent* buttonComponent = entity->getComponent<ButtonComponent>();
-		if (buttonComponent){
-			Vector2<int> mousePosPhys;
-			if (engine.isTouchActive()){
-				TransformComponent* transformComponent = entity->getComponent<TransformComponent>();
-				if (engine.getTouchPosition().x > transformComponent->position.x && engine.getTouchPosition().x < transformComponent->position.x + buttonComponent->size.x
-					&& engine.getTouchPosition().y > transformComponent->position.y && engine.getTouchPosition().y < transformComponent->position.y + buttonComponent->size.y
-					&& !pressed){
+	if (engine.isTouchActive() && !pressed){
+		pressed = true;
+		startPos = engine.getTouchPosition();
+	} else if (!engine.isTouchActive() && pressed){
+		pressed = false;
+		for (Entity* entity : engine.getEntities()){
+			ButtonComponent* buttonComponent = entity->getComponent<ButtonComponent>();
+			if (buttonComponent){
+				Vector2<float> position = entity->getComponent<TransformComponent>()->position;
+				if (engine.getTouchPosition().x > position.x && engine.getTouchPosition().x < position.x + buttonComponent->size.x
+					&& engine.getTouchPosition().y > position.y && engine.getTouchPosition().y < position.y + buttonComponent->size.y
+					&& sqrt(pow(engine.getTouchPosition().x - startPos.x, 2) + pow(engine.getTouchPosition().y - startPos.y, 2)) < 0.25){
 					buttonComponent->onClick(entity);
-					pressed = true;
 					return;
 				}
-			} else
-				pressed = false;
+			}
 		}
 	}
 }
