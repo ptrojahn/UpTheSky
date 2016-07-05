@@ -72,7 +72,6 @@
     <ClCompile Include="AnimationsCommon.cpp" />
     <ClCompile Include="BackgroundLayer.cpp" />
     <ClCompile Include="CloudSystem.cpp" />
-    <ClCompile Include="ColorChooserSystem.cpp" />
     <ClCompile Include="GameOverlayLayer.cpp" />
     <ClCompile Include="GameLayer.cpp" />
     <ClCompile Include="GhostWall.cpp" />
@@ -97,7 +96,6 @@
     <ClInclude Include="CloudSystem.h" />
     <ClInclude Include="CoinComponent.h" />
     <ClInclude Include="ColorChooserComponent.h" />
-    <ClInclude Include="ColorChooserSystem.h" />
     <ClInclude Include="GameOverlayLayer.h" />
     <ClInclude Include="GameLayer.h" />
     <ClInclude Include="GhostWall.h" />
@@ -129,6 +127,7 @@
     <None Include="..\assets\colorChooser.frag" />
     <None Include="..\assets\levelGeometry.frag" />
     <None Include="..\assets\levelGeometryGhost.frag" />
+    <None Include="..\assets\lock.frag" />
     <None Include="..\assets\mainMenuButton.frag" />
     <None Include="..\assets\default.vert" />
     <None Include="..\assets\money.frag" />
@@ -136,6 +135,7 @@
     <None Include="..\assets\player.frag" />
     <None Include="..\assets\playerParticle.frag" />
     <None Include="..\assets\playerTrail.frag" />
+    <None Include="..\assets\moneyAlpha.frag" />
     <None Include="..\assets\score.frag" />
     <None Include="..\assets\score.vert" />
     <None Include="..\assets\skinChooser.frag" />

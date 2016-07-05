@@ -47,7 +47,7 @@ void PlayerLayer::load() {
 		->addComponent(new PlayerComponent())
 		->addComponent(new ScrollComponent())
 		->addComponent(new TextureComponent({ Texture("playerAtlas.bmp", "atlas", GL_NEAREST), Texture("skinColors.bmp", "colors", GL_NEAREST) }))
-		->addComponent(new UniformsComponent({ Uniform("color0", 5), Uniform("color1", 0), Uniform("color2", 0), Uniform("atlasIndex", 0) })));
+		->addComponent(new UniformsComponent({ Uniform("color0", SharedPreferences::getSharedPreferences().getInt("color0")), Uniform("color1", SharedPreferences::getSharedPreferences().getInt("color1")), Uniform("color2", SharedPreferences::getSharedPreferences().getInt("color2")), Uniform("atlasIndex", SharedPreferences::getSharedPreferences().getInt("skinIndex")) })));
 
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("score.vert", "score.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.625, -1, 1.25, 2))))

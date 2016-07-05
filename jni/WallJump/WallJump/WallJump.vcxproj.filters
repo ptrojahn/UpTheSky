@@ -87,9 +87,6 @@
     <ClCompile Include="ScrollSystem.cpp">
       <Filter>Systems\Source</Filter>
     </ClCompile>
-    <ClCompile Include="ColorChooserSystem.cpp">
-      <Filter>Systems\Source</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerSystem.cpp">
       <Filter>Systems\Source</Filter>
     </ClCompile>
@@ -160,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="ColorChooserComponent.h">
       <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorChooserSystem.h">
-      <Filter>Systems\Header</Filter>
     </ClInclude>
     <ClInclude Include="HorizontalScrollSystem.h">
       <Filter>Systems\Header</Filter>
@@ -254,6 +248,12 @@
       <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="..\assets\money.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\lock.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="..\assets\moneyAlpha.frag">
       <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>
