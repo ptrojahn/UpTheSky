@@ -31,13 +31,13 @@ bool genHorizontalSpikes(int score) {
 
 void LevelManagerSystem::genCoin(Vector2<float> position, int score) {
 	int value = 1;
-	Vector3<float> color(0.f, 0.f, 1.f);
+	Vector3<float> color(0.f, 0.f, 0.6f);
 	if (score > 150){
 		value = 2;
-		color = Vector3<float>(1.f, 0.f, 0.f);
+		color = Vector3<float>(0.6f, 0.f, 0.f);
 	} else if (score > 75){
 		value = 2;
-		color = Vector3<float>(0.f, 1.f, 0.f);
+		color = Vector3<float>(0.f, 0.6f, 0.f);
 	}
 
 	getLayer()->addEntity((new Entity(200))
