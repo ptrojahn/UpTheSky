@@ -40,6 +40,36 @@ void updateMoney(Entity* entity) {
 	*(int*)&entity->getComponent<UniformsComponent>()->uniforms[1].data[0] = std::to_string(money).length();
 }
 
+void updateScore(Entity* entity) {
+	int highscore = SharedPreferences::getSharedPreferences().getInt("highscore");
+	UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
+	if ((*(int*)&uniforms->uniforms[0].data[0]) == highscore + 1 && highscore != 0 && *(float*)&uniforms->uniforms[3].data[sizeof(float)] == 1.f){
+		//Change score color to red
+		*(float*)&uniforms->uniforms[3].data[sizeof(float)] = 0.f;
+		*(float*)&uniforms->uniforms[3].data[sizeof(float)*2] = 0.f;
+
+		TransformComponent* transform = entity->getComponent<TransformComponent>();
+		entity->addComponent(new AnimationComponent({
+			AnimationState({
+				AnimationChange(&transform->scale.x, 1.f, 1.2f),
+				AnimationChange(&transform->scale.y, 1.f, 1.2f)
+			}, 0.2f),
+			AnimationState({
+				AnimationChange(&transform->scale.x, 1.2f, 1.f),
+				AnimationChange(&transform->scale.y, 1.2f, 1.f)
+			}, 0.2f)
+		}, AnimationComponent::Once));
+	}
+}
+
+void resetScore(Entity* entity) {
+	UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
+	(*(int*)&uniforms->uniforms[0].data[0]) = 0;
+	*(int*)&uniforms->uniforms[1].data[0] = 1;
+	*(float*)&uniforms->uniforms[3].data[sizeof(float)] = 1.f;
+	*(float*)&uniforms->uniforms[3].data[sizeof(float)*2] = 1.f;
+}
+
 void PlayerLayer::load() {
 	addEntity((new Entity(100))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "player.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 1, 2))))
@@ -53,7 +83,9 @@ void PlayerLayer::load() {
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("score.vert", "score.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-0.625, -1, 1.25, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(4.5, 2)))
 		->addComponent(new TextureComponent({ Texture("digits.bmp", "digits", GL_NEAREST) }))
-		->addComponent(new UniformsComponent({ Uniform("score", 5), Uniform("length", 1), Uniform("alpha", 1.f), Uniform("textColor", 0.f, 0.f, 0.f) }))
+		->addComponent(new UniformsComponent({ Uniform("score", 0), Uniform("length", 1), Uniform("alpha", 1.f), Uniform("textColor", 1.f, 1.f, 1.f) }))
+		->addComponent(new OnLayerEnabledComponent(resetScore, classId<GameLayer>()))
+		->addComponent(new OnUpdateComponent(updateScore))
 		->addComponent(new ScoreComponent()));
 
 	int money = SharedPreferences::getSharedPreferences().getInt("money");

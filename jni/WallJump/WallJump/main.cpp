@@ -13,7 +13,7 @@
 
 int main(int argc, char* argv[]) {
 	LayersEngine engine(9, 16);
-	glClearColor(0.63922, 0.89804, 0.89804, 1);
+	glClearColor(0.6f, 1.f, 1.f, 1);
 	engine.addLayer(new MainMenuLayerLogic());
 	engine.addLayer(new MainMenuLayerGraphics());
 	ShopLayerGraphics* graphicsLayer = new ShopLayerGraphics();

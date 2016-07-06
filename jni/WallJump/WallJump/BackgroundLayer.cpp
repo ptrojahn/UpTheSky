@@ -32,9 +32,9 @@ void updateSun(Entity* entity) {
 
 	Uniform& color = entity->getComponent<SunComponent>()->overlay->getComponent<UniformsComponent>()->uniforms[0];
 	if (sunProgress > 0.4){
-		*(float*)&color.data[0                ] = 0.63922 * (sunProgress - 0.4) / 0.6 + 1.0f * (1 - (sunProgress - 0.4) / 0.6);
-		*(float*)&color.data[1 * sizeof(float)] = 0.89804 * (sunProgress - 0.4) / 0.6 + 0.45f * (1 - (sunProgress - 0.4) / 0.6);
-		*(float*)&color.data[2 * sizeof(float)] = 0.89804 * (sunProgress - 0.4) / 0.6 + 0.1f * (1 - (sunProgress - 0.4) / 0.6);
+		*(float*)&color.data[0                ] = 0.9f * (sunProgress - 0.4) / 0.6 + 1.0f * (1 - (sunProgress - 0.4) / 0.6);
+		*(float*)&color.data[1 * sizeof(float)] = 0.9f * (sunProgress - 0.4) / 0.6 + 0.45f * (1 - (sunProgress - 0.4) / 0.6);
+		*(float*)&color.data[2 * sizeof(float)] = 1.f * (sunProgress - 0.4) / 0.6 + 0.1f * (1 - (sunProgress - 0.4) / 0.6);
 		*(float*)&color.data[3 * sizeof(float)] = 0.3f * (1 - (sunProgress - 0.4) / 0.6);
 	} else if (sunProgress > 0){
 		*(float*)&color.data[0                ] = 1.0f * sunProgress / 0.4 + 0.2f * (1 - sunProgress / 0.4);

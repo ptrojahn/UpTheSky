@@ -31,13 +31,13 @@ bool genHorizontalSpikes(int score) {
 
 void LevelManagerSystem::genCoin(Vector2<float> position, int score) {
 	int value = 1;
-	Vector3<float> color(0.f, 0.f, 0.6f);
+	Vector3<float> color(0.1f, 0.1f, 1.f);
 	if (score > 150){
 		value = 2;
-		color = Vector3<float>(0.6f, 0.f, 0.f);
+		color = Vector3<float>(1.f, 0.1f, 0.1f);
 	} else if (score > 75){
 		value = 2;
-		color = Vector3<float>(0.f, 0.6f, 0.f);
+		color = Vector3<float>(0.1f, 1.f, 0.1f);
 	}
 
 	getLayer()->addEntity((new Entity(200))
@@ -290,28 +290,6 @@ void LevelManagerSystem::update(LayersEngine& engine) {
 						UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
 						(*(int*)&uniforms->uniforms[0].data[0])++;
 						*(int*)&uniforms->uniforms[1].data[0] = std::to_string(*(int*)&uniforms->uniforms[0].data[0]).length();
-
-						int highscore = SharedPreferences::getSharedPreferences().getInt("highscore");
-						if ((*(int*)&uniforms->uniforms[0].data[0]) == highscore + 1 && highscore != 0){
-							//Change score color to red
-							*(float*)&uniforms->uniforms[3].data[0] = 1.f;
-
-							TransformComponent* transform = entity->getComponent<TransformComponent>();
-							entity->addComponent(new AnimationComponent({ 
-								AnimationState({ 
-									AnimationChange(&transform->scale.x, 1.f, 1.2f),
-									AnimationChange(&transform->scale.y, 1.f, 1.2f),
-									AnimationChange(&transform->position.x, 0.f, -0.025f),
-									AnimationChange(&transform->position.y, 0.f, -0.1f)
-								}, 0.2),
-								AnimationState({
-									AnimationChange(&transform->scale.x, 1.2f, 1.f),
-									AnimationChange(&transform->scale.y, 1.2f, 1.f),
-									AnimationChange(&transform->position.x, -0.025f, 0.f),
-									AnimationChange(&transform->position.y, -0.1f, 0.f)
-								}, 0.2)
-							}, AnimationComponent::Once));
-						}
 						break;
 					}
 				}

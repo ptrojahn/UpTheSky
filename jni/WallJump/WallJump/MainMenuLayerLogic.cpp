@@ -32,16 +32,6 @@ void startGame(Entity* button, float direction) {
 			}, AnimationComponent::Once));
 		}
 	}
-	//Reset score
-	for (Entity* entity : button->getLayer()->getEngine()->getEntities()){
-		if (entity->getComponent<ScoreComponent>()){
-			UniformsComponent* uniforms = entity->getComponent<UniformsComponent>();
-			(*(int*)&uniforms->uniforms[0].data[0]) = 0;
-			*(int*)&uniforms->uniforms[1].data[0] = 1;
-			*(float*)&uniforms->uniforms[3].data[0] = 0.f;
-			break;
-		}
-	}
 	button->getLayer()->getEngine()->getLayer<GameLayer>()->enable();
 }
 

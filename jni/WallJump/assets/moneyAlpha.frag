@@ -16,8 +16,5 @@ void main(){
 	digit = mod(digit, 10.);
 
 	float brightness = texture2D(digits, vec2(digit * (10. / 128.) + fract(uvPos.x)*(10. / 128.), uvPos.y)).r * (1. - step(float(length), uvPos.x));
-	gl_FragColor = vec4(vec3(0., 0., 0.6) * step(uvPos.x, float(length))
-	                  + vec3(0., 0.6, 0.) * step(float(length), uvPos.x) * step(uvPos.x, float(length) + 1./4.)
-	                  + vec3(0.6, 0., 0.) * step(float(length) + 1./4., uvPos.x), alpha * alphaUnlocked) * (1. - brightness)
-	             + vec4(vec3(1., 1., 1.), alpha * alphaUnlocked) * brightness;
+	gl_FragColor = vec4(vec3(1., 1., 1.), alpha * alphaUnlocked * (brightness + step(float(length), uvPos.x) * step(0.34375, uvPos.y) * step(uvPos.y, 0.65625)));
 }
