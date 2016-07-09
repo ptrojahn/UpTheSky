@@ -63,6 +63,9 @@
     <ClCompile Include="OnWaitFinishedSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LayersEngine.h">
@@ -147,6 +150,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="include\Vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
