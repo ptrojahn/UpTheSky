@@ -16,6 +16,6 @@ LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
 LOCAL_SHARED_LIBRARIES := SDL2
 LOCAL_STATIC_LIBRARIES := Layers
 
-LOCAL_LDLIBS := -lGLESv2 -llog
+LOCAL_LDLIBS := -lGLESv2 -llog -lOpenSLES -landroid
 
 include $(BUILD_SHARED_LIBRARY)
