@@ -130,6 +130,7 @@
     <None Include="..\assets\lock.frag" />
     <None Include="..\assets\mainMenuButton.frag" />
     <None Include="..\assets\default.vert" />
+    <None Include="..\assets\mainMenuButtonToggle.frag" />
     <None Include="..\assets\money.frag" />
     <None Include="..\assets\money.vert" />
     <None Include="..\assets\player.frag" />

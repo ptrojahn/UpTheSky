@@ -38,13 +38,14 @@ void MainMenuLayerGraphics::load() {
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
 		->addComponent(new TextureComponent({ Texture("menuButtonStore.bmp", "texture", GL_NEAREST) })));
-	addEntity((new Entity(0))
-		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "mainMenuButton.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 2, 2))))
-		->addComponent(new TransformComponent(Vector2<float>(2.4, 13.8)))
-		->addComponent(new UniformsComponent({ Uniform("alpha", 1.f) }))
-		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
-		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
-		->addComponent(new TextureComponent({ Texture("menuButtonStore.bmp", "texture", GL_NEAREST) })));
+	soundButton = new Entity(0);
+	soundButton->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "mainMenuButtonToggle.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 2, 2))));
+	soundButton->addComponent(new TransformComponent(Vector2<float>(2.4, 13.8)));
+	soundButton->addComponent(new UniformsComponent({ Uniform("alpha", 1.f), Uniform("second", SharedPreferences::getSharedPreferences().getBoolean("muted")) }));
+	soundButton->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()));
+	soundButton->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()));
+	soundButton->addComponent(new TextureComponent({ Texture("menuButtonSound.bmp", "texture", GL_NEAREST) }));
+	addEntity(soundButton);
 	addEntity((new Entity(0))
 		->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "mainMenuButton.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0, 0, 2, 2))))
 		->addComponent(new TransformComponent(Vector2<float>(4.6, 13.8)))

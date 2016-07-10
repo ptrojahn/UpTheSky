@@ -16,6 +16,8 @@
 #include "AnimationComponent.h"
 #include "ShopLayerLogic.h"
 #include "OnWaitFinishedComponent.h"
+#include "AudioManager.h"
+#include "SharedPreferences.h"
 
 void startGame(Entity* button, float direction) {
 	for (Entity* entity : button->getLayer()->getEngine()->getEntities()){
@@ -70,6 +72,13 @@ void loadShop(Entity* button) {
 	}
 }
 
+void toggleSound(Entity* button) {
+	AudioManager::instance().setMute(!AudioManager::instance().isMute());
+	*(bool*)&dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->graphicsLayer->getSoundButton()->getComponent<UniformsComponent>()->uniforms[1].data[0] = AudioManager::instance().isMute();
+	SharedPreferences::getSharedPreferences().putBoolean("muted", AudioManager::instance().isMute());
+	SharedPreferences::getSharedPreferences().apply();
+}
+
 void MainMenuLayerLogic::load() {
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent())
@@ -81,6 +90,11 @@ void MainMenuLayerLogic::load() {
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent(Vector2<float>(0.2, 13.8)))
 		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &loadShop)));
+
+	AudioManager::instance().setMute(SharedPreferences::getSharedPreferences().getBoolean("muted"));
+	addEntity((new Entity(0))
+		->addComponent(new TransformComponent(Vector2<float>(2.4, 13.8)))
+		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &toggleSound)));
 
 	addSystem(new ButtonSystem(1));
 }

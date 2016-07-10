@@ -14,11 +14,12 @@
 int main(int argc, char* argv[]) {
 	LayersEngine engine(9, 16);
 	glClearColor(0.6f, 1.f, 1.f, 1);
-	engine.addLayer(new MainMenuLayerLogic());
-	engine.addLayer(new MainMenuLayerGraphics());
-	ShopLayerGraphics* graphicsLayer = new ShopLayerGraphics();
-	engine.addLayer(graphicsLayer);
-	engine.addLayer(new ShopLayerLogic(graphicsLayer));
+	MainMenuLayerGraphics* mainMenuGraphicsLayer = new MainMenuLayerGraphics();
+	engine.addLayer(mainMenuGraphicsLayer);
+	engine.addLayer(new MainMenuLayerLogic(mainMenuGraphicsLayer));
+	ShopLayerGraphics* shopGraphicsLayer = new ShopLayerGraphics();
+	engine.addLayer(shopGraphicsLayer);
+	engine.addLayer(new ShopLayerLogic(shopGraphicsLayer));
 	engine.addLayer(new GameOverlayLayer());
 	engine.addLayer(new PlayerLayer());
 	engine.addLayer(new GameLayer());
