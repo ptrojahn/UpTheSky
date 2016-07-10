@@ -6,7 +6,7 @@
 #include <SLES/OpenSLES_android.h>
 #endif
 
-AudioManager::AudioManager() {
+AudioManager::AudioManager() : mute(false) {
 #ifdef ANDROID
 	SLObjectItf engineObject;
 	slCreateEngine(&engineObject, 0, nullptr, 0, nullptr, nullptr);
@@ -61,8 +61,10 @@ AudioAsset AudioManager::loadAudio(std::string path) {
 
 void AudioManager::playAudio(AudioAsset asset) {
 #ifdef ANDROID
-	//The player needs to be stopped before it can be restarted
-	(*asset->playInterface)->SetPlayState(asset->playInterface, SL_PLAYSTATE_STOPPED);
-	(*asset->playInterface)->SetPlayState(asset->playInterface, SL_PLAYSTATE_PLAYING);
+	if(!mute){
+		//The player needs to be stopped before it can be restarted
+		(*asset->playInterface)->SetPlayState(asset->playInterface, SL_PLAYSTATE_STOPPED);
+		(*asset->playInterface)->SetPlayState(asset->playInterface, SL_PLAYSTATE_PLAYING);
+	}
 #endif
 }
