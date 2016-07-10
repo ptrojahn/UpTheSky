@@ -15,7 +15,7 @@ public:
 	void putInt(const char* name, int value);
 	int getInt(const char* name, int defaultValue = 0);
 	void putBoolean(const char* name, bool value);
-	int getBoolean(const char* name, bool defaultValue = false);
+	bool getBoolean(const char* name, bool defaultValue = false);
 	void apply();
 private:
 #ifdef ANDROID

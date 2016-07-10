@@ -57,11 +57,11 @@ void SharedPreferences::putBoolean(const char* name, bool value) {
 #endif
 }
 
-int SharedPreferences::getBoolean(const char* name, bool defaultValue) {
+bool SharedPreferences::getBoolean(const char* name, bool defaultValue) {
 #ifdef ANDROID
 	JNIEnv* jni = (JNIEnv*)SDL_AndroidGetJNIEnv();
 	jstring prefName = jni->NewStringUTF(name);
-	int result = jni->CallBooleanMethod(sharedPrefs, getBooleanMethod, prefName, defaultValue);
+	bool result = jni->CallBooleanMethod(sharedPrefs, getBooleanMethod, prefName, defaultValue);
 	jni->DeleteLocalRef(prefName);
 	return result;
 #else
