@@ -126,6 +126,9 @@ void LayersEngine::run() {
 		uint32_t currentTick = SDL_GetTicks();
 		deltaTime = (currentTick - lastTick) / 1000.f;
 		lastTick = currentTick;
+		//This prevents high delta times after the game is brought to the foreground again
+		if (deltaTime > 0.25f)
+			deltaTime = 0;
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		std::vector<ClassId> runSystems;
