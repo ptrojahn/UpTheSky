@@ -32,7 +32,7 @@ public:
 	void setMute(bool isMute) { mute = isMute; }
 	bool isMute() { return mute; }
 private:
-	std::vector<AudioData> audioData;
+	std::vector<AudioData*> audioData;
 #ifdef ANDROID
 	AAssetManager* assetManager;
 	SLEngineItf engine;

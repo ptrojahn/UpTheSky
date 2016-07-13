@@ -29,31 +29,30 @@ AudioManager::AudioManager() : mute(false) {
 
 AudioAsset AudioManager::loadAudio(std::string path) {
 #ifdef ANDROID
-	for (AudioData& data : audioData){
-		if (data.path == path)
-			return &data;
+	for (AudioData* data : audioData){
+		if (data->path == path)
+			return data;
 	}
 
-	AudioData newData;
-	newData.path = path;
+	AudioData* newData = new AudioData();
+	newData->path = path;
 
 	AAsset* audioAsset = AAssetManager_open(assetManager, path.c_str(), AASSET_MODE_UNKNOWN);
 	off_t start, length;
-	int fileDescriptor = AAsset_openFileDescriptor(audioAsset, &start, &length);
+	int allocated = AAsset_openFileDescriptor(audioAsset, &start, &length);
 
-	SLDataLocator_AndroidFD dataLocator = {SL_DATALOCATOR_ANDROIDFD, fileDescriptor, start, length};
+	SLDataLocator_AndroidFD dataLocator = {SL_DATALOCATOR_ANDROIDFD, allocated, start, length};
 	SLDataFormat_MIME formatMime = { SL_DATAFORMAT_MIME, nullptr, SL_CONTAINERTYPE_UNSPECIFIED };
 	SLDataSource source = {&dataLocator, &formatMime};
 
 	SLDataLocator_OutputMix outMix = {SL_DATALOCATOR_OUTPUTMIX, outputMix};
 	SLDataSink sink = { &outMix, nullptr };
 
-	(*engine)->CreateAudioPlayer(engine, &newData.player, &source, &sink, 0, nullptr, nullptr);
-	(*newData.player)->Realize(newData.player, SL_BOOLEAN_FALSE);
-	(*newData.player)->GetInterface(newData.player, SL_IID_PLAY, &newData.playInterface);
-
+	(*engine)->CreateAudioPlayer(engine, &newData->player, &source, &sink, 0, nullptr, nullptr);
+	(*newData->player)->Realize(newData->player, SL_BOOLEAN_FALSE);
+	(*newData->player)->GetInterface(newData->player, SL_IID_PLAY, &newData->playInterface);
 	audioData.push_back(newData);
-	return &audioData.back();
+	return audioData.back();
 #else
 	return 0;
 #endif
