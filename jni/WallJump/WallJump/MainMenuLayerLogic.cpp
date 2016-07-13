@@ -35,6 +35,7 @@ void startGame(Entity* button, float direction) {
 		}
 	}
 	button->getLayer()->getEngine()->getLayer<GameLayer>()->enable();
+	AudioManager::instance().playAudio(dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->getJumpSound());
 }
 
 void jumpLeft(Entity* button) {
@@ -74,7 +75,7 @@ void loadShop(Entity* button) {
 
 void toggleSound(Entity* button) {
 	AudioManager::instance().setMute(!AudioManager::instance().isMute());
-	*(bool*)&dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->graphicsLayer->getSoundButton()->getComponent<UniformsComponent>()->uniforms[1].data[0] = AudioManager::instance().isMute();
+	*(bool*)&dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->getGraphicsLayer()->getSoundButton()->getComponent<UniformsComponent>()->uniforms[1].data[0] = AudioManager::instance().isMute();
 	SharedPreferences::getSharedPreferences().putBoolean("muted", AudioManager::instance().isMute());
 	SharedPreferences::getSharedPreferences().apply();
 }

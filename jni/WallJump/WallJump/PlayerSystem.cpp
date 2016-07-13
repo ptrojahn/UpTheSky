@@ -51,17 +51,22 @@ void deleteTrailEntity(Entity* trailEntity) {
 	trailEntity->getLayer()->deleteEntity(trailEntity);
 }
 
+PlayerSystem::PlayerSystem() : BaseSystem(4) {
+	jumpSound = AudioManager::instance().loadAudio("jump.ogg");
+}
+
 void PlayerSystem::update(LayersEngine& engine) {
 	for (Entity* playerEntity : engine.getEntities()){
 		PlayerComponent* playerComponent = playerEntity->getComponent<PlayerComponent>();
 		if (playerComponent){
 			TransformComponent* transformComponent = playerEntity->getComponent<TransformComponent>();
 			int jumpBlock = getJumpBlock(engine.getEntities(), transformComponent->position, playerSize);
-			//Only increase x velocity if the direction is not blocked by a wall. This is needed to avoid glitches on collider corners 
+			//Apply jump velocity. Only increase x velocity if the direction is not blocked by a wall. This is needed to avoid glitches on collider corners 
 			if (engine.isTouchActive() && !playerComponent->lastFramePressed && jumpBlock){
 				if (jumpBlock != copysign(1.0, engine.getTouchPosition().x - engine.getLogicalScreenSize().x / 2))
 					playerComponent->velocity.x = copysign(1.0, engine.getTouchPosition().x - engine.getLogicalScreenSize().x / 2) * jumpVelocity.x;
 				playerComponent->velocity.y = jumpVelocity.y;
+				AudioManager::instance().playAudio(jumpSound);
 			}
 			playerComponent->lastFramePressed = engine.isTouchActive();
 			playerComponent->velocity += Vector2<float>(0, gravity * engine.getDeltaTime());
