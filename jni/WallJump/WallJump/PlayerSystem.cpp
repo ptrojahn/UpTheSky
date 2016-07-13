@@ -177,8 +177,9 @@ void onPlayerRemoved(Entity* player) {
 
 //The player died. Play the death animation
 void PlayerSystem::onPlayerDeath(Entity* player) {
-	//Particles
 	PlayerComponent* playerComponent = player->getComponent<PlayerComponent>();
+	AudioManager::instance().playAudio(playerComponent->deathSound);
+	//Particles
 	TransformComponent* transformComponent = player->getComponent<TransformComponent>();
 	float angle = atan2f(playerComponent->velocity.y, playerComponent->velocity.x) + M_PI * 0.5f;
 	if (angle < 0)
