@@ -11,7 +11,9 @@ public:
 	void load();
 	ShopLayerGraphics* getGraphicsLayer() { return graphicsLayer; }
 	AudioAsset getUiInteractionSound() { return uiInteractionSound; }
+	AudioAsset getBuySkinSound() { return buySkinSound; }
 private:
 	ShopLayerGraphics* graphicsLayer;
 	AudioAsset uiInteractionSound;
+	AudioAsset buySkinSound;
 };

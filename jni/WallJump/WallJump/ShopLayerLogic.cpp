@@ -65,14 +65,17 @@ void buySkin(Entity* entity) {
 			int skinIndex = *(float*)&graphicsLayer->getSkinChooser()->getComponent<UniformsComponent>()->uniforms[1].data[0] / -2.f;
 			SharedPreferences::getSharedPreferences().putInt(("skinUnlocked" + std::to_string(skinIndex)).c_str(), 1);
 			SharedPreferences::getSharedPreferences().apply();
+			AudioManager::instance().playAudio(dynamic_cast<ShopLayerLogic*>(entity->getLayer())->getBuySkinSound());
 		} else {
 			lockWiggle(graphicsLayer->getLock());
+			AudioManager::instance().playAudio(dynamic_cast<ShopLayerLogic*>(entity->getLayer())->getUiInteractionSound());
 		}
 	}
 }
 
 void ShopLayerLogic::load() {
 	uiInteractionSound = AudioManager::instance().loadAudio("uiInteraction.ogg");
+	buySkinSound = AudioManager::instance().loadAudio("collectCoin.ogg");
 
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent(Vector2<float>(0.2, 13.8)))
