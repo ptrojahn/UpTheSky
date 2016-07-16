@@ -14,4 +14,5 @@ public:
 	static const float gravity;
 private:
 	AudioAsset jumpSound;
+	AudioAsset collectCoinSound;
 };

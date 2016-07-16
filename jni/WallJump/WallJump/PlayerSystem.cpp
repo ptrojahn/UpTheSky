@@ -53,6 +53,7 @@ void deleteTrailEntity(Entity* trailEntity) {
 
 PlayerSystem::PlayerSystem() : BaseSystem(4) {
 	jumpSound = AudioManager::instance().loadAudio("jump.ogg");
+	collectCoinSound = AudioManager::instance().loadAudio("collectCoin.ogg");
 }
 
 void PlayerSystem::update(LayersEngine& engine) {
@@ -114,6 +115,7 @@ void PlayerSystem::update(LayersEngine& engine) {
 				} else if (entity->getComponent<CoinComponent>() && !entity->getComponent<CoinComponent>()->collected){
 					if (intersect(transformComponent->position, playerSize, entity->getComponent<TransformComponent>()->position, Vector2<float>(0.5f, 0.5f))){
 						entity->getComponent<CoinComponent>()->collected = true;
+						AudioManager::instance().playAudio(collectCoinSound);
 						SharedPreferences& sharedPrefs = SharedPreferences::getSharedPreferences();
 						sharedPrefs.putInt("money", *(int*)&entity->getComponent<UniformsComponent>()->uniforms[0].data[0] + sharedPrefs.getInt("money"));
 						sharedPrefs.apply();
