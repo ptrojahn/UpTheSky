@@ -25,7 +25,7 @@ void lockWiggle(Entity* entity) {
 }
 
 void loadMenu(Entity* button) {
-	Entity* lock = dynamic_cast<ShopLayerLogic*>(button->getLayer())->graphicsLayer->lock;
+	Entity* lock = dynamic_cast<ShopLayerLogic*>(button->getLayer())->getGraphicsLayer()->getLock();
 	if (*(float*)&lock->getComponent<UniformsComponent>()->uniforms[1].data[0] > 0.5){
 		lockWiggle(lock);
 	} else{
@@ -52,25 +52,28 @@ void loadMenu(Entity* button) {
 			}
 		}
 	}
+	AudioManager::instance().playAudio(dynamic_cast<ShopLayerLogic*>(button->getLayer())->getUiInteractionSound());
 }
 
 void buySkin(Entity* entity) {
-	ShopLayerGraphics* graphicsLayer = dynamic_cast<ShopLayerLogic*>(entity->getLayer())->graphicsLayer;
-	if (*(float*)&graphicsLayer->lock->getComponent<UniformsComponent>()->uniforms[1].data[0] > 0.5){
+	ShopLayerGraphics* graphicsLayer = dynamic_cast<ShopLayerLogic*>(entity->getLayer())->getGraphicsLayer();
+	if (*(float*)&graphicsLayer->getLock()->getComponent<UniformsComponent>()->uniforms[1].data[0] > 0.5){
 		int money = SharedPreferences::getSharedPreferences().getInt("money");
-		int price = *(int*)&graphicsLayer->skinPrice->getComponent<UniformsComponent>()->uniforms[2].data[0];
+		int price = *(int*)&graphicsLayer->getSkinPrice()->getComponent<UniformsComponent>()->uniforms[2].data[0];
 		if (money > price){
 			SharedPreferences::getSharedPreferences().putInt("money", money - price);
-			int skinIndex = *(float*)&graphicsLayer->skinChooser->getComponent<UniformsComponent>()->uniforms[1].data[0] / -2.f;
+			int skinIndex = *(float*)&graphicsLayer->getSkinChooser()->getComponent<UniformsComponent>()->uniforms[1].data[0] / -2.f;
 			SharedPreferences::getSharedPreferences().putInt(("skinUnlocked" + std::to_string(skinIndex)).c_str(), 1);
 			SharedPreferences::getSharedPreferences().apply();
 		} else {
-			lockWiggle(graphicsLayer->lock);
+			lockWiggle(graphicsLayer->getLock());
 		}
 	}
 }
 
 void ShopLayerLogic::load() {
+	uiInteractionSound = AudioManager::instance().loadAudio("uiInteraction.ogg");
+
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent(Vector2<float>(0.2, 13.8)))
 		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &loadMenu)));

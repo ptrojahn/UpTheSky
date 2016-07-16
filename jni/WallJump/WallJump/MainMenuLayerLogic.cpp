@@ -71,6 +71,7 @@ void loadShop(Entity* button) {
 			}, AnimationComponent::Once));
 		}
 	}
+	AudioManager::instance().playAudio(dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->getUiInteractionSound());
 }
 
 void toggleSound(Entity* button) {
@@ -78,9 +79,13 @@ void toggleSound(Entity* button) {
 	*(bool*)&dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->getGraphicsLayer()->getSoundButton()->getComponent<UniformsComponent>()->uniforms[1].data[0] = AudioManager::instance().isMute();
 	SharedPreferences::getSharedPreferences().putBoolean("muted", AudioManager::instance().isMute());
 	SharedPreferences::getSharedPreferences().apply();
+	AudioManager::instance().playAudio(dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->getUiInteractionSound());
 }
 
 void MainMenuLayerLogic::load() {
+	jumpSound = AudioManager::instance().loadAudio("jump.ogg");
+	uiInteractionSound = AudioManager::instance().loadAudio("uiInteraction.ogg");
+
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent())
 		->addComponent(new ButtonComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f, getEngine()->getLogicalScreenSize().y - 2), &jumpLeft)));
