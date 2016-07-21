@@ -5,11 +5,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <SDL_log.h>
 
 std::string readFile(std::string path) {
 	SDL_RWops* file = SDL_RWFromFile(path.c_str(), "r");
 	if (file == nullptr){
-		std::cout << "Can't find file: " << path.c_str() << std::endl;
+		SDL_Log("Can't find file: %s", path.c_str());
 		return std::string();
 	}
 	std::vector<char> fileData(SDL_RWsize(file));
@@ -22,6 +23,7 @@ GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fra
 		if (shaderData.vertexShaderPath == vertexShaderPath && shaderData.fragmentShaderPath == fragmentShaderPath)
 			return shaderData.id;
 
+	SDL_Log("Compiling shader. Vertex: %s Fragment: %s", vertexShaderPath.c_str(), fragmentShaderPath.c_str());
 	ShaderData data;
 	data.vertexShaderPath = vertexShaderPath;
 	data.fragmentShaderPath = fragmentShaderPath;
@@ -37,7 +39,7 @@ GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fra
 	glAttachShader(program, vertexShader);
 	GLchar vertexLog[512];
 	glGetShaderInfoLog(vertexShader, 512, nullptr, vertexLog);
-	std::cout << vertexLog << std::endl;
+	SDL_Log("%s", vertexLog);
 
 	//Remove comments from the vertex shader source
 	int commentIndex = 0;
@@ -89,7 +91,7 @@ GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fra
 		else if (type == "mat4")
 			data.attributeSizes.push_back(12);
 		else{
-			std::cout << "Unknown attribute type " << type << std::endl;
+			SDL_Log("Unknown attribute type %s", type.c_str());
 			continue;
 		}
 		glBindAttribLocation(program, locationIndex, name.c_str());
@@ -105,14 +107,14 @@ GLuint ShaderManager::createShader(std::string vertexShaderPath, std::string fra
 	glCompileShader(fragmentShader);
 	GLchar fragmentLog[512];
 	glGetShaderInfoLog(fragmentShader, 512, nullptr, fragmentLog);
-	std::cout << fragmentLog << std::endl;
+	SDL_Log("%s", fragmentLog);
 	glAttachShader(program, fragmentShader);
 
 	glLinkProgram(program);
 	data.id = program;
 	GLchar programLog[512];
 	glGetProgramInfoLog(program, 512, nullptr, programLog);
-	std::cout << programLog << std::endl;
+	SDL_Log("%s", programLog);
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);

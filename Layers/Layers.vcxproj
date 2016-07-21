@@ -95,6 +95,7 @@
     <ClInclude Include="include\Layer.h" />
     <ClInclude Include="include\LayersEngine.h" />
     <ClInclude Include="include\Matrix4x4.h" />
+    <ClInclude Include="include\OnBackPressedComponent.h" />
     <ClInclude Include="include\OnLayerDisabledComponent.h" />
     <ClInclude Include="include\OnLayerEnabledComponent.h" />
     <ClInclude Include="include\OnUpdateComponent.h" />

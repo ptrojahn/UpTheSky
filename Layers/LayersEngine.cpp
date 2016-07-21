@@ -3,6 +3,7 @@
 #include "Layer.h"
 #include "glFunctions.h"
 #include "System.h"
+#include "OnBackPressedComponent.h"
 
 LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	SDL_Init(SDL_INIT_VIDEO);
@@ -21,6 +22,7 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	updateSystems = false;
 	updateEntities = false;
+	running = true;
 
 	//Transform the origin to the top left corner and set width and height to the aspect ratio
 	Matrix4x4 logicalMatrix(2.f / (float)logicalScreenSize.x, 0,                                           0, -1,
@@ -38,6 +40,10 @@ LayersEngine::LayersEngine(int aspectX, int aspectY) {
 	                         0,                                   0,                                              0, 1);
 
 	projectionMatrix = physicalMatrix * logicalMatrix;
+}
+
+void LayersEngine::quit() {
+	running = false;
 }
 
 void LayersEngine::addLayer(Layer* layer) {
@@ -97,10 +103,17 @@ std::vector<Entity*>::iterator LayersEngine::deleteEntity(Entity* entity) {
 
 //Takes control of the mainloop. Should be called at the end of main()
 void LayersEngine::run() {
-	bool quit = false;
-	while (!quit){
+	while (running){
 		SDL_Event event;
 		while (SDL_PollEvent(&event)){
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_AC_BACK){
+				for (Entity* entity : activeEntities){
+					OnBackPressedComponent* component = entity->getComponent<OnBackPressedComponent>();
+					if (component){
+						component->onBackPressed(entity);
+					}
+				}
+			}
 		}
 		if (updateEntities){
 			updateActiveEntities();
@@ -146,6 +159,7 @@ void LayersEngine::run() {
 		}
 		SDL_GL_SwapWindow(window);
 	}
+	exit(0);
 }
 
 void LayersEngine::updateActiveEntities() {

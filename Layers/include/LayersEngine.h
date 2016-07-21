@@ -26,6 +26,7 @@ public:
 	bool isTouchActive() { return touchActive; }
 	Vector2<float> getTouchPosition() { return touchPosition; }
 	void run();
+	void quit();
 	template<class TLayer> Layer* getLayer() {
 		for (Layer* layer : getLayers()){
 			if (layer->isClass<TLayer>())
@@ -45,6 +46,7 @@ private:
 	bool touchActive;
 	bool updateEntities;
 	bool updateSystems;
+	bool running;
 	Vector2<float> touchPosition;
 	Vector2<int> logicalScreenSize;
 	Vector2<int> physicalScreenSize;
