@@ -13,6 +13,7 @@
 #include "RenderComponent.h"
 #include "UniformsComponent.h"
 #include "SharedPreferences.h"
+#include "OnBackPressedComponent.h"
 
 void lockWiggle(Entity* entity) {
 	Vector2<float>& position = entity->getComponent<TransformComponent>()->position;
@@ -79,7 +80,8 @@ void ShopLayerLogic::load() {
 
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent(Vector2<float>(0.2, 13.8)))
-		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &loadMenu)));
+		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &loadMenu))
+		->addComponent(new OnBackPressedComponent(&loadMenu)));
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent(Vector2<float>(3.5f, 1.5f)))
 		->addComponent(new ButtonComponent(Vector2<float>(2.f, 4.f), &buySkin)));

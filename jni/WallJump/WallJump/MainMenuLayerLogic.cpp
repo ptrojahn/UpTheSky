@@ -18,6 +18,7 @@
 #include "OnWaitFinishedComponent.h"
 #include "AudioManager.h"
 #include "SharedPreferences.h"
+#include "OnBackPressedComponent.h"
 
 void startGame(Entity* button, float direction) {
 	for (Entity* entity : button->getLayer()->getEngine()->getEntities()){
@@ -82,6 +83,10 @@ void toggleSound(Entity* button) {
 	AudioManager::instance().playAudio(dynamic_cast<MainMenuLayerLogic*>(button->getLayer())->getUiInteractionSound());
 }
 
+void quit(Entity* entity) {
+	entity->getLayer()->getEngine()->quit();
+}
+
 void MainMenuLayerLogic::load() {
 	jumpSound = AudioManager::instance().loadAudio("jump.ogg");
 	uiInteractionSound = AudioManager::instance().loadAudio("uiInteraction.ogg");
@@ -101,6 +106,9 @@ void MainMenuLayerLogic::load() {
 	addEntity((new Entity(0))
 		->addComponent(new TransformComponent(Vector2<float>(2.4, 13.8)))
 		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &toggleSound)));
+
+	addEntity((new Entity(0))
+		->addComponent(new OnBackPressedComponent(quit)));
 
 	addSystem(new ButtonSystem(1));
 }
