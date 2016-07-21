@@ -1,3 +1,5 @@
+precision mediump int;
+
 attribute vec2 position;
 attribute vec2 uv;
 
