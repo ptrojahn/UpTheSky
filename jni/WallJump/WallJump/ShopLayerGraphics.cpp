@@ -60,7 +60,7 @@ void updateLock(Entity* lock) {
 void updatePrice(Entity* price) {
 	updateLock(price);
 	float offset = *(float*)&dynamic_cast<ShopLayerGraphics*>(price->getLayer())->getSkinChooser()->getComponent<UniformsComponent>()->uniforms[1].data[0];
-	*(int*)&price->getComponent<UniformsComponent>()->uniforms[2].data[0] = offset / -2.f > 7.5f ? 500 : 200;
+	*(int*)&price->getComponent<UniformsComponent>()->uniforms[2].data[0] = offset / -2.f > 7.5f ? 600 : 200;
 }
 
 void updateSkinChooser(Entity* skinChooser) {

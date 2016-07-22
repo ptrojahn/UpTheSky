@@ -73,7 +73,7 @@ void BackgroundLayer::load() {
 		BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(0.f, 0.f, 3.f, 3.f))))
 		->addComponent(new TransformComponent(Vector2<float>(3.f, 5.f)))
 		->addComponent(new UniformsComponent({ Uniform("sunProgress", 0.f) }))
-		->addComponent(new ScrollComponent(0.2))
+		->addComponent(new ScrollComponent(0.05))
 		->addComponent(new OnUpdateComponent(updateSun))
 		->addComponent(new OnLayerDisabledComponent([](Entity* entity){
 		float& posY = entity->getComponent<TransformComponent>()->position.y;
