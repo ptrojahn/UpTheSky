@@ -59,7 +59,7 @@ public:
 		name = uniform.name;
 		type = uniform.type;
 		data.resize(uniform.data.size());
-		std::memcpy(&data[0], &uniform.data[0], uniform.data.size());
+		memcpy(&data[0], &uniform.data[0], uniform.data.size());
 		location = 0;
 	}
 

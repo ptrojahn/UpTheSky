@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 #ifdef ANDROID
-#include <SLES/OpenSLES_android.h>
+#include <SLES/OpenSLES_Android.h>
 #endif
 
 AudioManager::AudioManager() : mute(false) {
