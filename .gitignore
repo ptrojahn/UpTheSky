@@ -1,6 +1,9 @@
-jni/SDL/
-obj/
-bin/
-gen/
-libs/
-local.properties
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
