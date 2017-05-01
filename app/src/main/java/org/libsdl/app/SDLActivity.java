@@ -71,7 +71,6 @@ public class SDLActivity extends Activity {
      */
     protected String[] getLibraries() {
         return new String[] {
-            "c++_shared",
             "SDL2",
             // "SDL2_image",
             // "SDL2_mixer",
@@ -208,16 +207,6 @@ public class SDLActivity extends Activity {
     protected void onResume() {
         Log.v(TAG, "onResume()");
         super.onResume();
-        
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
 
         if (SDLActivity.mBrokenLibraries) {
            return;
