@@ -104,7 +104,7 @@ void MainMenuLayerLogic::load() {
 
 	AudioManager::instance().setMute(SharedPreferences::getSharedPreferences().getBoolean("muted"));
 	addEntity((new Entity(0))
-		->addComponent(new TransformComponent(Vector2<float>(2.4, 13.8)))
+		->addComponent(new TransformComponent(Vector2<float>(6.8, 13.8)))
 		->addComponent(new ButtonComponent(Vector2<float>(2.f, 2.f), &toggleSound)));
 
 	addEntity((new Entity(0))
