@@ -15,6 +15,7 @@ public:
 	Entity* addComponent(Component* component);
 	std::vector<Component*>::iterator deleteComponent(Component* component);
 	Layer* getLayer() { return layer; }
+	std::vector<Component*>& getComponents();
 
 	template<typename TComponent>
 	TComponent* getComponent() {

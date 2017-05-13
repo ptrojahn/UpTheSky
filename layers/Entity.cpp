@@ -23,3 +23,7 @@ std::vector<Component*>::iterator Entity::deleteComponent(Component* component) 
 			return components.erase(iterComponent);
 	return components.end();
 }
+
+std::vector<Component*>& Entity::getComponents(){
+	return components;
+}
