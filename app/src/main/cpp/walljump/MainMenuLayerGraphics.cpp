@@ -55,6 +55,45 @@ void MainMenuLayerGraphics::load() {
 		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
 		->addComponent(new OnLayerEnabledComponent(updateHighScore, classId<MainMenuLayerLogic>())));
 
+	//Arrows
+	Entity* arrowLeft = new Entity(0);
+		arrowLeft->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "icon.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-1.f, -1.f, 2.f, 2.f))))
+		->addComponent(new TransformComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f - 2.5f, getEngine()->getLogicalScreenSize().y / 2.f)))
+		->addComponent(new TextureComponent({Texture("menuButtonBack.bmp", "texture", GL_NEAREST)}))
+		->addComponent(new UniformsComponent({Uniform("alpha", 1.f)}))
+		->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
+		->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
+        ->addComponent(new AnimationComponent({
+            AnimationState({
+                AnimationChange(&arrowLeft->getComponent<TransformComponent>()->scale.x, 1.f, 0.9f),
+                AnimationChange(&arrowLeft->getComponent<TransformComponent>()->scale.y, 1.f, 0.9f)
+            }, 0.5f),
+            AnimationState({
+                AnimationChange(&arrowLeft->getComponent<TransformComponent>()->scale.x, 0.9f, 1.f),
+                AnimationChange(&arrowLeft->getComponent<TransformComponent>()->scale.y, 0.9f, 1.f)
+            }, 0.5f)
+        }, AnimationComponent::Loop));
+    addEntity(arrowLeft);
+
+    Entity* arrowRight = new Entity(0);
+    arrowRight->addComponent(new RenderComponent(ShaderManager::instance().createShader("defaultUV.vert", "icon.frag"), BufferManager::instance().createBuffer(BufferManager::rectangleVertices2DUV(-1.f, -1.f, 2.f, 2.f))))
+        ->addComponent(new TransformComponent(Vector2<float>(getEngine()->getLogicalScreenSize().x / 2.f + 2.5f, getEngine()->getLogicalScreenSize().y / 2.f), 180.f))
+        ->addComponent(new TextureComponent({Texture("menuButtonBack.bmp", "texture", GL_NEAREST)}))
+        ->addComponent(new UniformsComponent({Uniform("alpha", 1.f)}))
+        ->addComponent(new OnLayerDisabledComponent(entityFadeOut, classId<MainMenuLayerLogic>()))
+        ->addComponent(new OnLayerEnabledComponent(entityFadeIn, classId<MainMenuLayerLogic>()))
+        ->addComponent(new AnimationComponent({
+            AnimationState({
+                 AnimationChange(&arrowRight->getComponent<TransformComponent>()->scale.x, 1.f, 0.9f),
+                 AnimationChange(&arrowRight->getComponent<TransformComponent>()->scale.y, 1.f, 0.9f)
+            }, 0.5f),
+            AnimationState({
+                 AnimationChange(&arrowRight->getComponent<TransformComponent>()->scale.x, 0.9f, 1.f),
+                 AnimationChange(&arrowRight->getComponent<TransformComponent>()->scale.y, 0.9f, 1.f)
+            }, 0.5f)
+        }, AnimationComponent::Loop));
+    addEntity(arrowRight);
+
 	addSystem(new AnimationSystem(1));
 	addSystem(new RenderSystem(0));
 }
