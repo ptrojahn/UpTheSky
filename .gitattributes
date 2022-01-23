@@ -1,0 +1,4 @@
+app/src/main/SDL2/** linguist-vendored
+app/src/main/java/org/libsdl/app/SDLActivity.java linguist-vendored
+app/src/main/cpp/layers/layers/include/KHR/** linguist-vendored
+app/src/main/cpp/layers/layers/include/GLES2/** linguist-vendored
